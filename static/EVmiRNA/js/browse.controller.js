@@ -16,14 +16,7 @@ function BrowseController($scope,$http,EVmiRNAService) {
         }).then(
            function (response) {
             console.log(response);
-            $scope.browse = 
-                {
-                        "cellline": "Blood", 
-                        "desease": "Healthy Control", 
-                        "mv_exo": "MV", 
-                        "sample_num": 50, 
-                        "source": "Blood"
-                    };
+            $scope.browse = response.data;
              }
         )
      };

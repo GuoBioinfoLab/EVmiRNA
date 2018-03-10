@@ -21,7 +21,6 @@ api.add_resource(FuzzyFoo,'/api/test')
 
 
 
-
 ### browse source and miRNA
 browse_fields = {
     'source':fields.String,
@@ -56,5 +55,3 @@ class Browse(Resource):
 api.add_resource(Browse,'/api/browse')
 
 ###
-
-
