@@ -1,0 +1,366 @@
+@charset "utf-8";
+/* CSS Document */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, a, code, em, img, q, small, strong, li, ol, ul, fieldset, form, label, table, tbody, tr, th, td, input {
+/*    margin:0px;
+    border:0px;
+    padding:0px;*/
+    }
+    body{
+        font-size:15px;
+        font-family:Tahoma,Helvetica,Simsun,STHeiti,
+        Georgia,"Lucida Grande", Verdana, Lucida,Arial, Helvetica, 宋体,sans-serif;
+        cursor:default;
+        /*color:#fff;*/
+        /*background: #e7e9e6;*/
+        background:#f0f0f0;
+        position: relative;
+    }
+
+    h1{ text-shadow: 3px 3px 3px #ccc;}
+    h3{ text-shadow: 3px 3px 3px #ccc;}
+
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Verdana, Lucida,Arial, Helvetica,‘Corben’, Georgia, Times, serif;
+}
+p, div {
+    font-family:  Verdana, Lucida,Arial, Helvetica,‘Nobile’, Helvetica, Arial, sans-serif;
+}
+.archer a{
+    transition-duration:0.4s;
+    transition-property:color;
+    transition-timing-function:ease-out;
+    -o-transition-duration:0.4s;
+    -o-transition-property:color;
+    -o-transition-timing-function:ease-out;
+    -webkit-transition-duration:0.4s;
+    -webkit-transition-property: color, background-color;
+    -webkit-transition-timing-function:ease-out;
+    -moz-transition-duration:0.4s;
+    -moz-transition-property:color;
+    -moz-transition-timing-function:ease-out;
+    -ms-transition-duration:0.4s;
+    -ms-transition-property:color;
+    -ms-transition-timing-function:ease-out;
+    color:#009ACD;
+}
+.archer a:link{
+    text-decoration:none;
+    font-weight:bold;
+    color:#009ACD;
+}
+.archer a:active{
+    font-weight:bold;
+    text-decoration:none;
+    color:#009ACD;
+}
+.archer a:hover {
+    font-weight:bold;
+    text-decoration:underline;
+    color:#009ACD;
+}
+.archer a:visited{
+    text-decoration:none;
+    font-weight:bold;
+}
+.alo{
+    text-decoration:none;
+    cursor:pointer;
+}
+.standout{ 
+    box-shadow: 0 0 1em 1em #ccceee;
+}
+.header{
+    padding: 55px 0 10px;
+    position: relative;
+    color: #ffffff;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0,0,0,.4), 0 0 30px rgba(0,0,0,.075);
+    border-bottom: 4px dashed #f2f2f2;
+    /*background: #020031;*/
+    background: linear-gradient(45deg, #020031 0%,#6d3353 100%);
+    background: -ms-linear-gradient(45deg, #020031 0%,#6d3353 100%);
+    background: -moz-linear-gradient(45deg, #020031 0%,#6d3353 100%);
+    background: -webkit-linear-gradient(45deg, #020031 0%,#6d3353 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#020031', endColorstr='#6d3353',GradientType=1 );
+    -webkit-box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+    -moz-box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+    -ms-box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+    -o-box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+    box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+    /*opacity: 0.7;
+     *  filter:opacity=70;*/
+}
+.footer{
+    text-align:center;
+    color:#333;
+/*    padding:20px 0 20px;*/
+    width:100%;
+}
+
+/*
+.footer-copyright{
+    background:rgb(115, 151, 205);
+    width:1000px;
+    margin:0 auto;
+    -webkit-border-radius:9px;
+    -moz-border-radius:9px;
+    -o-border-radius:9px;
+    -ms-border-radius:9px;
+    border-radius:9px;
+    height:40px;
+    line-height:30px;
+    color:#000;
+}
+
+
+.container{
+    min-height:500px;
+    width:1000px;
+}
+.containersearch{
+}
+
+*/
+
+.block-center{
+    margin:10px auto;
+    width:580px;
+}
+.navbar-inner{
+    font-size:16px;
+    padding:0 100px;
+    min-width:1000px;
+}
+.title{
+    padding:10px 0 10px;
+    background:url(../images/t  itle_bg.png) repeat-x 0 0;
+}
+.title1{
+    height: 180px;
+    padding:10px 0 10px;
+    background:url(../images/title_bg.png) repeat-x 0 0;
+}
+.title-inner{
+    wid th:1000px;
+    height:190px;
+    margin:0 auto;
+    background: url(../images/title_bg2.png) no-repeat 0 0;
+}
+.title-inner h1{
+    text-shadow:4px 4px 3px rgb(124, 187, 223);
+    color:#123;
+}
+.title-inner .info{
+    font-size:15px;
+    font-weight:bold;
+}
+
+.title-gene {
+    height:60px;
+}
+
+.title-ensembl{
+    height: 40px;
+}
+
+
+.search-block{
+    font-size:14px;
+    height:150px;
+    background: url(../images/searchbox_bg.png) 0 0 no-repeat;
+    text-align:center;
+    color:#eee;
+    position:relative;
+    top: -15px;
+}
+.search-block .search-title{
+    font-size:20px;
+    font-weight:bold;
+}
+.search-block-inner{padding-top:30px;}
+.search-block-inner form{
+    width:300px;
+    margin:5px auto;
+}
+.container .con-index{  
+    text-align:center;
+    position:relative;
+}
+.pic-family{
+    height:375px;
+    width:465px;
+    display:inline-block;
+    float:left;
+    padding:5px 20px 5px 0;
+}
+.pic-species{
+    height:375px;
+    width:475px;
+    display:inline-block;
+    float:left;
+    padding:5px 0px 5px 20px;
+    margin-left:10px;
+}
+.pic-family div,.pic-species div{margin-bottom:5px;}
+
+
+/**Species page*/
+.species{min-height:auto;}
+.species .folder{
+    cursor:pointer;
+    display:inline-block;
+}
+#speciesNav{width:185px;}
+#speciesNav > ul > li > a{
+    font-weight: bold;
+    line-height: 25px;
+    border-bottom: 1px solid #fff;
+    border-top: 1px solid #fff;
+}
+#speciesNav > ul > li > a > span{
+    display: inline-block;
+    width: 13px;
+    height: 12px;
+    margin-right: 5px;
+    background: url(../images/arrow.png) no-repeat 0 -20px;
+}
+
+/**Family page*/
+.family{min-height:auto;}
+.family .folder{
+    cursor:pointer;
+    display:inline-block;
+}
+#familyNav{width:185px;}
+#familyNav > ul > li > a{
+    font-weight: bold;
+    line-height: 25px;
+    border-bottom: 1px solid #fff;
+    border-top: 1px solid #fff;
+}
+#familyNav > ul > li > a > span, #familyNav .second-nav >li>a>span{
+    display: inline-block;
+    width: 13px;
+    height: 12px;
+    margin-right: 5px;
+    background: url(../images/arrow.png) no-repeat 0 -20px;
+}
+
+#familyNav .third-nav{/*/rgb(241, 232, 232)*/
+    margin:0px;
+    margin-left:10px;
+    display:none;
+    background:rgb(211, 211, 211);
+}
+
+/**Search page*/
+.search .search-nav{
+    padding: 0;
+    background-color: #fff;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+    -moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+    box-shadow: 0 1px 4px rgba(0,0,0,.065);
+}
+.search .search-nav > li > a{
+    margin:0;
+}
+.search .geneInfo{
+    width:1000px;
+    float:left;
+    min-height:1px;
+    /*margin-left:16px;*/
+    padding:0 2px;
+    background:#fff;
+}
+.search .geneInfo section{
+    width:100%;
+}
+.search .geneInfo .con{
+    max-height:400px;
+    /*min-height:300px;*/
+    overflow:scroll;
+    /*overflow-x:hidden;*/
+    overflow-x:scroll;
+}
+.search #expression .tissue,.cell{
+    margin:0 10px 10px;
+}
+
+#up{
+    position:fixed;
+    width: 75px;
+    height:74px;
+    bottom:20px;
+    right:20px;
+    background: url('/AnimalTFDB/content/images/top.png') 0 0 no-repeat;
+    cursor: pointer;
+    -moz-transition:background-position .5s ease-in .1s;
+    -webkit-transition:background-position .5s ease-in .1s;
+    -o-transition:background-position .5s ease-in .1s;
+    transition:background-position .5s ease-in .1s;
+}
+#up:hover{
+    background-position: 0 -74px;
+    -moz-transition:background-position .5s ease-out .1s;
+    -webkit-transition:background-position .5s ease-out .1s;
+    -o-transition:background-position .5s ease-out .1s;
+    transition:background-position .5s ease-out .1s;
+}
+
+.clearfix:before,.clearfix:after{
+    content:"";
+    display:block;
+    height:0;
+    width:0;
+    visibility:hidden;
+    overflow:hidden;
+}
+.menu_hover{
+    background-position:20px -1px;
+}
+.block-span-right{float:right;display:inline-block;}
+.block-span-left{float:left;display:inline-block;}
+
+.searchother{
+    cursor: hand;
+}
+
+.searchmrnatable td{
+    padding-left: 5px;
+}
+
+.searchproteintable td{
+    padding-left: 5px;
+}
+
+/* view emsembl */
+table.table th {vertical-align:top; }
+
+/*species family btn color*/
+.new-btn{
+    text-shadow:none;
+    color:black;
+    background-color:rgb(189,204,222);
+    display:block;
+    width:100%;
+    padding:9px 0 13px 0;
+    margin:0 0 3px 0;
+    line-height:20px;
+    text-align:center;
+    vertical-align:bottom;
+    font-size:18px;
+    border: 1px solid #ccc;
+    border-radius:6px;
+}
+.new-btn:visited{
+    text-decoration:none;
+}
+.new-btn:hover{
+    text-decoration:none;
+}
+

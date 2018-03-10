@@ -1,0 +1,24 @@
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+            <th>Source</th>
+            <th>Cell line</th>
+            <th>EV type</th>
+            <th>Disease</th>
+            <th>Sample NO.</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat='s in browse'>
+                <td>{$ s.source $}</td>
+                <td>{$ s.cellline $}</td>
+                <td>{$ s.mv_exo $}</td>
+                <td>{$ s.desease $}</td>
+                <td>{$ s.sample_num $}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+{$ browse $}
