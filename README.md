@@ -2,10 +2,11 @@
 EV miRNA
 
 push上传:
-git push origin master
+git push origin dev
+
 
 pull下载:
-git pull origin master
+git pull origin dev
 
 brach分支:
 git checkout -b dev 
@@ -13,4 +14,8 @@ git checkout -b dev
 merge：
 git merge --no-ff -m 'dfasdf' dev
 
+<<<<<<< HEAD
 test
+=======
+txt
+>>>>>>> 10464527f519a1d81cf2f0603344c4cf88bcf364
