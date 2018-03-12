@@ -54,4 +54,48 @@ class Browse(Resource):
 
 api.add_resource(Browse,'/api/browse')
 
-###
+### miRNA_annotation
+miRNA_annotation_fields = {
+	'id':fields.String,
+	'seq':fields.String,
+	'start':fields.Integer,
+	'end':fields.Integer,
+	'acc':fields.String,
+	'chr_n':fields.Integer,
+	'fam':fields.String,
+	'pre_id':fields.String,
+	'pre_seq':fields.String,
+	'pre_start':fields.Integer,
+	'pre_end':fields.Integer,
+	'pre_acc':fields.String,
+	'pre_chr':fields.String,
+	}
+class miRNAAnnotationList(Resource):
+	@marshal_with(miRNA_annotation_fields)
+	def get(self):
+		result = []
+		miRNA_annotation = []
+		tmpa = ''
+		miRNA_annotation_list = list(mongo.db.mir_annotation.find())
+		
+		for l in miRNA_annotation_list:
+			tmpa = l['miRNA_id'].strip()+'_'+l['miRNA_seq'].strip()+'_'+l['miRNA_start'].strip()+'_'+l['miRNA_end'].strip()+\
+					'_'+l['miRNA_acc'].strip()+'_'+l['miRNA_chr'].strip()+'_'+l['miRNA_fam'].strip()+'_'+l['premiRNA_id'].strip()+\
+					'_'+l['premiRNA_seq'].strip()+'_'+l['premiRNA_start'].strip()+'_'+l['premiRNA_end'].strip()+'_'+l['premiRNA_acc'].strip()+'_'+l['premiRNA_chr'].strip()
+			miRNA_annotation.append(tmpa)
+			tmpa = ''
+		
+		miRNA_annotation_set = set(miRNA_annotation)
+
+		for l in miRNA_annotation_set:
+			t = l.strip().split('_')
+			if len(t) == 13:
+				r = {'id':t[0],'seq':t[1],'start:t[2],'end':t[3],'acc':t[4],'chr_n':t[5],'fam':t[6],'pre_id':t[7],'pre_seq':t[8],'pre_start':t[9],'pre_end':t[10],
+					'pre_acc':t[11],'pre_chr':t[12]}
+			result.append(r)
+
+		return result
+
+api.add_resource(miRNAAnnotationList,'/api/miRNA_annotation')
+		
+		
