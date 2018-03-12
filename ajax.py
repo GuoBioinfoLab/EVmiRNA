@@ -90,8 +90,7 @@ class miRNAAnnotationList(Resource):
 		for l in miRNA_annotation_set:
 			t = l.strip().split('_')
 			if len(t) == 13:
-				r = {'id':t[0],'seq':t[1],'start:t[2],'end':t[3],'acc':t[4],'chr_n':t[5],'fam':t[6],'pre_id':t[7],'pre_seq':t[8],'pre_start':t[9],'pre_end':t[10],
-					'pre_acc':t[11],'pre_chr':t[12]}
+				r = { 'id':t[0],'seq':t[1],'start':t[2],'end':t[3],'acc':t[4],'chr_n':t[5],'fam':t[6],'pre_id':t[7],'pre_seq':t[8],'pre_start':t[9],'pre_end':t[10],'pre_acc':t[11],'pre_chr':t[12] }
 			result.append(r)
 
 		return result
