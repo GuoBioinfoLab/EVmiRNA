@@ -56,45 +56,54 @@ api.add_resource(Browse,'/api/browse')
 
 ### miRNA_annotation
 miRNA_annotation_fields = {
-	'id':fields.String,
-	'seq':fields.String,
-	'start':fields.Integer,
-	'end':fields.Integer,
-	'acc':fields.String,
-	'chr_n':fields.Integer,
-	'fam':fields.String,
-	'pre_id':fields.String,
-	'pre_seq':fields.String,
-	'pre_start':fields.Integer,
-	'pre_end':fields.Integer,
-	'pre_acc':fields.String,
-	'pre_chr':fields.String,
+	'premiRNA_acc':fields.String,
+	'premiRNA_seq':fields.String,
+	'miRNA_acc':fields.String,
+	'miRNA_start':fields.String,
+	'premiRNA_chr':fields.String,
+	'miRNA_chr':fields.String,
+	'miRNA_seq':fields.String,
+	'miRNA_end':fields.String,
+	'miRNA_id':fields.String,
+	'premiRNA_id':fields.String,
+	'miRNA_fam':fields.String,
+	'premiRNA_end':fields.String,
+	'premiRNA_start':fields.String,
 	}
-class miRNAAnnotationList(Resource):
+class mirna_info(Resource):
 	@marshal_with(miRNA_annotation_fields)
 	def get(self):
-		result = []
-		miRNA_annotation = []
-		tmpa = ''
-		miRNA_annotation_list = list(mongo.db.mir_annotation.find())
-		
-		for l in miRNA_annotation_list:
-			tmpa = l['miRNA_id'].strip()+'_'+l['miRNA_seq'].strip()+'_'+l['miRNA_start'].strip()+'_'+l['miRNA_end'].strip()+\
-					'_'+l['miRNA_acc'].strip()+'_'+l['miRNA_chr'].strip()+'_'+l['miRNA_fam'].strip()+'_'+l['premiRNA_id'].strip()+\
-					'_'+l['premiRNA_seq'].strip()+'_'+l['premiRNA_start'].strip()+'_'+l['premiRNA_end'].strip()+'_'+l['premiRNA_acc'].strip()+'_'+l['premiRNA_chr'].strip()
-			miRNA_annotation.append(tmpa)
-			tmpa = ''
-		
-		miRNA_annotation_set = set(miRNA_annotation)
+		parser = reqparse.RequestParser()
+		parser.add_argument('miRNA_id',type = str)
+		parser.add_argument('miRNA_acc',type= str)
+		args = parser.parse_args()
+		condition = {}
+		if args['miRNA_id'] or args['miRNA_acc']:
+			condition ={ 'premiRNA_acc':args['premiRNA_acc'],'seq':args['seq'],'miRNA_acc':args['miRNA_acc'],'miRNA_start':args['start'],'premiRNA_chr':args['premiRNA_chr'],'miRNA_chr':args['chr'],'miRNA_seq':args['miRNA_seq'],'miRNA_end':args['miRNA_end'],'miRNA_id':args['miRNA_id'],'premiRNA_id':args['premiRNA_id'],'miRNA_fam':args['miRNA_fam'],'premiRNA_end':args['premiRNA_end'],'premiRNA_start':args['premiRNA_start']}
+			mirna_info = mongo.db.mir_annotation.find(condition)
+		else:
+			mirna_info = mongo.db.mir_annotation.find_one()
+		app.logger.debug("mirna_info={}".format(mirna_info))
+		return mirna_info
 
-		for l in miRNA_annotation_set:
-			t = l.strip().split('_')
-			if len(t) == 13:
-				r = { 'id':t[0],'seq':t[1],'start':t[2],'end':t[3],'acc':t[4],'chr_n':t[5],'fam':t[6],'pre_id':t[7],'pre_seq':t[8],'pre_start':t[9],'pre_end':t[10],'pre_acc':t[11],'pre_chr':t[12] }
-			result.append(r)
+api.add_resource(mirna_info,"/api/mirna_info")
 
-		return result
+miRNA_annotation_list_fields = {
+	"miRNA_annotation_fields" : fields.List(fields.Nested(miRNA_annotation_fields))
+}
+class mirna_info_list(Resource):
+	@marshal_with(miRNA_annotation_list_fields)
+	def get(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument('miRNA_id', type = str)
+		parser.add_argument('miRNA_acc', type= str)
+		args = parser.parse_args()
+		condition = {}
+		if args['miRNA_id']:
+			condition['miRNA_id'] = args['miRNA_id']
+		if args['miRNA_acc']:
+			condition['miRNA_acc'] = args['miRNA_acc']
+		mirna_info_list = list(mongo.db.mir_annotation.find(condition))
+		return {'mirna_info_list':mirna_info_list}
 
-api.add_resource(miRNAAnnotationList,'/api/miRNA_annotation')
-		
-		
+api.add_resource(mirna_info_list,'/api/mirna_list')

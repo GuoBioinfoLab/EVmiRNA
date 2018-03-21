@@ -1,0 +1,20 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<strong>Basci information of miRNA:{$query_miRNA$}</strong>
+	</div>
+	<div class="panel-body">
+		<table class="table table-condensed table-striped">
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>seq</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="miRNA in mirna_list">
+				<td>{$ miRNA.miRNA_id $}</td>
+				<td>{$ miRNA.miRNA_seq $}</td>
+			</tbody>
+		</table>
+	</div>
+</div>

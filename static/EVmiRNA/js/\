@@ -7,6 +7,6 @@ function SearchController($scope,$http,$window,$routeParams,EVmiRNAService){
 	console.log("SearchController loaded");
 	var base_url = EVmiRNAService.getAPIBaseUrl();
 	$scope.filter_id = function(){
-		window.open(base_url+"#!miRNA_info?miRNA="+$scope.query_miRNA,"_self")
+		window.open(base_url+"#!miRNA_info?miRNA_id="+$scope.query_miRNA,"_self")
 	};
 }
