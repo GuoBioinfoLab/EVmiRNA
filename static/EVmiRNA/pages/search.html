@@ -4,24 +4,16 @@
 			<strong>miRNA</strong>
 		</div>
 		<div class="panel-body">
-			<form>
-				<div class="form-group form-inline">
-					<label class="control-label">miRNA id</label>
-					<input type="text" value="hsa-miR-495-3p" placeholder="hsa-miR-495-3p" class="form-control" ng-model="query_miRNA">
-					<button class="btn btn-default" ng-click="filter_id()">search</button>
-				</div>
-				<div class="form-group form-inline">
-					<label class="control-label">miRNA_access</label>
-					<input type="text" value="" placeholder="" class="form-control" ng-model="query_acc">
-					<button class="btn btn-default" ng-click="filter_acc()">search</button>
-				</div>
-			</form>
-		</div>
-	</div>
-	<div class="panel panel-default">
-		<div class="panel-heading">
-		</div>
-		<div class="panel-body">
+			<div>
+				<form>
+					<div class="form-group form-inline">
+						<label class="control-label">miRNA id</label>
+						<input type="text" value="hsa-miR-495-3p" placeholder="hsa-miR-495-3p" class="form-control" ng-model="query_miRNA">
+						<button class="btn btn-default" ng-click="filter_id()">search</button>
+					</div>
+				</form>
+			</div>
+			<div>
 			<form>
 				<div class="form-group form-inline">
 					<label class="control-label"> cell line</label>
@@ -64,6 +56,7 @@
 	                <button class="btn btn-default" ng-click="filter_cell_line()">search</button>
 	            </div>
 	        </form>
+	    	</div>
 			<form>
 				<div class="form-group form-inline">
 					<label class="control-label"> source</label>

@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('EVmiRNA', ['ui.bootstrap', 'ngRoute', 'pageslide-directive','ngSanitize', 'ui.bootstrap-slider', 'angularTreeview', 'bw.paging'])
+angular.module('EVmiRNA', ['ui.bootstrap', 'ngRoute', 'pageslide-directive', 'ui.bootstrap-slider', 'bw.paging'])
     .config(function ($routeProvider) {
         $routeProvider
             .when("/", {
@@ -39,13 +39,12 @@ angular.module('EVmiRNA', ['ui.bootstrap', 'ngRoute', 'pageslide-directive','ngS
                 redirectTo: "/404.html",
             });
     })
-    .config([
-	'$interpolateProvider',
+    .config(
 	function ($interpolateProvider) {
         $interpolateProvider.startSymbol('{$');
         $interpolateProvider.endSymbol('$}');
     	}
-	])
+	)
     .config( [
         '$compileProvider',
         function( $compileProvider )

@@ -55,31 +55,30 @@ class Browse(Resource):
 api.add_resource(Browse,'/api/browse')
 
 ### miRNA_annotation
-miRNA_annotation_fields = {
-	'premiRNA_acc':fields.String,
-	'premiRNA_seq':fields.String,
-	'miRNA_acc':fields.String,
-	'miRNA_start':fields.String,
-	'premiRNA_chr':fields.String,
-	'miRNA_chr':fields.String,
-	'miRNA_seq':fields.String,
-	'miRNA_end':fields.String,
-	'miRNA_id':fields.String,
-	'premiRNA_id':fields.String,
-	'miRNA_fam':fields.String,
-	'premiRNA_end':fields.String,
-	'premiRNA_start':fields.String,
+miR_basic_fields = {
+	'pre_acc':fields.String(attribute='premiRNA_acc'),
+	'pre_seq':fields.String(attribute='premiRNA_seq'),
+	'accession':fields.String(attribute='miRNA_acc'),
+	'start':fields.Integer(attribute='miRNA_start'),
+	'pre_chr':fields.String(attribute='premiRNA_chr'),
+	'chromosome':fields.String(attribute='miRNA_chr'),
+	'sequence':fields.String(attribute='miRNA_seq'),
+	'end':fields.String(attribute='miRNA_end'),
+	'mirna':fields.String(attribute='miRNA_id'),
+	'premirna':fields.String(attribute='premiRNA_id'),
+	'family':fields.String(attribute='miRNA_fam'),
+	'pre_end':fields.Integer(attribute='premiRNA_end'),
+	'pre_start':fields.Integer(attribute='premiRNA_start'),
 	}
 class mirna_info(Resource):
-	@marshal_with(miRNA_annotation_fields)
+	@marshal_with(miR_basic_fields)
 	def get(self):
 		parser = reqparse.RequestParser()
-		parser.add_argument('miRNA_id',type = str)
-		parser.add_argument('miRNA_acc',type= str)
+		parser.add_argument('mirna',type = str)
 		args = parser.parse_args()
 		condition = {}
-		if args['miRNA_id'] or args['miRNA_acc']:
-			condition ={ 'premiRNA_acc':args['premiRNA_acc'],'seq':args['seq'],'miRNA_acc':args['miRNA_acc'],'miRNA_start':args['start'],'premiRNA_chr':args['premiRNA_chr'],'miRNA_chr':args['chr'],'miRNA_seq':args['miRNA_seq'],'miRNA_end':args['miRNA_end'],'miRNA_id':args['miRNA_id'],'premiRNA_id':args['premiRNA_id'],'miRNA_fam':args['miRNA_fam'],'premiRNA_end':args['premiRNA_end'],'premiRNA_start':args['premiRNA_start']}
+		if args['mirna']:
+			condition = {'miRNA_id':args['mirna']}
 			mirna_info = mongo.db.mir_annotation.find(condition)
 		else:
 			mirna_info = mongo.db.mir_annotation.find_one()
@@ -88,22 +87,75 @@ class mirna_info(Resource):
 
 api.add_resource(mirna_info,"/api/mirna_info")
 
-miRNA_annotation_list_fields = {
-	"miRNA_annotation_fields" : fields.List(fields.Nested(miRNA_annotation_fields))
+miR_basic_list_fields = {
+	'mirna_basic_list' : fields.List(fields.Nested(miR_basic_fields))
 }
 class mirna_info_list(Resource):
-	@marshal_with(miRNA_annotation_list_fields)
+	@marshal_with(miR_basic_list_fields)
 	def get(self):
 		parser = reqparse.RequestParser()
-		parser.add_argument('miRNA_id', type = str)
-		parser.add_argument('miRNA_acc', type= str)
+		parser.add_argument('mirna', type = str)
 		args = parser.parse_args()
 		condition = {}
-		if args['miRNA_id']:
-			condition['miRNA_id'] = args['miRNA_id']
-		if args['miRNA_acc']:
-			condition['miRNA_acc'] = args['miRNA_acc']
-		mirna_info_list = list(mongo.db.mir_annotation.find(condition))
-		return {'mirna_info_list':mirna_info_list}
+		if args['mirna']:
+			condition = { 'miRNA_id':args['mirna']}
+		mirna_info = list(mongo.db.mir_annotation.find(condition))
+		return  {"mirna_basic_list":mirna_info}
 
 api.add_resource(mirna_info_list,'/api/mirna_list')
+
+###miRNA_target
+miR_target_fields = {
+	'mirna': fields.String(attribute='miRNA_id'),
+	'target_start':fields.Integer,
+	'p_v':fields.String,
+	'target_chr':fields.String,
+	'target_symbol':fields.String,
+	'target_end':fields.Integer
+}
+
+miR_target_list_fields = {
+	'miR_target_list' : fields.List(fields.Nested(miR_target_fields))
+}
+
+class mirna_target_list(Resource):
+	@marshal_with(miR_target_list_fields)
+	def get(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument('mirna', type = str)
+		args = parser.parse.args()
+		condition = {}
+		if args['mirna']:
+			condition = {'miRNA_id':args['mirna']}
+		mirna_target = list(mongo.db.mir_target.find(condition))
+		return {"mirna_target":mirna_target}
+
+api.add_resource(mirna_target_list,"/api/mirna_target")
+
+###miRNA_pathway
+miR_pathway_fields = {
+	'mirna':fields.String(attribute="miRNA_id"),
+	'kegg':fields.String(attribute="kegg_id"),
+	'is_gene':fields.String,
+	'pvalue':fields.Float,
+	'possibility':fields.Float,
+	'kegg_dscp':fields.String
+}
+
+miR_pathway_list_fields = {
+	'miR_pathway_list':fields.List(fields.Nested(miR_pathway_fields))
+}
+
+class miR_pathway_list(Resource):
+	@marshal_with(miR_pathway_fields)
+	def get(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument('mirna', type = str)
+                args = parser.parse.args()
+                condition = {}
+                if args['mirna']:
+                        condition = {'miRNA_id':args['mirna']}
+		mirna_pathway = list(mongo.db.mir_pathway.find(condition))
+		return {"mirna_pathway":mirna_pathway }
+	
+api.add_resource(miR_pathway_list,"/api/mirna_target")
