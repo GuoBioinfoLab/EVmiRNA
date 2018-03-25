@@ -107,15 +107,15 @@ api.add_resource(mirna_info_list,'/api/mirna_list')
 ###miRNA_target
 miR_target_fields = {
 	'mirna': fields.String(attribute='miRNA_id'),
-	'target_start':fields.Integer,
+	'target_start':fields.String,
 	'p_v':fields.String,
 	'target_chr':fields.String,
 	'target_symbol':fields.String,
-	'target_end':fields.Integer
+	'target_end':fields.String,
 }
 
 miR_target_list_fields = {
-	'miR_target_list' : fields.List(fields.Nested(miR_target_fields))
+	'mir_target_list' : fields.List(fields.Nested(miR_target_fields))
 }
 
 class mirna_target_list(Resource):
@@ -123,12 +123,15 @@ class mirna_target_list(Resource):
 	def get(self):
 		parser = reqparse.RequestParser()
 		parser.add_argument('mirna', type = str)
-		args = parser.parse.args()
+		args = parser.parse_args()
+		mongo.db.mir_target.ensure_index("target_start")
+		mongo.db.mir_target.ensure_index("target_end")
+		mongo.db.mir_target.ensure_index("target_symbol")
 		condition = {}
 		if args['mirna']:
 			condition = {'miRNA_id':args['mirna']}
 		mirna_target = list(mongo.db.mir_target.find(condition))
-		return {"mirna_target":mirna_target}
+		return {"mir_target_list":mirna_target}
 
 api.add_resource(mirna_target_list,"/api/mirna_target")
 
@@ -139,23 +142,51 @@ miR_pathway_fields = {
 	'is_gene':fields.String,
 	'pvalue':fields.Float,
 	'possibility':fields.Float,
-	'kegg_dscp':fields.String
+	'kegg_dscp':fields.String,
 }
 
 miR_pathway_list_fields = {
-	'miR_pathway_list':fields.List(fields.Nested(miR_pathway_fields))
+	'mir_pathway_list':fields.List(fields.Nested(miR_pathway_fields))
 }
 
-class miR_pathway_list(Resource):
-	@marshal_with(miR_pathway_fields)
+class mirna_pathway_list(Resource):
+	@marshal_with(miR_pathway_list_fields)
 	def get(self):
 		parser = reqparse.RequestParser()
 		parser.add_argument('mirna', type = str)
-                args = parser.parse.args()
+                args = parser.parse_args()
                 condition = {}
                 if args['mirna']:
                         condition = {'miRNA_id':args['mirna']}
 		mirna_pathway = list(mongo.db.mir_pathway.find(condition))
-		return {"mirna_pathway":mirna_pathway }
+		return {"mir_pathway_list":mirna_pathway }
 	
-api.add_resource(miR_pathway_list,"/api/mirna_target")
+api.add_resource(mirna_pathway_list,"/api/mirna_pathway")
+
+###mirna_pubmed
+miR_pubmed_fields = {
+	'mirna':fields.String(attribute='miRNA_id'),
+	'title':fields.String,
+	'journal':fields.String(attribute='jt'),
+	'year':fields.String,
+	'PMID':fields.String,
+}
+
+miR_pubmed_list_fields = {
+	'mir_pubmed_list':fields.List(fields.Nested(miR_pubmed_fields))
+}
+
+class mirna_pubmed_list(Resource):
+	@marshal_with(miR_pubmed_list_fields)
+	def get(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument('mirna',type=str)
+		args = parser.parse_args()
+		condition = {}
+		if args['mirna']:
+			string = args['mirna'].replace('hsa-miR','MiR')
+			condition = { 'miRNA_id': string}
+		mirna_pubmed = list(mongo.db.mir_pm.find(condition))
+		return {"mir_pubmed_list":mirna_pubmed}
+api.add_resource(mirna_pubmed_list,"/api/mirna_pubmed")
+		
