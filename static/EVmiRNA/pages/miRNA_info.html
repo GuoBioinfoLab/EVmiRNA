@@ -11,7 +11,8 @@
                 <dt>accession:</dt>
                 <dd>{$ miRNA.accession $}</dd>
                 <dt>mature sequence:</dt>
-                <dd style="word-wrap:break-word;"><strong><span id="sequence">{$ miRNA.sequence $}</span></strong></dd>
+                <dd style="word-wrap:break-word;"><strong>{$ miRNA.first_base $}<span style="color:red;">{$ miRNA.two_to_eight $}</span>{$ miRNA.the_remaining $}</strong></dd>
+
                 <dt>precursor:</dt>
                 <dd>{$ miRNA.premirna $}</dd>
 				<dt>position:</dt>
