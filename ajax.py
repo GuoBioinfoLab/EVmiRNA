@@ -69,6 +69,9 @@ miR_basic_fields = {
 	'family':fields.String(attribute='miRNA_fam'),
 	'pre_end':fields.Integer(attribute='premiRNA_end'),
 	'pre_start':fields.Integer(attribute='premiRNA_start'),
+	'first_base':fields.String,
+	'two_to_eight':fields.String,
+	'the_remaining':fields.String,
 	}
 class mirna_info(Resource):
 	@marshal_with(miR_basic_fields)
@@ -99,7 +102,14 @@ class mirna_info_list(Resource):
 		condition = {}
 		if args['mirna']:
 			condition = { 'miRNA_id':args['mirna']}
-		mirna_info = list(mongo.db.mir_annotation.find(condition))
+		mirna_list = list(mongo.db.mir_annotation.find(condition))
+		mirna_info=[]
+		for item in mirna_list:
+			sequence = list(item["miRNA_seq"])
+			item['first_base'] = sequence[0]
+			item['two_to_eight'] = ''.join(sequence[1:8])
+			item['the_remaining'] =''.join(sequence[8:])
+			mirna_info.append(item)
 		return  {"mirna_basic_list":mirna_info}
 
 api.add_resource(mirna_info_list,'/api/mirna_list')
