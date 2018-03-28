@@ -1,24 +1,23 @@
 "use strict";
 
 angular.module('EVmiRNA')
-    .controller('mirAnnoController', mirAnnoController);
+	.controller('SearchController',SearchController);
 
-function mirAnnoController($scope,$http,EVmiRNAService) {
-    console.log("mirAnnoController loaded");
-
-   $scope.get_list = function () {
-        var sc = '';
-        sc = $scope.sc;
-        $http({
-           url:  '/api/miRNA_annotation',
-            method: 'GET',
-            params: {sc:sc}
-        }).then(
-           function (response) {
-            console.log(response);
-            $scope.browse = response.data;
-             }
-        )
-     };
-    $scope.get_list();
+function SearchController($scope,$http,$window,$routeParams,EVmiRNAService){
+	console.log("SearchController loaded");
+	var base_url = EVmiRNAService.getAPIBaseUrl();
+	var flag = 0;
+	$scope.check = function (query_item) {
+        	if(/[@#\$%\^&\*]+/g.test(query_item)){
+            		alert("Invalid input");
+            		flag=1;
+            		history.back();
+        }
+        };
+	$scope.filter_id = function(){
+		$scope.check($scope.query_miRNA);
+		if(flag == 0){
+			window.open(base_url+"#!miRNA_info?miRNA="+$scope.query_miRNA,"_self")
+		}
+	};
 }

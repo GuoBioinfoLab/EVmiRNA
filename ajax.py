@@ -55,46 +55,148 @@ class Browse(Resource):
 api.add_resource(Browse,'/api/browse')
 
 ### miRNA_annotation
-miRNA_annotation_fields = {
-	'id':fields.String,
-	'seq':fields.String,
-	'start':fields.Integer,
-	'end':fields.Integer,
-	'acc':fields.String,
-	'chr_n':fields.Integer,
-	'fam':fields.String,
-	'pre_id':fields.String,
-	'pre_seq':fields.String,
-	'pre_start':fields.Integer,
-	'pre_end':fields.Integer,
-	'pre_acc':fields.String,
-	'pre_chr':fields.String,
+miR_basic_fields = {
+	'pre_acc':fields.String(attribute='premiRNA_acc'),
+	'pre_seq':fields.String(attribute='premiRNA_seq'),
+	'accession':fields.String(attribute='miRNA_acc'),
+	'start':fields.Integer(attribute='miRNA_start'),
+	'pre_chr':fields.String(attribute='premiRNA_chr'),
+	'chromosome':fields.String(attribute='miRNA_chr'),
+	'sequence':fields.String(attribute='miRNA_seq'),
+	'end':fields.String(attribute='miRNA_end'),
+	'mirna':fields.String(attribute='miRNA_id'),
+	'premirna':fields.String(attribute='premiRNA_id'),
+	'family':fields.String(attribute='miRNA_fam'),
+	'pre_end':fields.Integer(attribute='premiRNA_end'),
+	'pre_start':fields.Integer(attribute='premiRNA_start'),
+	'first_base':fields.String,
+	'two_to_eight':fields.String,
+	'the_remaining':fields.String,
 	}
-class miRNAAnnotationList(Resource):
-	@marshal_with(miRNA_annotation_fields)
+class mirna_info(Resource):
+	@marshal_with(miR_basic_fields)
 	def get(self):
-		result = []
-		miRNA_annotation = []
-		tmpa = ''
-		miRNA_annotation_list = list(mongo.db.mir_annotation.find())
-		
-		for l in miRNA_annotation_list:
-			tmpa = l['miRNA_id'].strip()+'_'+l['miRNA_seq'].strip()+'_'+l['miRNA_start'].strip()+'_'+l['miRNA_end'].strip()+\
-					'_'+l['miRNA_acc'].strip()+'_'+l['miRNA_chr'].strip()+'_'+l['miRNA_fam'].strip()+'_'+l['premiRNA_id'].strip()+\
-					'_'+l['premiRNA_seq'].strip()+'_'+l['premiRNA_start'].strip()+'_'+l['premiRNA_end'].strip()+'_'+l['premiRNA_acc'].strip()+'_'+l['premiRNA_chr'].strip()
-			miRNA_annotation.append(tmpa)
-			tmpa = ''
-		
-		miRNA_annotation_set = set(miRNA_annotation)
+		parser = reqparse.RequestParser()
+		parser.add_argument('mirna',type = str)
+		args = parser.parse_args()
+		condition = {}
+		if args['mirna']:
+			condition = {'miRNA_id':args['mirna']}
+			mirna_info = mongo.db.mir_annotation.find(condition)
+		else:
+			mirna_info = mongo.db.mir_annotation.find_one()
+		app.logger.debug("mirna_info={}".format(mirna_info))
+		return mirna_info
 
-		for l in miRNA_annotation_set:
-			t = l.strip().split('_')
-			if len(t) == 13:
-				r = { 'id':t[0],'seq':t[1],'start':t[2],'end':t[3],'acc':t[4],'chr_n':t[5],'fam':t[6],'pre_id':t[7],'pre_seq':t[8],'pre_start':t[9],'pre_end':t[10],'pre_acc':t[11],'pre_chr':t[12] }
-			result.append(r)
+api.add_resource(mirna_info,"/api/mirna_info")
 
-		return result
+miR_basic_list_fields = {
+	'mirna_basic_list' : fields.List(fields.Nested(miR_basic_fields))
+}
+class mirna_info_list(Resource):
+	@marshal_with(miR_basic_list_fields)
+	def get(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument('mirna', type = str)
+		args = parser.parse_args()
+		condition = {}
+		if args['mirna']:
+			condition = { 'miRNA_id':args['mirna']}
+		mirna_list = list(mongo.db.mir_annotation.find(condition))
+		mirna_info=[]
+		for item in mirna_list:
+			sequence = list(item["miRNA_seq"])
+			item['first_base'] = sequence[0]
+			item['two_to_eight'] = ''.join(sequence[1:8])
+			item['the_remaining'] =''.join(sequence[8:])
+			mirna_info.append(item)
+		return  {"mirna_basic_list":mirna_info}
 
-api.add_resource(miRNAAnnotationList,'/api/miRNA_annotation')
-		
+api.add_resource(mirna_info_list,'/api/mirna_list')
+
+###miRNA_target
+miR_target_fields = {
+	'mirna': fields.String(attribute='miRNA_id'),
+	'target_start':fields.String,
+	'p_v':fields.String,
+	'target_chr':fields.String,
+	'target_symbol':fields.String,
+	'target_end':fields.String,
+}
+
+miR_target_list_fields = {
+	'mir_target_list' : fields.List(fields.Nested(miR_target_fields))
+}
+
+class mirna_target_list(Resource):
+	@marshal_with(miR_target_list_fields)
+	def get(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument('mirna', type = str)
+		args = parser.parse_args()
+		mongo.db.mir_target.ensure_index("target_start")
+		mongo.db.mir_target.ensure_index("target_end")
+		mongo.db.mir_target.ensure_index("target_symbol")
+		condition = {}
+		if args['mirna']:
+			condition = {'miRNA_id':args['mirna']}
+		mirna_target = list(mongo.db.mir_target.find(condition))
+		return {"mir_target_list":mirna_target}
+
+api.add_resource(mirna_target_list,"/api/mirna_target")
+
+###miRNA_pathway
+miR_pathway_fields = {
+	'mirna':fields.String(attribute="miRNA_id"),
+	'kegg':fields.String(attribute="kegg_id"),
+	'is_gene':fields.String,
+	'pvalue':fields.Float,
+	'possibility':fields.Float,
+	'kegg_dscp':fields.String,
+}
+
+miR_pathway_list_fields = {
+	'mir_pathway_list':fields.List(fields.Nested(miR_pathway_fields))
+}
+
+class mirna_pathway_list(Resource):
+	@marshal_with(miR_pathway_list_fields)
+	def get(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument('mirna', type = str)
+                args = parser.parse_args()
+                condition = {}
+                if args['mirna']:
+                        condition = {'miRNA_id':args['mirna']}
+		mirna_pathway = list(mongo.db.mir_pathway.find(condition))
+		return {"mir_pathway_list":mirna_pathway }
+	
+api.add_resource(mirna_pathway_list,"/api/mirna_pathway")
+
+###mirna_pubmed
+miR_pubmed_fields = {
+	'mirna':fields.String(attribute='miRNA_id'),
+	'title':fields.String,
+	'journal':fields.String(attribute='jt'),
+	'year':fields.String,
+	'PMID':fields.String,
+}
+
+miR_pubmed_list_fields = {
+	'mir_pubmed_list':fields.List(fields.Nested(miR_pubmed_fields))
+}
+
+class mirna_pubmed_list(Resource):
+	@marshal_with(miR_pubmed_list_fields)
+	def get(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument('mirna',type=str)
+		args = parser.parse_args()
+		condition = {}
+		if args['mirna']:
+			string = args['mirna'].replace('hsa-miR','MiR')
+			condition = { 'miRNA_id': string}
+		mirna_pubmed = list(mongo.db.mir_pm.find(condition))
+		return {"mir_pubmed_list":mirna_pubmed}
+api.add_resource(mirna_pubmed_list,"/api/mirna_pubmed")
 		
