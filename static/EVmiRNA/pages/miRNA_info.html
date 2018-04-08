@@ -31,7 +31,7 @@
 			</strong>
 		</div>
 		<div class="panel-body">
-			<div style="overflow:scroll;width:100%;height:300px;">
+			<div style="overflow:scroll;width:100%;height:auto;max-height:300px;">
 				<table class="table table-bordered table-striped" style="table-layout:fixed;">
 					<thead>
 					<tr>
@@ -58,20 +58,11 @@
 	<div class="panel panel-success">
 		<div class="panel-heading">
 			<strong>
-				expression
-			</strong>
-		</div>
-		<div class="panel-body">
-		</div>
-	</div>
-	<div class="panel panel-success">
-		<div class="panel-heading">
-			<strong>
 				target
 			</strong>
 		</div>
 		<div class="panel-body ">
-			<div style="overflow:auto;width:100%;height:300px">
+			<div style="overflow:auto;width:100%;height:auto;max-height:300px">
 				<table class="table text-center table-bordered table-striped table-condensed" >
 				<thead>
 				<tr>
@@ -102,7 +93,7 @@
 			</strong>
 		</div>
 		<div class="panel-body">
-			<div style="overflow:auto;width:100%;height:200px;">
+			<div style="overflow:auto;width:100%;height:auto;max-height:300px;">
 				<table class="table table-bordered table-striped table-condensed">
 				<thead>
 				<tr>
@@ -121,6 +112,23 @@
 				</tr>
 				</tbody>
 				</table>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<strong> mirna expression </strong>
+		</div>
+		<div class="panel-body">
+			<div class="btn-group" role="group">
+					<button type="button" class="btn btn-default active" ng-click="draw_exp_source()">Source</button>
+                                        <button type="button" class="btn btn-default" ng-click="draw_source_mv()">Source_mv_exo</button>
+                                        <button type="button" class="btn btn-default" ng-click="draw_exp_cancer()">Cancer</button>
+                                        <button type="button" class="btn btn-default" ng-click="draw_celline()">cell line</button>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-lg-3 col-xs-3 col-sm-3"></div>
+				<div id="barContainer"  style="height:500px;text-align:center;"></div>
 			</div>
 		</div>
 	</div>
