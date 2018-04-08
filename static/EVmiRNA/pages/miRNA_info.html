@@ -44,7 +44,7 @@
 					</thead>
 					<tbody>
 					<tr ng-repeat="item in mirna_pathway_list">
-					<td>{$ item.kegg $}</td>
+					<td><a href="http://www.kegg.jp/kegg-bin/show_pathway?{$ item.kegg $}" target="_blank" class="col">{$ item.kegg $}</a></td>
 					<td style="word-wrap:break-word;">{$ item.is_gene $}</td>
 					<td>{$ item.kegg_dscp $}</td>
 					<td>{$ item.pvalue $}</td>
@@ -106,7 +106,7 @@
 				<tbody>
 				<tr ng-repeat="item in mirna_pubmed_list">
 					<td>{$ item.PMID $}</td>
-					<td>{$ item.title $}</td>
+					<td><a href="https://www.ncbi.nlm.nih.gov/pubmed/?term={$ item.PMID $}" class="col" target="_blank">{$ item.title $}</a></td>
 					<td>{$ item.journal $}</td>
 					<td>{$ item.year $}</td>
 				</tr>
