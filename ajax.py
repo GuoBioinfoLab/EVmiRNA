@@ -33,7 +33,6 @@ browse_fields = {
 class Browse(Resource):
     @marshal_with(browse_fields)
     def get(self):
-        
         result = []
         source_browse = []
         tmpa = ''
@@ -54,6 +53,25 @@ class Browse(Resource):
         return result
 
 api.add_resource(Browse,'/api/browse')
+
+### acquire the whole list of mirna
+mirna_fields = {
+	"mirna":fields.String(attribute="miRNA_id")
+}
+mirna_list_fields = {
+	"mirna_list":fields.List(fields.Nested(mirna_fields))
+}
+class SearchmiRNA(Resource):
+	@marshal_with(mirna_list_fields)
+	def get(self):
+		result = []
+		temp = {}
+		mirnaList = list(mongo.db.mir_annotation.find())
+		return {"mirna_list":mirnaList}
+
+api.add_resource(SearchmiRNA,"/api/mirnalist")
+
+
 
 ### miRNA_annotation
 miR_basic_fields = {

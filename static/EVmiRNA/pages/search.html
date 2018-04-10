@@ -6,9 +6,9 @@
 		<div class="panel-body">
 			<div>
 				<form>
-					<div class="form-group form-inline">
-						<label class="control-label">miRNA id</label>
-						<input type="text" value="hsa-miR-495-3p" placeholder="hsa-miR-495-3p" class="form-control" ng-model="query_miRNA">
+					<div class="form-group form-inline ui-widget">
+						<label  for="mirnaid">miRNA id</label>
+						<input type="text"  id="mirnaid" class="form-control" ng-model="query_miRNA">
 						<button class="btn btn-default" ng-click="filter_id()">search</button>
 					</div>
 				</form>
