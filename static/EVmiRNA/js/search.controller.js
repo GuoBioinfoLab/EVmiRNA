@@ -22,25 +22,15 @@ function SearchController($scope,$http,$window,$routeParams,EVmiRNAService){
 			window.open(base_url+"#!miRNA_info?miRNA="+$scope.query_miRNA,"_self")
 		}
 	};
-	$http({
-		url:base_url+"/api/mirnalist",
-		method:"GET"
-	}).then(
-		function(response){
-			console.log(response);
-			mirnalist = response.data.mirna_list;
-			var l = mirnalist.length;
-			for(var x=0; x<l; x++){
-				mircomplete.push(String(mirnalist[x].mirna));
-			}
-			console.log(mircomplete);
-			$(function(){
-				$("#mirnaid").autocomplete({
-					source: mircomplete
-				},
-				{
-					minLength:10
-				});
+	$.get("/api/mirnalist",function(content){
+		var mirnalist = content;
+		$(function(){
+			$("#mirnaid").autocomplete({
+				source: mirnalist
+			},
+			{
+				minLength:10
 			});
+		});
 	});
 }

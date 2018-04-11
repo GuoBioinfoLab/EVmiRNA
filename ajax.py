@@ -1,4 +1,5 @@
 import flask_restful
+import os
 
 from EVmiRNA import app, api
 from EVmiRNA.core import mongo
@@ -20,7 +21,18 @@ class FuzzyFoo(Resource):
 
 api.add_resource(FuzzyFoo,'/api/test')
 
-
+###mirnalist
+class miRNAList(Resource):
+	def get(self):
+		result = []
+		path = os.path.abspath('.')
+		ultipath = path+"/EVmiRNA/static/EVmiRNA/data/mirnalist.txt"
+		mirnalist = open(ultipath,"r")
+		for line in mirnalist.readlines():
+			line = line.strip()
+			result.append(line)
+		return result
+api.add_resource(miRNAList,"/api/mirnalist");
 
 ### browse source and miRNA
 browse_fields = {
