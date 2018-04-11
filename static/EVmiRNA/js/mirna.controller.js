@@ -7,6 +7,7 @@ function MirnaController($http,$scope,$routeParams,EVmiRNAService){
 	console.log($routeParams.miRNA);
 	var base_url = EVmiRNAService.getAPIBaseUrl();
 	var query_mirna =  $routeParams.miRNA;
+	$scope.error = 0;
 	$scope.query_miRNA = query_mirna;
 	$scope.fetch_miRNA = function(){
 		$http({

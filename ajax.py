@@ -1,4 +1,5 @@
 import flask_restful
+import os
 
 from EVmiRNA import app, api
 from EVmiRNA.core import mongo
@@ -20,7 +21,18 @@ class FuzzyFoo(Resource):
 
 api.add_resource(FuzzyFoo,'/api/test')
 
-
+###mirnalist
+class miRNAList(Resource):
+	def get(self):
+		result = []
+		path = os.path.abspath('.')
+		ultipath = path+"/EVmiRNA/static/EVmiRNA/data/mirnalist.txt"
+		mirnalist = open(ultipath,"r")
+		for line in mirnalist.readlines():
+			line = line.strip()
+			result.append(line)
+		return result
+api.add_resource(miRNAList,"/api/mirnalist");
 
 ### browse source and miRNA
 browse_fields = {
@@ -33,7 +45,6 @@ browse_fields = {
 class Browse(Resource):
     @marshal_with(browse_fields)
     def get(self):
-        
         result = []
         source_browse = []
         tmpa = ''
@@ -54,6 +65,25 @@ class Browse(Resource):
         return result
 
 api.add_resource(Browse,'/api/browse')
+
+### acquire the whole list of mirna
+mirna_fields = {
+	"mirna":fields.String(attribute="miRNA_id")
+}
+mirna_list_fields = {
+	"mirna_list":fields.List(fields.Nested(mirna_fields))
+}
+class SearchmiRNA(Resource):
+	@marshal_with(mirna_list_fields)
+	def get(self):
+		result = []
+		temp = {}
+		mirnaList = list(mongo.db.mir_annotation.find())
+		return {"mirna_list":mirnaList}
+
+api.add_resource(SearchmiRNA,"/api/mirnalist")
+
+
 
 ### miRNA_annotation
 miR_basic_fields = {
