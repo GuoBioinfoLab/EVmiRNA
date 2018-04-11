@@ -26,7 +26,7 @@ class miRNAList(Resource):
 	def get(self):
 		result = []
 		path = os.path.abspath('.')
-		ultipath = path+"/EVmiRNA/static/EVmiRNA/data/mirnalist.txt"
+		ultipath = path+"/EVmiRNA/static/EVmiRNA/js/mirnalist.txt"
 		mirnalist = open(ultipath,"r")
 		for line in mirnalist.readlines():
 			line = line.strip()
