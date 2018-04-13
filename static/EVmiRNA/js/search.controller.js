@@ -36,7 +36,7 @@ function SearchController($scope,$http,$window,$routeParams,EVmiRNAService){
 				source: mirnalist
 			},
 			{
-				minLength:1
+				minLength:7
 			});
 		});
 	});

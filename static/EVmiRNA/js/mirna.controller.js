@@ -7,31 +7,6 @@ function MirnaController($http,$scope,$routeParams,EVmiRNAService){
 	console.log($routeParams.miRNA);
 	var base_url = EVmiRNAService.getAPIBaseUrl();
 	var query_mirna =  $routeParams.miRNA;
-	$scope.clear = function(){
-		$scope.one = 0;
-		$scope.two = 0;
-		$scope.three = 0;
-		$scope.four = 0;
-	};
-	$scope.one = 1;
-	$scope.show_one = function(refer){
-		$scope.clear();
-		if(refer == "one"){
-			$scope.one =1;
-		}
-		if(refer == "two"){
-			$scope.two = 1;
-			$scope.class_two = "active";
-		}
-		if(refer == "three"){
-			$scope.three = 1;
-			$scope.class_three = "active";
-		}
-		if(refer == "four"){
-			$scope.four = 1;
-			$scope.class_four = "active";
-		}
-	};
 	$("[data-toggle='popover']").popover();
 	$scope.error = 0;
 	$scope.query_miRNA = query_mirna;
@@ -330,6 +305,7 @@ function MirnaController($http,$scope,$routeParams,EVmiRNAService){
 		}
 		sourcemvbar();
 	};
+	$scope.draw_exp_source();
 	$scope.fetch_pubmed();
 	$scope.fetch_pathway();
 	$scope.fetch_mirnatarget();

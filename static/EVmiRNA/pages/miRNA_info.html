@@ -24,41 +24,10 @@
 		</dl>
 	</div>
 </div>
-<div>
-	<ul class="nav nav-pills">
-		<li id="one" ng-click="show_one('one')"  class="active" style="background-color:LightSkyBlue;margin-right:4px;"><a data-toggle="tab"><strong>pathway information</strong></a></li>
-		<li id="two" ng-click="show_one('two')"  class="class_two" style="background-color:LightSkyBlue;margin-right:4px;"><a data-toggle="tab"><strong>target</strong></a></li>
-		<li id="three" ng-click="show_one('three')" class="class_three"  style="background-color:LightSkyBlue;margin-right:4px;"><a data-toggle="tab"><strong>publication</strong></a></li>
-		<li id="expression" ng-click="show_one('four')" class="class_four"  style="background-color:LightSkyBlue;margin-right:4px;"><a  data-toggle="tab"><strong>expression</strong></a></li>
-	</ul>
-</div>
-	<div class="panel panel-info" ng-show="one">
-		<div class="panel-body">
-			<div style="overflow:scroll;width:100%;height:auto;max-height:600px;">
-				<table class="table table-bordered table-striped" style="table-layout:fixed;">
-					<thead>
-					<tr>
-						<th class="col-xs-1">kegg id</th>
-						<th class="col-xs-4">gene</th>
-						<th class="col-xs-3">kegg description</th>
-						<th class="col-xs-2">p value</th>
-						<th class="col-xs-2">possibility</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr ng-repeat="item in mirna_pathway_list">
-					<td><a href="http://www.kegg.jp/kegg-bin/show_pathway?{$ item.kegg $}" target="_blank" class="col">{$ item.kegg $}</a></td>
-					<td style="word-wrap:break-word;">{$ item.is_gene $}</td>
-					<td>{$ item.kegg_dscp $}</td>
-					<td>{$ item.pvalue $}</td>
-					<td>{$ item.possibility $}</td>
-					</tr>
-					</tbody>
-				</table> 
-			</div>
+	<div class="panel panel-info" id="target">
+		<div class="panel-heading">
+			<strong> miRNA target information</strong>
 		</div>
-	</div>
-	<div class="panel panel-info" ng-show="two">
 		<div class="panel-body ">
 			<div class="col-lg-7"
      				paging
@@ -131,7 +100,39 @@
 			</div>
 		</div>
 	</div>
-	<div class="panel panel-info" ng-show="three">
+	<div id="pathway" class="panel panel-info">
+		<div class="panel-heading">
+			<strong>pathway information</strong>
+		</div>
+		<div class="panel-body">
+			<div style="overflow:scroll;width:100%;height:auto;max-height:500px;">
+				<table class="table table-bordered table-striped" style="table-layout:fixed;">
+					<thead>
+					<tr>
+						<th class="col-xs-1">kegg id</th>
+						<th class="col-xs-4">gene</th>
+						<th class="col-xs-3">kegg description</th>
+						<th class="col-xs-2">p value</th>
+						<th class="col-xs-2">possibility</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="item in mirna_pathway_list">
+					<td><a href="http://www.kegg.jp/kegg-bin/show_pathway?{$ item.kegg $}" target="_blank" class="col">{$ item.kegg $}</a></td>
+					<td style="word-wrap:break-word;">{$ item.is_gene $}</td>
+					<td>{$ item.kegg_dscp $}</td>
+					<td>{$ item.pvalue $}</td>
+					<td>{$ item.possibility $}</td>
+					</tr>
+					</tbody>
+				</table> 
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-info" id="publication">
+		<div class="panel-heading">
+			<strong>publication</strong>
+		</div>
 		<div class="panel-body">
 			<div style="width:100%;height:auto;">
 				<ol ng-repeat="item in mirna_pubmed_list">
@@ -141,13 +142,16 @@
 			</div>
 		</div>
 	</div>
-	<div class="panel panel-info" ng-show="four">
+	<div class="panel panel-info" id="expression">
+		<div class="panel-heading">
+			<strong>expression</strong>
+		</div>
 		<div class="panel-body">
 			<div class="btn-group-vertical" role="group">
-					<button type="button" class="btn btn-default active" ng-click="draw_exp_source()">Source</button>
-                                        <button type="button" class="btn btn-default" ng-click="draw_source_mv()">Source_mv_exo</button>
-                                        <button type="button" class="btn btn-default" ng-click="draw_exp_cancer()">Cancer</button>
-                                        <button type="button" class="btn btn-default" ng-click="draw_celline()">cell line</button>
+					<button type="button" class="btn btn-default" class="source" ng-click="draw_exp_source()">Source</button>
+                                        <button type="button" class="btn btn-default" class="source_mv" ng-click="draw_source_mv()">Source_mv_exo</button>
+                                        <button type="button" class="btn btn-default"  class="cancer" ng-click="draw_exp_cancer()">Cancer</button>
+                                        <button type="button" class="btn btn-default" class="cellline" ng-click="draw_celline()">cell line</button>
 			</div>
 			<div class="row">
 				<div class="col-md-3 col-lg-3 col-xs-3 col-sm-3"></div>
