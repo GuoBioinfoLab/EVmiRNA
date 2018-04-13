@@ -3,20 +3,18 @@
 angular.module('EVmiRNA')
     .controller('HomeController', HomeController);
 
-function HomeController($scope,$http,EVmiRNAService) {
+function HomeController($scope,$http,$routeParams,EVmiRNAService) {
     console.log("HomeController loaded");
-
+    var sampleNo = $routeParams.sample;
     $scope.get_list = function () {
-        var sc = '';
-         sc = $scope.sc;
          $http({
-             url:  '/api/test',
+             url:  '/api/samplerun',
              method: 'GET',
-             params: {sc:sc}
+	     params:{sample:sampleNo}
          }).then(
             function (response) {
             console.log(response);
-            $scope.sc_list = response.data;
+            $scope.runlist = response.data.sample_run_list;
              }
         )
      };

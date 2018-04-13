@@ -26,7 +26,7 @@ class miRNAList(Resource):
 	def get(self):
 		result = []
 		path = os.path.abspath('.')
-		ultipath = path+"/EVmiRNA/static/EVmiRNA/data/mirnalist.txt"
+		ultipath = path+"/EVmiRNA/static/EVmiRNA/js/mirnalist.txt"
 		mirnalist = open(ultipath,"r")
 		for line in mirnalist.readlines():
 			line = line.strip()
@@ -65,6 +65,29 @@ class Browse(Resource):
         return result
 
 api.add_resource(Browse,'/api/browse')
+
+###sample_run information
+sample_run_fields = {
+	"sample":fields.String,
+	"Run":fields.String,
+	"id":fields.String
+}
+sample_run_list_fields = {
+	"sample_run_list":fields.List(fields.Nested(sample_run_fields))
+}
+class SampleRun(Resource):
+	@marshal_with(sample_run_list_fields)
+	def get(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument("sample",type= str,default = "50")
+		args = parser.parse_args()
+		condition = {}
+		if args["sample"]:
+			condition["sample"] = args["sample"]
+			result = list(mongo.db.sample_run.find(condition))
+		return {"sample_run_list":result}
+api.add_resource(SampleRun,"/api/samplerun")
+		
 
 ### acquire the whole list of mirna
 mirna_fields = {
@@ -156,7 +179,8 @@ miR_target_fields = {
 }
 
 miR_target_list_fields = {
-	'mir_target_list' : fields.List(fields.Nested(miR_target_fields))
+	'mir_target_list' : fields.List(fields.Nested(miR_target_fields)),
+	'records_num' : fields.Integer
 }
 
 class mirna_target_list(Resource):
@@ -164,15 +188,24 @@ class mirna_target_list(Resource):
 	def get(self):
 		parser = reqparse.RequestParser()
 		parser.add_argument('mirna', type = str)
+		parser.add_argument("page",type=int,default=1)
+		parser.add_argument("per_page",type=int,default=15)
 		args = parser.parse_args()
+		page = args["page"]
+		per_page = args["per_page"]
+		record_skip = (page-1)*per_page
 		mongo.db.mir_target.ensure_index("target_start")
 		mongo.db.mir_target.ensure_index("target_end")
 		mongo.db.mir_target.ensure_index("target_symbol")
 		condition = {}
 		if args['mirna']:
 			condition = {'miRNA_id':args['mirna']}
-		mirna_target = list(mongo.db.mir_target.find(condition))
-		return {"mir_target_list":mirna_target}
+		mirna_target_list = mongo.db.mir_target.find(condition).skip(record_skip).limit(per_page)
+		records_number = mongo.db.mir_target.find(condition).count()
+		result = []
+		for item in mirna_target_list:
+			result.append(item)
+		return {"mir_target_list":result,"records_num":records_number}
 
 api.add_resource(mirna_target_list,"/api/mirna_target")
 

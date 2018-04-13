@@ -42,10 +42,29 @@
         </div>
 
     </div>
-
-
-
-    {$ sc_list $}
+    <div class="panel panel-default">
+	<div class="panel-heading">
+		<strong>sample run</strong>
+	</div>
+	<div class="panel-body">
+		<table class="table-borderd tagble-striped table-condensed">
+			<thead>
+				<tr>
+					<th>sample</th>
+					<th>id</th>
+					<th>Run</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in runlist">
+					<td>{$ item.sample $}</td>
+					<td>{$ item.id $}</td>
+					<td>{$ item.Run $}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+     </div>
 </div>
 
 

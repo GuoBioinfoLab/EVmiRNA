@@ -7,6 +7,32 @@ function MirnaController($http,$scope,$routeParams,EVmiRNAService){
 	console.log($routeParams.miRNA);
 	var base_url = EVmiRNAService.getAPIBaseUrl();
 	var query_mirna =  $routeParams.miRNA;
+	$scope.clear = function(){
+		$scope.one = 0;
+		$scope.two = 0;
+		$scope.three = 0;
+		$scope.four = 0;
+	};
+	$scope.one = 1;
+	$scope.show_one = function(refer){
+		$scope.clear();
+		if(refer == "one"){
+			$scope.one =1;
+		}
+		if(refer == "two"){
+			$scope.two = 1;
+			$scope.class_two = "active";
+		}
+		if(refer == "three"){
+			$scope.three = 1;
+			$scope.class_three = "active";
+		}
+		if(refer == "four"){
+			$scope.four = 1;
+			$scope.class_four = "active";
+		}
+	};
+	$("[data-toggle='popover']").popover();
 	$scope.error = 0;
 	$scope.query_miRNA = query_mirna;
 	$scope.fetch_miRNA = function(){
@@ -20,15 +46,35 @@ function MirnaController($http,$scope,$routeParams,EVmiRNAService){
 			$scope.mirna_basic_list = response.data.mirna_basic_list;
 			}
 		)};
-	$scope.fetch_mirTarget = function(){
+	$scope.fetch_mirnatarget = function(){
+		$http({
+			url:base_url+'/api/mirna_target',
+			method:'GET',
+			params:{mirna:query_mirna}
+		}).then(
+			function(response){
+				console.log(response);
+				$scope.mirna_target_list = response.data.mir_target_list;
+				$scope.records_number = response.data.records_num;
+			});
+	};
+	$scope.update_page = function(test,page,size,total){
+		var condition = {};
+		condition["mirna"] = query_mirna;
+		condition["page"] = page;
 		$http({
 			url: base_url+'/api/mirna_target',
 			method: 'GET',
-			params: {mirna:query_mirna}
+			params: condition
 		}).then(
 			function(response){
 			console.log(response);
+			var temp = response.data.mir_target_list;
+			if(temp.length == 0){
+				$scope.error=1;
+			}
 			$scope.mirna_target_list = response.data.mir_target_list;
+			$scope.records_number = response.data.records_num;
 			}
 		)};
 	$scope.fetch_pathway = function(){
@@ -286,8 +332,8 @@ function MirnaController($http,$scope,$routeParams,EVmiRNAService){
 	};
 	$scope.fetch_pubmed();
 	$scope.fetch_pathway();
+	$scope.fetch_mirnatarget();
 	$scope.fetch_miRNA();
-	$scope.fetch_mirTarget();
 	$scope.set_style =  function(){
 		$("#sequence").html($("#sequence").slice(0,1)+"<span style='color:red;'>"+$("#sequence").slice(1,7)+"</span>"+$("#sequence").slice(7));
 	};
