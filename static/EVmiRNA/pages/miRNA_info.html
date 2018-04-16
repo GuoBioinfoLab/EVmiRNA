@@ -1,4 +1,4 @@
-<div class="panel panel-info">
+<div class="panel panel-success">
 	<div class="panel-heading">
 		<strong>
 			Basic information of miRNA: {$ query_miRNA $}
@@ -15,23 +15,126 @@
 
                 <dt>precursor:</dt>
                 <dd>{$ miRNA.premirna $}</dd>
-				<dt>position:</dt>
-				<dd>{$ miRNA.start $} - {$ miRNA.end $}</dd>
-				<dt>family:</dt>
-				<dd>{$ miRNA.family $}</dd>
-				<dt>pre-miR sequence:</dt>
+		<dt>position:</dt>
+		<dd>{$ miRNA.start $} - {$ miRNA.end $}</dd>
+		<dt>family:</dt>
+		<dd>{$ miRNA.family $}</dd>
+		<dt>pre-miR sequence:</dt>
                 <dd style="word-wrap:break-word">{$ miRNA.pre_seq $}</dd>
-			</dl>
+		</dl>
+	</div>
+</div>
+	<div class="panel panel-info" id="target">
+		<div class="panel-heading">
+			<strong> miRNA target information</strong>
+		</div>
+		<div class="panel-body ">
+			<div class="col-lg-7"
+     				paging
+     				page="currentPage"
+     				page-size=30
+     				total="records_number"
+     				scroll-top="true"
+     				hide-if-empty="true"
+     				show-prev-next="true"
+     				show-first-last="true"
+     				text-title-page="Page {page} Hover Over"
+     				text-title-first="First hover"
+     				text-title-last="Last hover"
+     				text-title-next="Next hover"
+     				text-title-prev="Prev hover"
+     				show-prev-next="true"
+    				show-first-last="true"
+     				ul-class="pagination"
+     				active-class="active"
+     				disabled-class="disabled"
+     				paging-action="update_page('test',page,page-size,total)"
+			>
+			</div>
+			<div class="alert alert-danger alert-dismissible" role="alert" ng-show="error">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<strong>Sorry, your query item is not exist.</strong>
+			</div>
+			<table class="table text-center table-bordered table-striped table-hover table-responsive tablesorter tablesorter-bootstrap table-condensed" ng-show="mirna_target_list.length" data-striped="true" ts-wrapper >
+				<thead>
+				<tr>
+					<th class="col-md-2 text-center" ts-criteria="target chromosome">target chromosome</th>
+					<th class="col-md-3 text-center" >target start</th>
+					<th class="col-md-3 text-center">target end</th>
+					<th class="col-md-2 text-center">target symbol</th>
+					<th class="col-md-2 text-center">type</th>
+				    </tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="item in mirna_target_list  track by $index" ts-repeat>
+						<td>{$ item.target_chr $}</td>
+						<td>{$ item.target_start $}</td>
+						<td>{$ item.target_end $}</td>
+						<td>{$ item.target_symbol $}</td>
+						<td>{$ item.p_v $}</td>
+					</tr>
+					</tbody>
+			</table>
+			<div paging  class="col-lg-7"
+				     page="currentPage"
+				     page-size=30
+				     total="records_number"
+				     scroll-top="true"
+				     hide-if-empty="true"
+				     show-prev-next="true"
+				     show-first-last="true"
+				     text-title-page="Page {page} Hover Over"
+				     text-title-first="First hover"
+				     text-title-last="Last hover"
+				     text-title-next="Next hover"
+				     text-title-prev="Prev hover"
+				     show-prev-next="true"
+				     show-first-last="true"
+				     ul-class="pagination"
+				     active-class="active"
+				     disabled-class="disabled"
+				     paging-action="update_page('test',page,page-size,total)"
+				>
+			</div>
 		</div>
 	</div>
-	<div class="panel panel-success">
+	<div class="panel panel-info" id="expression">
 		<div class="panel-heading">
-			<strong>
-				pathway
-			</strong>
+			<strong>expression</strong>
 		</div>
 		<div class="panel-body">
-			<div style="overflow:scroll;width:100%;height:auto;max-height:300px;">
+		<div>
+			<div class="btn-group btn-group-justified" role="group">
+					<div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default" class="source" ng-click="draw_exp_source()">Source</button>
+					</div>
+					<div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default" class="source_mv" ng-click="draw_source_mv()">Source_mv_exo</button>
+					</div>
+					<div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default"  class="cancer" ng-click="draw_exp_cancer()">Cancer</button>
+					</div>
+					<div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default" class="cellline" ng-click="draw_celline()">cell line</button>
+					</div>
+                        </div>
+                        <div class="row">
+                                <div class="col-md-3 col-lg-3 col-xs-3 col-sm-3"></div>
+                                <div id="barContainer"  style="height:500px;text-align:center;"></div>
+				<div class="col-md-2 col-lg-2 col-xs-2 col-sm-2"></div>
+                        </div>
+
+		</div>
+		</div>
+	</div>
+		<div id="pathway" class="panel panel-info">
+		<div class="panel-heading">
+			<strong>pathway information</strong>
+		</div>
+		<div class="panel-body">
+			<div style="overflow:scroll;width:100%;height:auto;max-height:500px;">
 				<table class="table table-bordered table-striped" style="table-layout:fixed;">
 					<thead>
 					<tr>
@@ -55,80 +158,17 @@
 			</div>
 		</div>
 	</div>
-	<div class="panel panel-success">
+	<div class="panel panel-info" id="publication">
 		<div class="panel-heading">
-			<strong>
-				target
-			</strong>
-		</div>
-		<div class="panel-body ">
-			<div style="overflow:auto;width:100%;height:auto;max-height:300px">
-				<table class="table text-center table-bordered table-striped table-condensed" >
-				<thead>
-				<tr>
-					<th class="col-md-2 text-center">target chromosome</th>
-					<th class="col-md-3 text-center" >target start</th>
-					<th class="col-md-3 text-center">target end</th>
-					<th class="col-md-2 text-center">target symbol</th>
-					<th class="col-md-2 text-center">type</th>
-				    </tr>
-					</thead>
-					<tbody>
-					<tr ng-repeat="item in mirna_target_list  track by $index">
-						<td>{$ item.target_chr $}</td>
-						<td>{$ item.target_start $}</td>
-						<td>{$ item.target_end $}</td>
-						<td>{$ item.target_symbol $}</td>
-						<td>{$ item.p_v $}</td>
-					</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-	<div class="panel panel-success">
-		<div class="panel-heading">
-			<strong>
-				pubmed infomation:
-			</strong>
+			<strong>publication</strong>
 		</div>
 		<div class="panel-body">
-			<div style="overflow:auto;width:100%;height:auto;max-height:300px;">
-				<table class="table table-bordered table-striped table-condensed">
-				<thead>
-				<tr>
-					<th>PMID</th>
-					<th>title</th>
-					<th>journal</th>
-					<th>year</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr ng-repeat="item in mirna_pubmed_list">
-					<td>{$ item.PMID $}</td>
-					<td><a href="https://www.ncbi.nlm.nih.gov/pubmed/?term={$ item.PMID $}" class="col" target="_blank">{$ item.title $}</a></td>
-					<td>{$ item.journal $}</td>
-					<td>{$ item.year $}</td>
-				</tr>
-				</tbody>
-				</table>
+			<div style="width:100%;height:auto;">
+				<ol ng-repeat="item in mirna_pubmed_list">
+					<li><a href="https://www.ncbi.nlm.nih.gov/pubmed/?term={$ item.PMID $}" class="col" target="_blank"><strong>{$ item.title $}</strong></a><br>
+					PMID:{$ item.PMID $}&nbsp;&nbsp;&nbsp;&nbsp;journal:{$ item.journal $}&nbsp;&nbsp;year:{$ item.year $}</li>
+				</ol>
 			</div>
 		</div>
 	</div>
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<strong> mirna expression </strong>
-		</div>
-		<div class="panel-body">
-			<div class="btn-group" role="group">
-					<button type="button" class="btn btn-default active" ng-click="draw_exp_source()">Source</button>
-                                        <button type="button" class="btn btn-default" ng-click="draw_source_mv()">Source_mv_exo</button>
-                                        <button type="button" class="btn btn-default" ng-click="draw_exp_cancer()">Cancer</button>
-                                        <button type="button" class="btn btn-default" ng-click="draw_celline()">cell line</button>
-			</div>
-			<div class="row">
-				<div class="col-md-3 col-lg-3 col-xs-3 col-sm-3"></div>
-				<div id="barContainer"  style="height:500px;text-align:center;"></div>
-			</div>
-		</div>
-	</div>
+
