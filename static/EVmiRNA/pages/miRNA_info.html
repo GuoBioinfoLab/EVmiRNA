@@ -120,10 +120,23 @@
                                         <button type="button" class="btn btn-default" class="cellline" ng-click="draw_celline()">cell line</button>
 					</div>
                         </div>
+			<div class="btn-group btn-group-justified" role="group">
+                                        <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default" class="source" ng-click="expSourceBox()">Source Box</button>
+                                        </div>
+                                        <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default" class="source_mv" ng-click="expSourcemvBox()">Source_mv_exo Box</button>
+                                        </div>
+                                        <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default"  class="cancer" ng-click="expCancerBox()">Cancer Box</button>
+                                        </div>
+                                        <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default" class="cellline" ng-click="expCelllineBox()">Cell line Box</button>
+                                        </div>
+                        </div>
+
                         <div class="row">
-                                <div class="col-md-3 col-lg-3 col-xs-3 col-sm-3"></div>
                                 <div id="barContainer"  style="height:500px;text-align:center;"></div>
-				<div class="col-md-2 col-lg-2 col-xs-2 col-sm-2"></div>
                         </div>
 
 		</div>
@@ -163,12 +176,13 @@
 			<strong>publication</strong>
 		</div>
 		<div class="panel-body">
-			<div style="width:100%;height:auto;">
-				<ol ng-repeat="item in mirna_pubmed_list">
-					<li><a href="https://www.ncbi.nlm.nih.gov/pubmed/?term={$ item.PMID $}" class="col" target="_blank"><strong>{$ item.title $}</strong></a><br>
-					PMID:{$ item.PMID $}&nbsp;&nbsp;&nbsp;&nbsp;journal:{$ item.journal $}&nbsp;&nbsp;year:{$ item.year $}</li>
+			<div style="width:100%;height:500px;overflow:scroll;">
+				<ol>
+					<li ng-repeat="item in mirna_pubmed_list">
+					<a href="https://www.ncbi.nlm.nih.gov/pubmed/?term={$ item.PMID $}" class="col" target="_blank"><strong>{$ item.title $}</strong></a><br>
+					PMID:{$ item.PMID $}&nbsp;&nbsp;&nbsp;&nbsp;{$ item.journal $}&nbsp;&nbsp;{$ item.year $}<br>
+					</li>
 				</ol>
 			</div>
 		</div>
 	</div>
-

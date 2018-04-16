@@ -244,6 +244,7 @@ miR_pubmed_fields = {
 	'journal':fields.String(attribute='jt'),
 	'year':fields.String,
 	'PMID':fields.String,
+	'ab':fields.String
 }
 
 miR_pubmed_list_fields = {
@@ -256,12 +257,19 @@ class mirna_pubmed_list(Resource):
 		parser = reqparse.RequestParser()
 		parser.add_argument('mirna',type=str)
 		args = parser.parse_args()
-		condition = {}
+		result = []
 		if args['mirna']:
 			string = args['mirna'].replace('hsa-miR','MiR')
-			condition = { 'miRNA_id': string}
-		mirna_pubmed = list(mongo.db.mir_pm.find(condition))
-		return {"mir_pubmed_list":mirna_pubmed}
+		mirna_pubmed = list(mongo.db.mir_pm.find({"miRNA_id":{'$regex':string,'$options':'i'}}))
+		for item in mirna_pubmed:
+			result.append(item)
+		templist = string.split('-')
+		mirna_ambiguous = templist[0]+"-"+templist[1]
+		mirna_pubmed_add = list(mongo.db.mir_pm.find({"miRNA_id":{'$regex':mirna_ambiguous,'$options':'i'}}))
+		for itema in mirna_pubmed_add:
+			if  itema not in result:
+				result.append(itema)
+		return {"mir_pubmed_list":result}
 api.add_resource(mirna_pubmed_list,"/api/mirna_pubmed")
 
 

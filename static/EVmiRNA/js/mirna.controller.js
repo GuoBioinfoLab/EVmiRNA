@@ -7,7 +7,6 @@ function MirnaController($http,$scope,$routeParams,EVmiRNAService){
 	console.log($routeParams.miRNA);
 	var base_url = EVmiRNAService.getAPIBaseUrl();
 	var query_mirna =  $routeParams.miRNA;
-	$("[data-toggle='popover']").popover();
 	$scope.error = 0;
 	$scope.query_miRNA = query_mirna;
 	$scope.fetch_miRNA = function(){
@@ -305,6 +304,240 @@ function MirnaController($http,$scope,$routeParams,EVmiRNAService){
 		}
 		sourcemvbar();
 	};
+	$scope.expSourceBox = function(){
+		$http({
+			url:base_url+"/api/sourceall",
+			method:"GET",
+			params:{mirna:query_mirna}
+		}).then(
+			function(response){
+				console.log(response);
+				$scope.sourceAllList = response.data.source_all_list;
+				var dataPoints = [];
+				var outliner = [];
+				var l = $scope.sourceAllList.length;
+				for (var n = 0;n<l;n++){
+					dataPoints.push({
+						x:n,
+						label:$scope.sourceAllList[n].source,
+						y:[
+							$scope.sourceAllList[n].min,
+							$scope.sourceAllList[n].Q1,
+							$scope.sourceAllList[n].Q3,
+							$scope.sourceAllList[n].max,
+							$scope.sourceAllList[n].Q2
+						]
+					});
+					var outlinerL = $scope.sourceAllList[n].outliner.length;
+					if(outlinerL >0){
+						for(var nn = 0; nn<outlinerL;nn++){
+							outliner.push({
+								x:n,
+								label:$scope.sourceAllList[n].source,
+								y:Number($scope.sourceAllList[n].outliner[nn])
+							})
+						}
+					}
+				}
+				console.log(outliner);
+				var chart = new CanvasJS.Chart("barContainer",{
+					animationEnabled:true,
+					theme:"light2",
+					axisY:{
+						title:$scope.sourceAllList[0].miRNA_id+" "+"expression"
+					},
+					axisX:{
+						interval:1
+					},
+					data:[{
+						type:"boxAndWhisker",
+						dataPoints: dataPoints
+					},
+					{
+						type:"scatter",
+						dataPoints: outliner
+					}]
+				});
+				chart.render();
+			}
+		);
+	};
+	$scope.expSourcemvBox = function(){
+		$http({
+			url:base_url+"/api/sourcemvexp",
+			method:"GET",
+			params:{mirna:query_mirna}
+		}).then(
+			function(response){
+				console.log(response);
+				$scope.sourcemvAllList = response.data.sourcemv_all_list;
+				var dataPoints = [];
+				var outliner = [];
+				var l = $scope.sourcemvAllList.length;
+				for (var n = 0;n<l;n++){
+					dataPoints.push({
+						x:n,
+						label:$scope.sourcemvAllList[n].source,
+						y:[
+							$scope.sourcemvAllList[n].min,
+							$scope.sourcemvAllList[n].Q1,
+							$scope.sourcemvAllList[n].Q3,
+							$scope.sourcemvAllList[n].max,
+							$scope.sourcemvAllList[n].Q2
+						]
+					});
+					var outlinerL = $scope.sourcemvAllList[n].outliner.length;
+					if(outlinerL >0){
+						for(var nn = 0; nn<outlinerL;nn++){
+							outliner.push({
+								x:n,
+								label:$scope.sourcemvAllList[n].source,
+								y:Number($scope.sourcemvAllList[n].outliner[nn])
+							})
+						}
+					}
+				}
+				var chart = new CanvasJS.Chart("barContainer",{
+					animationEnabled:true,
+					theme:"light2",
+					axisY:{
+						title:$scope.sourcemvAllList[0].miRNA_id+" "+"expression"
+					},
+					axisX:{
+						interval:1
+					},
+					data:[{
+						type:"boxAndWhisker",
+						dataPoints: dataPoints
+					},
+					{
+						type:"scatter",
+						dataPoints: outliner
+					}]
+				});
+				chart.render();
+			}
+		);
+	};
+	$scope.expCancerBox = function(){
+		$http({
+			url:base_url+"/api/deseaseexp",
+			method:"GET",
+			params:{mirna:query_mirna}
+		}).then(
+			function(response){
+				console.log(response);
+				$scope.deseaseAllList = response.data.desease_all_list;
+				var dataPoints = [];
+				var outliner = [];
+				var l = $scope.deseaseAllList.length;
+				for (var n = 0;n<l;n++){
+					dataPoints.push({
+						x:n,
+						label:$scope.deseaseAllList[n].source,
+						y:[
+							$scope.deseaseAllList[n].min,
+							$scope.deseaseAllList[n].Q1,
+							$scope.deseaseAllList[n].Q3,
+							$scope.deseaseAllList[n].max,
+							$scope.deseaseAllList[n].Q2
+						]
+					});
+					var outlinerL = $scope.deseaseAllList[n].outliner.length;
+					if(outlinerL >0){
+						for(var nn = 0; nn<outlinerL;nn++){
+							outliner.push({
+								x:n,
+								label:$scope.deseaseAllList[n].source,
+								y:Number($scope.deseaseAllList[n].outliner[nn])
+							})
+						}
+					}
+				}
+				console.log(outliner);
+				var chart = new CanvasJS.Chart("barContainer",{
+					animationEnabled:true,
+					theme:"light2",
+					axisY:{
+						title:$scope.deseaseAllList[0].miRNA_id+" "+"expression"
+					},
+					axisX:{
+						interval:1
+					},
+					data:[{
+						type:"boxAndWhisker",
+						dataPoints: dataPoints
+					},
+					{
+						type:"scatter",
+						dataPoints: outliner
+					}]
+				});
+				chart.render();
+			}
+		);
+	};
+	$scope.expCelllineBox = function(){
+		$http({
+			url:base_url+"/api/cell_line_exp",
+			method:"GET",
+			params:{mirna:query_mirna}
+		}).then(
+			function(response){
+				console.log(response);
+				$scope.celllineAllList = response.data.cellLine_all_list;
+				var dataPoints = [];
+				var outliner = [];
+				var l = $scope.celllineAllList.length;
+				for (var n = 0;n<l;n++){
+					dataPoints.push({
+						x:n,
+						label:$scope.celllineAllList[n].source,
+						y:[
+							$scope.celllineAllList[n].min,
+							$scope.celllineAllList[n].Q1,
+							$scope.celllineAllList[n].Q3,
+							$scope.celllineAllList[n].max,
+							$scope.celllineAllList[n].Q2
+						]
+					});
+					var outlinerL = $scope.celllineAllList[n].outliner.length;
+					if(outlinerL >0){
+						for(var nn = 0; nn<outlinerL;nn++){
+							outliner.push({
+								x:n,
+								label:$scope.celllineAllList[n].source,
+								y:Number($scope.celllineAllList[n].outliner[nn])
+							})
+						}
+					}
+				}
+				console.log(outliner);
+				var chart = new CanvasJS.Chart("barContainer",{
+					animationEnabled:true,
+					theme:"light2",
+					axisY:{
+						title:$scope.celllineAllList[0].miRNA_id+" "+"expression"
+					},
+					axisX:{
+						interval:1
+					},
+					data:[{
+						type:"boxAndWhisker",
+						dataPoints: dataPoints
+					},
+					{
+						type:"scatter",
+						dataPoints: outliner
+					}]
+				});
+				chart.render();
+			}
+		);
+	};
+	$(function (){
+    		$("[data-toggle='popover']").popover();
+	});
 	$scope.draw_exp_source();
 	$scope.fetch_pubmed();
 	$scope.fetch_pathway();
