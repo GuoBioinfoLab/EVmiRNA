@@ -1,4 +1,4 @@
-<div class="panel panel-info">
+<div class="panel panel-success">
 	<div class="panel-heading">
 		<strong>
 			Basic information of miRNA: {$ query_miRNA $}
@@ -60,7 +60,7 @@
 			<table class="table text-center table-bordered table-striped table-hover table-responsive tablesorter tablesorter-bootstrap table-condensed" ng-show="mirna_target_list.length" data-striped="true" ts-wrapper >
 				<thead>
 				<tr>
-					<th class="col-md-2 text-center">target chromosome</th>
+					<th class="col-md-2 text-center" ts-criteria="target chromosome">target chromosome</th>
 					<th class="col-md-3 text-center" >target start</th>
 					<th class="col-md-3 text-center">target end</th>
 					<th class="col-md-2 text-center">target symbol</th>
@@ -100,7 +100,34 @@
 			</div>
 		</div>
 	</div>
-	<div id="pathway" class="panel panel-info">
+	<div class="panel panel-info" id="expression">
+		<div class="panel-heading">
+			<strong>expression</strong>
+		</div>
+		<div class="panel-body">
+		<div>
+			<div class="btn-group btn-group-justified" role="group">
+					<div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default" class="source" ng-click="draw_exp_source()">Source</button>
+					</div>
+					<div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default" class="source_mv" ng-click="draw_source_mv()">Source_mv_exo</button>
+					</div>
+					<div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default"  class="cancer" ng-click="draw_exp_cancer()">Cancer</button>
+					</div>
+					<div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default" class="cellline" ng-click="draw_celline()">cell line</button>
+					</div>
+                        </div>
+                        <div class="row">
+                                <div class="col-md-3 col-lg-3 col-xs-3 col-sm-3"></div>
+                                <div id="barContainer"  style="height:500px;text-align:center;"></div>
+				<div class="col-md-2 col-lg-2 col-xs-2 col-sm-2"></div>
+                        </div>
+
+		</div>
+		<div id="pathway" class="panel panel-info">
 		<div class="panel-heading">
 			<strong>pathway information</strong>
 		</div>
@@ -142,20 +169,4 @@
 			</div>
 		</div>
 	</div>
-	<div class="panel panel-info" id="expression">
-		<div class="panel-heading">
-			<strong>expression</strong>
-		</div>
-		<div class="panel-body">
-			<div class="btn-group-vertical" role="group">
-					<button type="button" class="btn btn-default" class="source" ng-click="draw_exp_source()">Source</button>
-                                        <button type="button" class="btn btn-default" class="source_mv" ng-click="draw_source_mv()">Source_mv_exo</button>
-                                        <button type="button" class="btn btn-default"  class="cancer" ng-click="draw_exp_cancer()">Cancer</button>
-                                        <button type="button" class="btn btn-default" class="cellline" ng-click="draw_celline()">cell line</button>
-			</div>
-			<div class="row">
-				<div class="col-md-3 col-lg-3 col-xs-3 col-sm-3"></div>
-				<div id="barContainer"  style="height:500px;text-align:center;"></div>
-			</div>
-		</div>
-	</div>
+</div>
