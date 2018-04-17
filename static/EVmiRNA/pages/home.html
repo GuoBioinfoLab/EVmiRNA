@@ -59,7 +59,7 @@
 				<tr ng-repeat="item in runlist">
 					<td>{$ item.sample $}</td>
 					<td>{$ item.id $}</td>
-					<td>{$ item.Run $}</td>
+					<td><a href="https://www.ncbi.nlm.nih.gov/sra/?term={$ item.Run $}">{$ item.Run $} </a> </td>
 				</tr>
 			</tbody>
 		</table>
