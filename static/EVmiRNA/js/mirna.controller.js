@@ -328,15 +328,17 @@ function MirnaController($http,$scope,$routeParams,EVmiRNAService){
 							$scope.sourceAllList[n].Q2
 						]
 					});
-					var outlinerL = $scope.sourceAllList[n].outliner.length;
-					if(outlinerL >0){
-						for(var nn = 0; nn<outlinerL;nn++){
-							outliner.push({
-								x:n,
-								label:$scope.sourceAllList[n].source,
-								y:Number($scope.sourceAllList[n].outliner[nn])
+					if($("input[name='outliner']:checked").val() == 1){
+						var outlinerL = $scope.sourceAllList[n].outliner.length;
+						if(outlinerL >0){
+							for(var nn = 0; nn<outlinerL;nn++){
+								outliner.push({
+									x:n,
+									label:$scope.sourceAllList[n].source,
+									y:Number($scope.sourceAllList[n].outliner[nn])
 							})
-						}
+							}
+					}	
 					}
 				}
 				console.log(outliner);
@@ -386,6 +388,7 @@ function MirnaController($http,$scope,$routeParams,EVmiRNAService){
 							$scope.sourcemvAllList[n].Q2
 						]
 					});
+					if($("input[name='outliner']:checked").val() == 1){
 					var outlinerL = $scope.sourcemvAllList[n].outliner.length;
 					if(outlinerL >0){
 						for(var nn = 0; nn<outlinerL;nn++){
@@ -395,6 +398,7 @@ function MirnaController($http,$scope,$routeParams,EVmiRNAService){
 								y:Number($scope.sourcemvAllList[n].outliner[nn])
 							})
 						}
+					}
 					}
 				}
 				var chart = new CanvasJS.Chart("barContainer",{
@@ -443,6 +447,7 @@ function MirnaController($http,$scope,$routeParams,EVmiRNAService){
 							$scope.deseaseAllList[n].Q2
 						]
 					});
+					if($("input[name='outliner']:checked").val() == 1){
 					var outlinerL = $scope.deseaseAllList[n].outliner.length;
 					if(outlinerL >0){
 						for(var nn = 0; nn<outlinerL;nn++){
@@ -452,7 +457,7 @@ function MirnaController($http,$scope,$routeParams,EVmiRNAService){
 								y:Number($scope.deseaseAllList[n].outliner[nn])
 							})
 						}
-					}
+					}}
 				}
 				console.log(outliner);
 				var chart = new CanvasJS.Chart("barContainer",{
@@ -501,6 +506,7 @@ function MirnaController($http,$scope,$routeParams,EVmiRNAService){
 							$scope.celllineAllList[n].Q2
 						]
 					});
+					if($("input[name='outliner']:checked").val() == 1)
 					var outlinerL = $scope.celllineAllList[n].outliner.length;
 					if(outlinerL >0){
 						for(var nn = 0; nn<outlinerL;nn++){
