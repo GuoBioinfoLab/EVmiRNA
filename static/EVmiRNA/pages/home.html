@@ -1,8 +1,9 @@
 <div class="bs-docs-header">
 
-    <!--introduce the database, and what you can do, use word and pic --!>
+
+
     <div class="row">
-        <!-- introduce database  --!>
+
         <div class="col-md-6">
 
         <div class="panel panel-default">
@@ -21,7 +22,7 @@
 
         </div>
 
-        <!-- what you can do --!>        
+
         <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -59,12 +60,69 @@
 				<tr ng-repeat="item in runlist">
 					<td>{$ item.sample $}</td>
 					<td>{$ item.id $}</td>
-					<td>{$ item.Run $}</td>
+					<td><a href="https://www.ncbi.nlm.nih.gov/sra/?term={$ item.Run $}" target="_blank">{$ item.Run $} </a> </td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-     </div>
+    </div>
+
+    <div class="panel panel-info">
+		<div class="panel-heading">
+			<strong> RNA ratio in each sample</strong>
+		</div>
+        <div class="panel-body">
+             		<div class="col-lg-7"
+                                paging
+                                page="currentPage"
+                                page-size=30
+                                total="records_number"
+                                scroll-top="true"
+                                hide-if-empty="true"
+                                show-prev-next="true"
+                                show-first-last="true"
+                                text-title-page="Page {page} Hover Over"
+                                text-title-first="First hover"
+                                text-title-last="Last hover"
+                                text-title-next="Next hover"
+                                text-title-prev="Prev hover"
+                                show-prev-next="true"
+                                show-first-last="true"
+                                ul-class="pagination"
+                                active-class="active"
+                                disabled-class="disabled"
+                                paging-action="update_page('test',page,page-size,total)"
+                        >
+                        </div>
+			<table class="table">
+				<thead>
+				    <tr>
+					<th >Sample</th>
+					<th >rRNA</th>
+					<th >snRNA</th>
+					<th >tRNA</th>
+					<th >piRNA</th>
+                    <th>snoRNA</th>
+                    <th >known_miRNA</th>
+                    <th >unann</th>
+				    </tr>
+                </thead>
+                <tbody>
+					<tr ng-repeat="item in sample_RNA_ratio_list">
+						<td>{$ item.Sample $}</td>
+						<td>{$ item.rRNA $}</td>
+						<td>{$ item.snRNA $}</td>
+						<td>{$ item.tRNA $}</td>
+						<td>{$ item.piRNA $}</td>
+                        <td>{$ item.snoRNA $}</td>
+                        <td>{$ item.known_miRNA $}</td>
+                        <td>{$ item.unann $}</td>
+					</tr>
+                </tbody>
+			</table>
+        </div>
+	</div>
+
 </div>
 
 

@@ -66,6 +66,38 @@ class Browse(Resource):
 
 api.add_resource(Browse,'/api/browse')
 
+###RNA_ratio
+sample_RNA_ratio_fields = {
+        "known_miRNA" : fields.String,
+        "rRNA" : fields.String,
+        "snRNA" : fields.String,
+        "tRNA" : fields.String,
+        "piRNA" : fields.String,
+        "number" : fields.Integer,
+        "Sample" : fields.String,
+        "unann" : fields.String,
+        "snoRNA" : fields.String,
+}
+sample_RNA_ratio_list_fields = {
+        "sample_RNA_ratio_list":fields.List(fields.Nested(sample_RNA_ratio_fields)),
+	"records_num":fields.Integer
+}
+class RNAratio(Resource):
+        @marshal_with(sample_RNA_ratio_list_fields)
+        def get(self):
+                parser = reqparse.RequestParser()
+                parser.add_argument("page", type=int, default=1)
+                parser.add_argument("per_page", type=int, default=15)
+                args = parser.parse_args()
+                page = args["page"]
+                per_page = args["per_page"]
+                record_skip = (page - 1) * per_page
+                result = list(mongo.db.RNA_ratio.find().sort([("number",1)]).skip(record_skip).limit(per_page))
+                records_number = mongo.db.RNA_ratio.find().count()
+                return {"sample_RNA_ratio_list":result,"records_num":records_number}
+api.add_resource(RNAratio,"/api/rnaratio")
+
+
 ###sample_run information
 sample_run_fields = {
 	"sample":fields.String,
@@ -200,7 +232,7 @@ class mirna_target_list(Resource):
 		condition = {}
 		if args['mirna']:
 			condition = {'miRNA_id':args['mirna']}
-		mirna_target_list = mongo.db.mir_target.find(condition).skip(record_skip).limit(per_page)
+		mirna_target_list = mongo.db.mir_target.find(condition).sort([("target_chr",1),("target_start",1),("target_end",1)]).skip(record_skip).limit(per_page)
 		records_number = mongo.db.mir_target.find(condition).count()
 		result = []
 		for item in mirna_target_list:
