@@ -379,7 +379,7 @@ function MirnaController($http,$scope,$routeParams,EVmiRNAService){
 				for (var n = 0;n<l;n++){
 					dataPoints.push({
 						x:n,
-						label:$scope.sourcemvAllList[n].source,
+						label:$scope.sourcemvAllList[n].sourcemv,
 						y:[
 							$scope.sourcemvAllList[n].min,
 							$scope.sourcemvAllList[n].Q1,
@@ -438,7 +438,7 @@ function MirnaController($http,$scope,$routeParams,EVmiRNAService){
 				for (var n = 0;n<l;n++){
 					dataPoints.push({
 						x:n,
-						label:$scope.deseaseAllList[n].source,
+						label:$scope.deseaseAllList[n].desease,
 						y:[
 							$scope.deseaseAllList[n].min,
 							$scope.deseaseAllList[n].Q1,
@@ -497,7 +497,7 @@ function MirnaController($http,$scope,$routeParams,EVmiRNAService){
 				for (var n = 0;n<l;n++){
 					dataPoints.push({
 						x:n,
-						label:$scope.celllineAllList[n].source,
+						label:$scope.celllineAllList[n]["cell line"],
 						y:[
 							$scope.celllineAllList[n].min,
 							$scope.celllineAllList[n].Q1,
