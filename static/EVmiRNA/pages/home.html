@@ -43,29 +43,7 @@
         </div>
 
     </div>
-    <div class="panel panel-info">
-	<div class="panel-heading">
-		<strong>sample run</strong>
-	</div>
-	<div class="panel-body">
-		<table class="table-borderd tagble-striped table-condensed text-center">
-			<thead>
-				<tr>
-					<th class="col-md-3 text-center">Sample NO.</th>
-					<th class="col-md-3 text-center">Sample_id</th>
-					<th class="col-md-3 text-center">Run</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="item in runlist">
-					<td>{$ item.sample $}</td>
-					<td>{$ item.id $}</td>
-					<td><a href="https://www.ncbi.nlm.nih.gov/sra/?term={$ item.Run $}" target="_blank">{$ item.Run $} </a> </td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-    </div>
+	
 
     <div class="panel panel-info">
 		<div class="panel-heading">
@@ -122,6 +100,34 @@
 			</table>
         </div>
 	</div>
+	
+	
+	
+	
+    <div class="panel panel-info">
+	<div class="panel-heading">
+		<strong>sample run</strong>
+	</div>
+	<div class="panel-body">
+		<table class="table-borderd tagble-striped table-condensed text-center">
+			<thead>
+				<tr>
+					<th class="col-md-3 text-center">Sample NO.</th>
+					<th class="col-md-3 text-center">Sample_id</th>
+					<th class="col-md-3 text-center">Run</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in runlist">
+					<td>{$ item.sample $}</td>
+					<td>{$ item.id $}</td>
+					<td><a href="https://www.ncbi.nlm.nih.gov/sra/?term={$ item.Run $}" target="_blank">{$ item.Run $} </a> </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+    </div>
+
 
 </div>
 
