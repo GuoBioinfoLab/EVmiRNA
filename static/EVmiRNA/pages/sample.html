@@ -4,6 +4,15 @@
 			<strong>Source:{$ source $}</strong>
 		</div>
 		<div class="panel panel-body">
+			<div id="sourceContainer" style="height:300px;width:100%;"></div>
+			<hr/>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<span style="color:Indigo;"><strong>You may be interested in:</strong></span><br><span ng-repeat="item in interestlist"><a href="#!miRNA_info?miRNA={$ item $}" target="_blank">{$ item $}</a>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				</div>
+			</div>
+			<hr/>
+			<div style="height:500px;width:100%;overflow:scroll;">
 			<table class="table table-striped table-condensed">
 				<thead>
 				<tr>
@@ -18,6 +27,7 @@
 					</tr>
 				</tbody>
 			</table>
+			</div>
 		</div>
 	</div>
 </div>
@@ -27,6 +37,15 @@
 			<strong>Cell Line:{$ cellline $}</strong>
 		</div>
 		<div class="panel panel-body">
+			<div id="celllineContainer" style="height:300px;width:100%;"></div>
+			<hr/>
+			<div class="panel panel-default">
+                                <div class="panel-body">
+                                        <span style="color:Indigo;"><strong>You may be interested in:</strong></span><br><span ng-repeat="item in interestlistcl"><a href="#!miRNA_info?miRNA={$ item $}" target="_blank">{$ item $}</a>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                </div>
+                        </div>
+                        <hr/>
+			<div style="height:500px;width:100%;overflow:scroll;">
 			<table class="table table-striped table-condensed">
 				<thead>
 					<tr>
@@ -41,15 +60,25 @@
 					</tr>
 				</tbody>
 			</table>
+			</div>
 		</div>
 	</div>
 </div>
 <div ng-show="three">
 	<div class="panel panel-success">
 		<div class="panel panel-heading">
-			<strong>Disease:{$ desease $}</strong>
+			<strong>Desease:{$ desease $}</strong>
 		</div>
 		<div class="panel panel-body">
+			<div id="deseaseContainer" style="height:300px;width:100%;"></div>	
+			<hr/>
+			<div class="panel panel-default">
+                                <div class="panel-body">
+                                        <span style="color:Indigo;"><strong>You may be interested in:</strong></span><br><span ng-repeat="item in interestlistds"><a href="#!miRNA_info?miRNA={$ item $}" target="_blank">{$ item $}</a>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                </div>
+                        </div>
+                        <hr/>
+			<div style="height:500px;width:100%;overflow:scroll;">
 			<table class="table table-striped table-condensed">
 				<thead>
 					<tr>
@@ -64,6 +93,7 @@
 					</tr>
 				</tbody>
 			</table>
+			</div>
 		</div>
 	</div>
 </div>			
