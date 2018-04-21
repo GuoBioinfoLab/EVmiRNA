@@ -164,6 +164,7 @@ class mirna_info(Resource):
 	def get(self):
 		parser = reqparse.RequestParser()
 		parser.add_argument('mirna',type = str)
+		parser.add_argument('family',type=str)
 		args = parser.parse_args()
 		condition = {}
 		if args['mirna']:
@@ -184,11 +185,16 @@ class mirna_info_list(Resource):
 	def get(self):
 		parser = reqparse.RequestParser()
 		parser.add_argument('mirna', type = str)
+		parser.add_argument('family',type=str)
 		args = parser.parse_args()
 		condition = {}
+		mirna_list = []
 		if args['mirna']:
 			condition = { 'miRNA_id':args['mirna']}
-		mirna_list = list(mongo.db.mir_annotation.find(condition))
+			mirna_list = list(mongo.db.mir_annotation.find(condition))
+		if args['family']:
+			condition = { 'miRNA_fam':args['family']}
+			mirna_list = list(mongo.db.mir_annotation.find(condition))
 		mirna_info=[]
 		for item in mirna_list:
 			sequence = list(item["miRNA_seq"])
@@ -230,10 +236,11 @@ class mirna_target_list(Resource):
 		mongo.db.mir_target.ensure_index("target_end")
 		mongo.db.mir_target.ensure_index("target_symbol")
 		condition = {}
+		mirna_target_list = []
 		if args['mirna']:
 			condition = {'miRNA_id':args['mirna']}
-		mirna_target_list = mongo.db.mir_target.find(condition).sort([("target_chr",1),("target_start",1),("target_end",1)]).skip(record_skip).limit(per_page)
-		records_number = mongo.db.mir_target.find(condition).count()
+			mirna_target_list = mongo.db.mir_target.find(condition).sort([("target_chr",1),("target_start",1),("target_end",1)]).skip(record_skip).limit(per_page)
+			records_number = mongo.db.mir_target.find(condition).count()
 		result = []
 		for item in mirna_target_list:
 			result.append(item)
@@ -771,3 +778,120 @@ class SourcemvExp(Resource):
 		return {"sourcemv_all_list":result}
 
 api.add_resource(SourcemvExp,"/api/sourcemvexp")
+
+### different mirnas' expression in the same source
+sourceexp_fields = {
+	"mirna":fields.String(attribute="miRNA_id"),
+	"source":fields.String,
+	"expression":fields.Float
+}
+sourceexp_list_fields = {
+	"sourceexp_list":fields.List(fields.Nested(sourceexp_fields)),
+	"records_num":fields.Integer
+}
+class SourceExp(Resource):
+	@marshal_with(sourceexp_list_fields)
+	def get(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument("source",type= str)
+		args = parser.parse_args()
+		result = []
+		if args["source"]:
+			tempa = []
+			sourceSample = list(mongo.db.sample.find({"source":args["source"]}))
+			for l in sourceSample:
+				tempa.append(l["sample"])
+			mirnaExp = list(mongo.db.exp_all.find())
+			for ll in mirnaExp:
+				tempdict = {}
+				tempdict["miRNA_id"] = str(ll["miRNA_id"])
+				tempdict["source"] = args["source"]
+				sumexp = 0.0
+				number = 0
+				for lll in tempa:
+					sumexp  = sumexp + float(ll[lll])
+					number = number + 1
+				mean = sumexp/number
+				if mean > 0:
+					tempdict["expression"] = mean
+					result.append(tempdict)
+		return {"sourceexp_list":result,"records_num":len(result)}
+api.add_resource(SourceExp,"/api/sourceexp")
+
+### different mirnas' expression in the same cell line
+celllineexp_fields = {
+	"mirna":fields.String(attribute="miRNA_id"),
+	"cell_line":fields.String(attribute="cell line"),
+	"expression":fields.Float
+}
+celllineexp_list_fields = {
+	"celllineexp_list":fields.List(fields.Nested(celllineexp_fields)),
+	"records_num":fields.Integer
+}
+class CellineExp(Resource):
+	@marshal_with(celllineexp_list_fields)
+	def get(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument("cell_line",type=str)
+		args =parser.parse_args()
+		result = []
+		if args["cell_line"]:
+			tempa = []
+			cellineSample = list(mongo.db.sample.find({"cell line":args["cell_line"]}))
+			for l in cellineSample:
+				tempa.append(l["sample"])
+			mirnaExp = list(mongo.db.exp_all.find())
+			for ll in mirnaExp:
+				tempdict = {}
+				tempdict["miRNA_id"] = str(ll["miRNA_id"])
+				tempdict["cell line"]= args["cell_line"]
+				sumexp = 0.0
+				number = 0
+				for lll in tempa:
+					sumexp = sumexp + float(ll[lll])
+					number = number + 1
+				mean = sumexp/number
+				if mean > 0:
+					tempdict["expression"] = mean
+					result.append(tempdict)
+		return {"celllineexp_list":result,"records_num":len(result)}
+api.add_resource(CellineExp,"/api/cellinexp")
+
+###different mirna's expression in the same cancer
+cancerexp_fields = {
+	"mirna":fields.String(attribute="miRNA_id"),
+	"desease":fields.String,
+	"expression":fields.Float
+}
+cancerexp_list_fields = {
+	"cancerexp_list":fields.List(fields.Nested(cancerexp_fields)),
+	"records_num":fields.Integer
+}
+class CancerExp(Resource):
+	@marshal_with(cancerexp_list_fields)
+	def get(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument("desease",type=str)
+		args = parser.parse_args()
+		result =[]
+		if args["desease"]:
+			tempa = []
+			cancerSample = list(mongo.db.sample.find({"desease":args["desease"]}))
+			for l in cancerSample:
+				tempa.append(l["sample"])
+			mirnaExp = list(mongo.db.exp_all.find())
+			for ll in mirnaExp:
+				tempdict = {}
+				tempdict["miRNA_id"] = str(ll["miRNA_id"])
+				tempdict["desease"] = args["desease"]
+				sumexp = 0.0
+				number = 0
+				for lll in tempa:
+					sumexp =sumexp + float(ll[lll])
+					number = number + 1
+				mean = sumexp/number
+				if mean > 0 :
+					tempdict["expression"] = mean
+					result.append(tempdict)
+		return {"cancerexp_list":result,"records_num":len(result)}
+api.add_resource(CancerExp,"/api/cancerexp")

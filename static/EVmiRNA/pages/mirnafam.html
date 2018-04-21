@@ -1,0 +1,12 @@
+<div class="panel panel-success">
+	<div class="panel-heading">
+		<strong>miRNA family: {$ mirnafam $}</strong>
+	</div>
+	<div class="panel-body">
+		<ol>
+			<li ng-repeat="item in mirnafamMember">
+				<a href="#!/miRNA_info?miRNA={$ item.mirna $}" target="_blank">miRNA: {$ item.mirna $}</a><br>
+			</li>
+		</ol>
+	</div>
+</div>

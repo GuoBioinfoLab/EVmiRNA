@@ -39,6 +39,14 @@ angular.module('EVmiRNA', ['ui.bootstrap', 'ngRoute', 'pageslide-directive', 'ui
 		templateUrl:"/static/EVmiRNA/pages/test.html",
 		controller:"TestController",
 	    })
+	    .when("/family",{
+		templateUrl:"/static/EVmiRNA/pages/mirnafam.html",
+		controller:"MirnafamController",
+	    })
+	    .when("/sample",{
+		templateUrl:"/static/EVmiRNA/pages/sample.html",
+		controller :"SampleController",
+	    })
             .otherwise({
                 redirectTo: "/404.html",
             });
