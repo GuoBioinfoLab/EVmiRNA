@@ -151,15 +151,17 @@
 				<table class="table table-bordered table-striped" style="table-layout:fixed;">
 					<thead>
 					<tr class="success">
+						<th class="col-xs-1">#</th>
 						<th class="col-xs-1">kegg id</th>
 						<th class="col-xs-4">gene</th>
-						<th class="col-xs-3">kegg description</th>
+						<th class="col-xs-2">kegg description</th>
 						<th class="col-xs-2">p value</th>
 						<th class="col-xs-2">possibility</th>
 					</tr>
 					</thead>
 					<tbody>
 					<tr ng-repeat="item in mirna_pathway_list">
+					<td>{$ $index+1 $}</td>
 					<td><a href="http://www.kegg.jp/kegg-bin/show_pathway?{$ item.kegg $}" target="_blank" class="col">{$ item.kegg $}</a></td>
 					<td style="word-wrap:break-word;">{$ item.is_gene $}</td>
 					<td>{$ item.kegg_dscp $}</td>
