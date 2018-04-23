@@ -3,6 +3,6 @@
 angular.module("EVmiRNA")
 	.controller('DownloadController',DownloadController);
 
-function DownloadsController($scope){
+function DownloadController($scope){
  	console.log("DownloadController loaded");
 }
