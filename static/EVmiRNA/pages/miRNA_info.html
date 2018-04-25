@@ -19,88 +19,12 @@
 		<dd>{$ miRNA.start $} - {$ miRNA.end $}</dd>
 		<dt>family:</dt>
 		<dd>{$ miRNA.family $}</dd>
-		<dt>pre-miR sequence:</dt>
-                <dd style="word-wrap:break-word">{$ miRNA.pre_seq $}</dd>
+		<!--<dt>pre-miR sequence:</dt>-->
+                <!--<dd style="word-wrap:break-word">{$ miRNA.pre_seq $}</dd>-->
 		</dl>
 	</div>
 </div>
-	<div class="panel panel-info" id="target">
-		<div class="panel-heading">
-			<strong> miRNA target information</strong>
-		</div>
-		<div class="panel-body ">
-			<div class="col-lg-7"
-     				paging
-     				page="currentPage"
-     				page-size=15
-     				total="records_number"
-     				scroll-top="true"
-     				hide-if-empty="true"
-     				show-prev-next="true"
-     				show-first-last="true"
-     				text-title-page="Page {page} Hover Over"
-     				text-title-first="First hover"
-     				text-title-last="Last hover"
-     				text-title-next="Next hover"
-     				text-title-prev="Prev hover"
-     				show-prev-next="true"
-    				show-first-last="true"
-     				ul-class="pagination"
-     				active-class="active"
-     				disabled-class="disabled"
-     				paging-action="update_page('test',page,page-size,total)"
-			>
-			</div>
-			<div class="alert alert-danger alert-dismissible" role="alert" ng-show="error">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<strong>Sorry, your query item is not exist.</strong>
-			</div>
-			<table class="table text-center table-bordered table-striped table-hover table-responsive tablesorter tablesorter-bootstrap table-condensed" ng-show="mirna_target_list.length" data-striped="true" ts-wrapper >
-				<thead>
-				<tr class="success">
-					<th class="col-md-2 text-center" ts-criteria="target chromosome">target chromosome</th>
-					<th class="col-md-3 text-center" >target start</th>
-					<th class="col-md-3 text-center">target end</th>
-					<th class="col-md-2 text-center">target symbol</th>
-					<th class="col-md-2 text-center">type</th>
-				    </tr>
-					</thead>
-					<tbody>
-					<tr ng-repeat="item in mirna_target_list  track by $index" ts-repeat>
-						<td>{$ item.target_chr $}</td>
-						<td>{$ item.target_start $}</td>
-						<td>{$ item.target_end $}</td>
-						<td>{$ item.target_symbol $}</td>
-						<td>{$ item.p_v $}</td>
-					</tr>
-					</tbody>
-			</table>
-			<div paging  class="col-lg-7"
-				     page="currentPage"
-				     page-size=15
-				     total="records_number"
-				     scroll-top="true"
-				     hide-if-empty="true"
-				     show-prev-next="true"
-				     show-first-last="true"
-				     text-title-page="Page {page} Hover Over"
-				     text-title-first="First hover"
-				     text-title-last="Last hover"
-				     text-title-next="Next hover"
-				     text-title-prev="Prev hover"
-				     show-prev-next="true"
-				     show-first-last="true"
-				     ul-class="pagination"
-				     active-class="active"
-				     disabled-class="disabled"
-				     paging-action="update_page('test',page,page-size,total)"
-				>
-			</div>
-		</div>
-	</div>
-	<div class="panel panel-info" id="expression">
+<div class="panel panel-info" id="expression">
 		<div class="panel-heading">
 			<strong>expression</strong>
 		</div>
@@ -142,19 +66,97 @@
 		</div>
 		</div>
 	</div>
+	<div class="panel panel-info" id="target">
+		<div class="panel-heading">
+			<strong> miRNA target information</strong>
+		</div>
+		<div class="panel-body ">
+			<button type="button" class="btn btn-warning pull-right" ng-click="download()">download</button><hr/>
+			<div class="col-lg-7"
+     				paging
+     				page="currentPage"
+     				page-size=15
+     				total="records_number"
+     				scroll-top="true"
+     				hide-if-empty="true"
+     				show-prev-next="true"
+     				show-first-last="true"
+     				text-title-page="Page {page} Hover Over"
+     				text-title-first="First hover"
+     				text-title-last="Last hover"
+     				text-title-next="Next hover"
+     				text-title-prev="Prev hover"
+     				show-prev-next="true"
+    				show-first-last="true"
+     				ul-class="pagination"
+     				active-class="active"
+     				disabled-class="disabled"
+     				paging-action="update_page('test',page,page-size,total)"
+			>
+			</div>
+			<div class="alert alert-danger alert-dismissible" role="alert" ng-show="error">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<strong>Sorry, your query item is not exist.</strong>
+			</div>
+			<table class="table text-center table-bordered table-striped table-hover table-responsive tablesorter tablesorter-bootstrap table-condensed" ng-show="mirna_target_list.length" data-striped="true" ts-wrapper >
+				<thead>
+				<tr class="success">
+					<th class="col-md-2 text-center">target symbol</th>
+					<th class="col-md-2 text-center" >target chromosome</th>
+					<th class="col-md-3 text-center">target start</th>
+					<th class="col-md-3 text-center">target end</th>
+					<th class="col-md-2 text-center">type</th>
+				    </tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="item in mirna_target_list  track by $index" ts-repeat>
+						<td><a href="https://www.ncbi.nlm.nih.gov/gene/?term={$ item.target_symbol $}" target="_blank">{$ item.target_symbol $}</a></td>
+						<td>{$ item.target_chr $}</td>
+						<td>{$ item.target_start $}</td>
+						<td>{$ item.target_end $}</td>
+						<td>{$ item.p_v $}</td>
+					</tr>
+					</tbody>
+			</table>
+			<div paging  class="col-lg-7"
+				     page="currentPage"
+				     page-size=15
+				     total="records_number"
+				     scroll-top="true"
+				     hide-if-empty="true"
+				     show-prev-next="true"
+				     show-first-last="true"
+				     text-title-page="Page {page} Hover Over"
+				     text-title-first="First hover"
+				     text-title-last="Last hover"
+				     text-title-next="Next hover"
+				     text-title-prev="Prev hover"
+				     show-prev-next="true"
+				     show-first-last="true"
+				     ul-class="pagination"
+				     active-class="active"
+				     disabled-class="disabled"
+				     paging-action="update_page('test',page,page-size,total)"
+				>
+			</div>
+		</div>
+	</div>
 		<div id="pathway" class="panel panel-info">
 		<div class="panel-heading">
 			<strong>pathway information</strong>
 		</div>
 		<div class="panel-body">
+                        <button class="btn btn-warning pull-right" ng-click="downloadkegg()">download</button><hr/>
 			<div style="overflow:scroll;width:100%;height:auto;max-height:500px;">
 				<table class="table table-bordered table-striped" style="table-layout:fixed;">
 					<thead>
 					<tr class="success">
 						<th class="col-xs-1">#</th>
 						<th class="col-xs-1">kegg id</th>
-						<th class="col-xs-4">gene</th>
 						<th class="col-xs-2">kegg description</th>
+						<th class="col-xs-4">gene</th>
 						<th class="col-xs-2">p value</th>
 						<th class="col-xs-2">possibility</th>
 					</tr>
@@ -163,8 +165,8 @@
 					<tr ng-repeat="item in mirna_pathway_list">
 					<td>{$ $index+1 $}</td>
 					<td><a href="http://www.kegg.jp/kegg-bin/show_pathway?{$ item.kegg $}" target="_blank" class="col">{$ item.kegg $}</a></td>
-					<td style="word-wrap:break-word;">{$ item.is_gene $}</td>
 					<td>{$ item.kegg_dscp $}</td>
+					<td style="word-wrap:break-word"><span ng-repeat="i in item.gene "><a href="https://www.ncbi.nlm.nih.gov/gene/?term={$ i $}" target="_blank">{$ i $}&nbsp;</a></span></td>
 					<td>{$ item.pvalue $}</td>
 					<td>{$ item.possibility $}</td>
 					</tr>

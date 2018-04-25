@@ -252,7 +252,7 @@ api.add_resource(mirna_target_list,"/api/mirna_target")
 miR_pathway_fields = {
 	'mirna':fields.String(attribute="miRNA_id"),
 	'kegg':fields.String(attribute="kegg_id"),
-	'is_gene':fields.String,
+	'gene':fields.List(fields.String),
 	'pvalue':fields.Float,
 	'possibility':fields.Float,
 	'kegg_dscp':fields.String,
@@ -269,10 +269,21 @@ class mirna_pathway_list(Resource):
 		parser.add_argument('mirna', type = str)
                 args = parser.parse_args()
                 condition = {}
+		result = []
                 if args['mirna']:
                         condition = {'miRNA_id':args['mirna']}
 		mirna_pathway = list(mongo.db.mir_pathway.find(condition))
-		return {"mir_pathway_list":mirna_pathway }
+		for item in mirna_pathway:
+			tempdict = {}
+			tempdict["miRNA_id"] = item["miRNA_id"]
+			tempdict["kegg_id"] = item["kegg_id"]
+			tempdict["pvalue"] = item["pvalue"]
+			tempdict["possibility"] = item["possibility"]
+			tempdict["kegg_dscp"] = item["kegg_dscp"]
+			templist = item["is_gene"].split(",")
+			tempdict["gene"] = templist
+			result.append(tempdict)
+		return {"mir_pathway_list":result }
 	
 api.add_resource(mirna_pathway_list,"/api/mirna_pathway")
 

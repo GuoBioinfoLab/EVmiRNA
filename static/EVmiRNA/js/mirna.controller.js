@@ -3,7 +3,7 @@
 angular.module('EVmiRNA')
 	.controller('MirnaController',MirnaController);
 
-function MirnaController($http,$scope,$routeParams,EVmiRNAService){
+function MirnaController($http,$sce,$scope,$routeParams,EVmiRNAService){
 	console.log($routeParams.miRNA);
 	var base_url = EVmiRNAService.getAPIBaseUrl();
 	var query_mirna =  $routeParams.miRNA;
@@ -552,4 +552,143 @@ function MirnaController($http,$scope,$routeParams,EVmiRNAService){
 	$scope.set_style =  function(){
 		$("#sequence").html($("#sequence").slice(0,1)+"<span style='color:red;'>"+$("#sequence").slice(1,7)+"</span>"+$("#sequence").slice(7));
 	};
+	$scope.download = function(){
+		var condition = {};
+		condition["per_page"] = 10000;
+		condition["mirna"] = query_mirna;
+		name = query_mirna+"_target";
+		$scope.JSONToExcelConvertor = function(JSONData, FileName, ShowLabel) {
+		var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
+		var excel = '<table>';
+		var row = "<tr>";
+		for (var i = 0, l = ShowLabel.length; i < l; i++) {
+			row += "<td>" + ShowLabel[i]+ '</td>';
+		}
+		excel += row + "</tr>";
+                var title = ["target_symbol","target_chr","target_start","target_end","p_v"];
+		for (var i = 0; i < arrData.length; i++) {
+			var row = "<tr>";
+			for (var j = 0; j < title.length; j++) {
+                                var index = title[j];
+				var value = arrData[i][index] === "." ? "" : arrData[i][index];
+				row += '<td>' + value + '</td>';
+			}
+			excel += row + "</tr>";
+		}
+		excel += "</table>";
+		var excelFile = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:x='urn:schemas-microsoft-com:office:excel' xmlns='http://www.w3.org/TR/REC-html40'>";
+		excelFile += '<meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">';
+		excelFile += '<meta http-equiv="content-type" content="application/vnd.ms-excel';
+		excelFile += '; charset=UTF-8">';
+		excelFile += "<head>";
+		excelFile += "<!--[if gte mso 9]>";
+		excelFile += "<xml>";
+		excelFile += "<x:ExcelWorkbook>";
+		excelFile += "<x:ExcelWorksheets>";
+		excelFile += "<x:ExcelWorksheet>";
+		excelFile += "<x:Name>";
+		excelFile += "{worksheet}";
+		excelFile += "</x:Name>";
+		excelFile += "<x:WorksheetOptions>";
+		excelFile += "<x:DisplayGridlines/>";
+		excelFile += "</x:WorksheetOptions>";
+		excelFile += "</x:ExcelWorksheet>";
+		excelFile += "</x:ExcelWorksheets>";
+		excelFile += "</x:ExcelWorkbook>";
+		excelFile += "</xml>";
+		excelFile += "<![endif]-->";
+		excelFile += "</head>";
+		excelFile += "<body>";
+		excelFile += excel;
+		excelFile += "</body>";
+		excelFile += "</html>";
+		var uri = 'data:application/vnd.ms-excel;charset=utf-8,' + encodeURIComponent(excelFile);
+		var link = document.createElement("a");
+		link.href = uri;
+		link.style = "visibility:hidden";
+		link.download = FileName + ".xls";
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+        	}
+		$http({
+			url:base_url+"/api/mirna_target",
+			method:"GET",
+			params:condition
+		}).then(
+			function(response){
+				var dlfile = response.data.mir_target_list;
+				$scope.JSONToExcelConvertor(dlfile,name,["target_symbol","target_chr","target_start","target_end","p_v"]);
+			}
+		);
+	}
+	$scope.downloadkegg = function(){
+		var condition = {};
+		condition["mirna"] = query_mirna;
+		name = query_mirna+"_pathway";
+		$scope.JSONToExcelConvertor = function(JSONData, FileName, ShowLabel) {
+		var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
+		var excel = '<table>';
+		var row = "<tr>";
+		for (var i = 0, l = ShowLabel.length; i < l; i++) {
+			row += "<td>" + ShowLabel[i]+ '</td>';
+		}
+		excel += row + "</tr>";
+                var title = ["kegg","kegg_dscp","gene","pvalue","possibility"];
+		for (var i = 0; i < arrData.length; i++) {
+			var row = "<tr>";
+			for (var j = 0; j < title.length; j++) {
+                                var index = title[j];
+				var value = arrData[i][index] === "." ? "" : arrData[i][index];
+				row += '<td>' + value + '</td>';
+			}
+			excel += row + "</tr>";
+		}
+		excel += "</table>";
+		var excelFile = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:x='urn:schemas-microsoft-com:office:excel' xmlns='http://www.w3.org/TR/REC-html40'>";
+		excelFile += '<meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">';
+		excelFile += '<meta http-equiv="content-type" content="application/vnd.ms-excel';
+		excelFile += '; charset=UTF-8">';
+		excelFile += "<head>";
+		excelFile += "<!--[if gte mso 9]>";
+		excelFile += "<xml>";
+		excelFile += "<x:ExcelWorkbook>";
+		excelFile += "<x:ExcelWorksheets>";
+		excelFile += "<x:ExcelWorksheet>";
+		excelFile += "<x:Name>";
+		excelFile += "{worksheet}";
+		excelFile += "</x:Name>";
+		excelFile += "<x:WorksheetOptions>";
+		excelFile += "<x:DisplayGridlines/>";
+		excelFile += "</x:WorksheetOptions>";
+		excelFile += "</x:ExcelWorksheet>";
+		excelFile += "</x:ExcelWorksheets>";
+		excelFile += "</x:ExcelWorkbook>";
+		excelFile += "</xml>";
+		excelFile += "<![endif]-->";
+		excelFile += "</head>";
+		excelFile += "<body>";
+		excelFile += excel;
+		excelFile += "</body>";
+		excelFile += "</html>";
+		var uri = 'data:application/vnd.ms-excel;charset=utf-8,' + encodeURIComponent(excelFile);
+		var link = document.createElement("a");
+		link.href = uri;
+		link.style = "visibility:hidden";
+		link.download = FileName + ".xls";
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+        	}
+		$http({
+			url:base_url+"/api/mirna_pathway",
+			method:"GET",
+			params:condition
+		}).then(
+			function(response){
+				var dlfile = response.data.mir_pathway_list;
+				$scope.JSONToExcelConvertor(dlfile,name,["kegg","kegg_dscp","gene","pvalue","possibility"]);
+			}
+		);
+	}
 }
