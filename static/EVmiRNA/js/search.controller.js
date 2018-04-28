@@ -27,6 +27,14 @@ function SearchController($scope,$http,$window,$routeParams,EVmiRNAService){
                         	query_mirna = "hsa-"+query_item;
                 	}
                 	window.open(base_url+"#!miRNA_info?miRNA="+query_mirna,"_self");
+			var tempbit = $scope.query_miRNA.search(/hsa-miR/i);
+			if (tempbit != 0){
+				var query_item = $scope.query_miRNA.replace(/hsa-miR/i,"miR");
+				window.open(base_url+"#!miRNA_info?miRNA="+"hsa-"+query_item,"_self");
+			}
+			else{
+				window.open(base_url+"#!miRNA_info?miRNA="+$scope.query_miRNA,"_self");
+			}
 		}
 	};
 	$scope.filter_fam = function(){
