@@ -1,5 +1,10 @@
-<div class="container" style=" overflow-y:auto; overflow-x:auto; width:1200px; height:400px;">
-    <table class="table table-hover table-striped">
+<div>
+    <div class="panel panel-info">
+    <div class="panel-heading">
+	<strong>sample browse</strong>
+    </div>
+    <div class="panel-body">
+    <table class="table table-hover table-striped" style="width:100%;max-height:400px;overflow:scroll;">
         <thead>
             <tr class="success">
             <th>Source</th>
@@ -20,4 +25,19 @@
             </tr>
         </tbody>
     </table>
+    </div>
+    </div>
+</div>
+<div>
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<strong>mirna browse</strong>
+		</div>
+		<div class="panel-body">
+			<span ng-repeat="mirna in mirnabrowse">
+				<span>{$ mirna $}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			</span>
+		</table>
+		</div>
+	</div>
 </div>

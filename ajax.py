@@ -227,7 +227,7 @@ class mirna_target_list(Resource):
 		parser = reqparse.RequestParser()
 		parser.add_argument('mirna', type = str)
 		parser.add_argument("page",type=int,default=1)
-		parser.add_argument("per_page",type=int,default=15)
+		parser.add_argument("per_page",type=int,default=8)
 		args = parser.parse_args()
 		page = args["page"]
 		per_page = args["per_page"]
@@ -906,3 +906,64 @@ class CancerExp(Resource):
 					result.append(tempdict)
 		return {"cancerexp_list":result,"records_num":len(result)}
 api.add_resource(CancerExp,"/api/cancerexp")
+
+###mirna_function
+mir_function = {
+	"miR_gene_id":fields.String,
+	"pubmed_id":fields.String,
+	"timestamps":fields.String,
+	"mirna" : fields.String(attribute="miRNA_id"),
+	"mir_function":fields.String
+}
+mir_function_list_fields = {
+	"mir_function_list":fields.List(fields.Nested(mir_function)),
+	"records_num":fields.Integer
+}
+class miRNAfunction(Resource):
+	@marshal_with(mir_function_list_fields)
+	def get(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument("mirna",type=str)
+		args = parser.parse_args()
+		result = []
+		if args["mirna"]:
+			result = list(mongo.db.mir_function.find({"miRNA_id":args["mirna"]}))
+		return {"mir_function_list":result,"records_num":len(result)}
+
+api.add_resource(miRNAfunction,"/api/mirna_function")
+
+###drug targeted mirna
+mir_drug_fields = {
+	"FDA" : fields.String,
+	"Detection method " : fields.String,
+	"Reference" : fields.String,
+	"CID" : fields.String,
+	"miRBase" : fields.String,
+	"small melocule" : fields.String,
+	"Support" : fields.String,
+	"Detection method":fields.String,
+	"DB" : fields.String,
+	"mirna" : fields.String(attribute="miRNA"),
+	"Year" : fields.String,
+	"PMID" : fields.String,
+	"Expression pattern of miRNA" : fields.String,
+	"Species" : fields.String,
+	"Condition" : fields.String
+}
+mir_drug_list_fields = {
+	"mir_drug_list":fields.List(fields.Nested(mir_drug_fields)),
+	"records_num":fields.Integer
+}
+class DrugTarget(Resource):
+	@marshal_with(mir_drug_list_fields)
+	def get(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument("mirna",type = str)
+		args = parser.parse_args()
+		result = []
+		if args["mirna"]:
+			query_mirna = args["mirna"][4:]
+			result = list(mongo.db.mir_small_molecular_drug.find({"miRNA":query_mirna}))
+		return {"mir_drug_list":result,"records_num":len(result)}
+api.add_resource(DrugTarget,"/api/moleculardrug")
+	

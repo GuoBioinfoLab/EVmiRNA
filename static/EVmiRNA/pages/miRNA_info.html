@@ -19,7 +19,7 @@
 		<dd>{$ miRNA.start $} - {$ miRNA.end $}</dd>
 		<dt>family:</dt>
 		<dd>{$ miRNA.family $}</dd>
-		<!--<dt>pre-miR sequence:</dt>-->
+		<!--<dt>pre-miRsequence:</dt>-->
                 <!--<dd style="word-wrap:break-word">{$ miRNA.pre_seq $}</dd>-->
 		</dl>
 	</div>
@@ -75,7 +75,7 @@
 			<div class="col-lg-7"
      				paging
      				page="currentPage"
-     				page-size=15
+     				page-size=8
      				total="records_number"
      				scroll-top="true"
      				hide-if-empty="true"
@@ -122,7 +122,7 @@
 			</table>
 			<div paging  class="col-lg-7"
 				     page="currentPage"
-				     page-size=15
+				     page-size=8
 				     total="records_number"
 				     scroll-top="true"
 				     hide-if-empty="true"
@@ -158,7 +158,7 @@
 						<th class="col-xs-2">kegg description</th>
 						<th class="col-xs-4">gene</th>
 						<th class="col-xs-2">p value</th>
-						<th class="col-xs-2">possibility</th>
+						<!--<th class="col-xs-2">possibility</th>-->
 					</tr>
 					</thead>
 					<tbody>
@@ -168,11 +168,68 @@
 					<td>{$ item.kegg_dscp $}</td>
 					<td style="word-wrap:break-word"><span ng-repeat="i in item.gene "><a href="https://www.ncbi.nlm.nih.gov/gene/?term={$ i $}" target="_blank">{$ i $}&nbsp;</a></span></td>
 					<td>{$ item.pvalue $}</td>
-					<td>{$ item.possibility $}</td>
+					<!--<td>{$ item.possibility $}</td>-->
 					</tr>
 					</tbody>
 				</table> 
 			</div>
+		</div>
+	</div>
+	<div class="panel panel-info" id="function">
+		<div class="panel-heading">
+			<strong>function</strong>
+		</div>
+		<div class="panel-body">
+			<div class="alert alert-danger alert-dismissible" role="alert" ng-show="functionerror">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                </button>
+                                <strong>This information does not exist in our database.</strong>
+                        </div>
+			<div style="width:100%;max-height:500px;overflow:scroll;height:auto;" ng-show="mirfunction">
+				<table class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr class="success">
+							<th class="col-xs-1">gene</th>
+							<th class="col-xs-7">function</th>
+							<th class="col-xs-2">timestamps</th>
+							<th class="col-xs-2">pubmed</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in mirna_function_list">
+							<td>{$ item.miR_gene_id $}</td>
+							<td>{$ item.mir_function $}</td>
+							<td>{$ item.timestamps $}</td>
+							<td><a href="https://www.ncbi.nlm.nih.gov/pubmed/?term={$ item.pubmed_id $}" target="_blank">{$ item.pubmed_id $}</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-info" id="drug">
+		<div class="panel-heading">
+			<strong>small molecular drug to {$ query_miRNA $}</strong>
+		</div>
+		<div class="panel-body">
+			<ol>
+				<li ng-repeat="item in molecular_drug">
+				<dl class="dl-horizontal">
+						<dt>small molecule:</dt><dd>{$ item["small melocule"] $}</dd>
+						<dt>condition:</dt><dd>{$ item.Condition $}</dd>
+						<dt>miRNA expression:</dt><dd>{$ item["Expression pattern of miRNA"] $}</dd>
+						<dt>Support:</dt><dd>{$ item.Support $}</dd>
+						<dt>miRBase:</dt><dd>{$ item.miRBase $}</dd>
+						<dt>Detection method:</dt><dd>{$ item["Detection method"] $}</dd>
+						<dt>Pubmed id:</dt><dd>{$ item.PMID $}</dd>
+						<dt>DB:</dt><dd>{$ item.DB $}</dd>
+						<dt>CID:</dt><dd>{$ item.CID $}</dd>
+						<dt>FDA:</dt><dd>{$ item.FDA $}</dd>
+						<dt>Reference:</dt><dd style="word-wrap:break-word;">{$ item.Reference $}</dd>
+				</dl>
+				</li>
+			</ol>
 		</div>
 	</div>
 	<div class="panel panel-info" id="publication">
@@ -180,7 +237,7 @@
 			<strong>publication</strong>
 		</div>
 		<div class="panel-body">
-			<div style="width:100%;height:500px;overflow:scroll;">
+			<div style="width:100%;height:auto;overflow:scroll;max-height:500px;">
 				<ol>
 					<li ng-repeat="item in mirna_pubmed_list">
 					<a href="https://www.ncbi.nlm.nih.gov/pubmed/?term={$ item.PMID $}" class="col" target="_blank"><strong>{$ item.title $}</strong></a><br>

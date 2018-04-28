@@ -9,24 +9,24 @@ function SearchController($scope,$http,$window,$routeParams,EVmiRNAService){
 	var flag = 0;
 	var mirnalist = [];
 	var mircomplete = [];
-	$scope.check = function (query_item) {
+	$scope.check = function (query_item){
         	if(/[@#\$%\^&\*]+/g.test(query_item)){
             		alert("Invalid input");
             		flag=1;
             		history.back();
-        }
+        	}
         };
 	$scope.filter_id = function(){
 		$scope.check($scope.query_miRNA);
 		if(flag == 0){
-			var tempbit = $scope.query_miRNA.search(/hsa-miR/i);
-			if (tempbit != 0){
-				var query_item = $scope.query_miRNA.replace(/hsa-miR/i,"miR");
-				window.open(base_url+"#!miRNA_info?miRNA="+"hsa-"+query_item,"_self");
-			}
-			else{
-			window.open(base_url+"#!miRNA_info?miRNA="+"hsa-"+$scope.query_miRNA,"_self");
-			}
+			console.log(flag);
+                	var tempbit = $scope.query_miRNA.search(/hsa-miR/i);
+			var query_mirna;
+                	if (tempbit != 0){
+                		var query_item = $scope.query_miRNA.replace(/hsa-miR/i,"miR");
+                        	query_mirna = "hsa-"+query_item;
+                	}
+                	window.open(base_url+"#!miRNA_info?miRNA="+query_mirna,"_self");
 		}
 	};
 	$scope.filter_fam = function(){

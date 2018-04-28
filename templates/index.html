@@ -3,6 +3,7 @@
 <head>
 
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>EVmiRNA</title>
 
     <link rel="icon" href="/static/EVmiRNA/img/EVmiRNA-icon.ico">
@@ -12,6 +13,11 @@
     <link rel="stylesheet" href="/static/EVmiRNA/lib/bootstrap-slider/css/bootstrap-slider.css">
     <link rel="stylesheet" href="/static/EVmiRNA/css/main.css">
     <link rel="stylesheet" href="/static/EVmiRNA/lib/jquery/jquery-ui.css">
+    <link rel="stylesheet" href="/static/EVmiRNA/lib/pro-sidebar/assets/css/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="/static/EVmiRNA/lib/pro-sidebar/assets/css/custom.css">
+    <link rel="stylesheet" href="/static/EVmiRNA/lib/pro-sidebar/assets/css/custom-themes.css">
+    <link rel="stylesheet" href="/static/EVmiRNA/lib/fonts/css/font-awesome.min.css">
+    <link rel="shortcut ico"  type="image/png"  href="/static/EVmiRNA/lib/pro-sidebar/assets/img/favicon.png">
 
 
     <script src="/static/EVmiRNA/lib/angular/angular.js"></script>
@@ -43,19 +49,49 @@
     <script src="/static/EVmiRNA/lib/bootstrap-slider/bootstrap-slider.js"></script>
     <script src="/static/EVmiRNA/lib/bootstrap-slider/angular-bootstrap-slider.js"></script>
 
+    <script src="/static/EVmiRNA/lib/pro-sidebar/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="/static/EVmiRNA/lib/pro-sidebar/assets/js/custom.js"></script>
+
     <script src="/static/EVmiRNA/lib/canvasjs/canvasjs.min.js"></script>
     <script src="/static/EVmiRNA/lib/canvasjs/jquery.canvasjs.min.js"></script>
 
 </head>
 <body>
-
-<div ng-include="'/static/EVmiRNA/partials/navigation.html'"></div>
-
-<div class="container">
-    <div ng-view></div>
+<div class="page-wrapper theme chiller-theme toggled">
+    <main class="page-content" style="background-color:DarkSlateGray;height:60px;">
+    </main>
+    <nav id="sidebar" class="sidebar-wrapper">
+        <div class="sidebar-content">
+	  <div id="toggle-sidebar">
+		<div></div>
+		<div></div>
+		<div></div>
+	   </div>
+	  <div class="sidebar-brand">
+                    <a href="#!/home">EVmiRNA</a>
+                </div>
+          <div class="sidebar-menu">
+              <ul>
+                <li><a href="#!/home"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;Home</a></li>
+                    <li><a href="#!/browse"><i class="fa fa-bank" aria-hidden="true"></i>&nbsp;Browse</a></li>
+                    <li><a href="#!/search"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;Search</a></li>
+                    <li><a href="#!/download"><i class="fa fa-download" aria-hidden="true"></i>&nbsp;Download</a></li>
+                    <li><a href="#!/document"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;Document</a></li>
+                    <li><a href="#!/contact"><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp;Contact</a></li>
+              </ul>
+             </div><!-- sidebar-menu  -->           
+        </div><!-- sidebar-content  -->
+    </nav><!-- sidebar-wrapper  -->
+        <!-- sidebar-wrapper  -->
+    <main class="page-content">
+            <div class="container-fluid">
+                <div class="container" style="width:100%;"> 
+                    <div ng-view></div>
+                </div>
+            <div ng-include="'/static/EVmiRNA/partials/footer.html'"></div>
+    </main>
+    <!-- page-content" -->
 </div>
-
-<div ng-include="'/static/EVmiRNA/partials/footer.html'"></div>
 
 
 </body>

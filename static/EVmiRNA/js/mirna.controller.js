@@ -541,6 +541,38 @@ function MirnaController($http,$sce,$scope,$routeParams,EVmiRNAService){
 			}
 		);
 	};
+	$scope.fetch_mirnafunction =function(){
+		$http({
+			url:base_url+"/api/mirna_function",
+			params:{mirna:query_mirna},
+			method:"GET"
+		}).then(
+			function(response){
+				console.log(response);
+				$scope.mirna_function_list = response.data.mir_function_list;
+				var list = $scope.mirna_function_list;
+				if(list.length == 0){
+					$scope.functionerror = 1;
+					$scope.mirfunction = 0;
+				}else{
+					$scope.functionerror = 0;
+					$scope.mirfunction =1;
+				}
+			}
+		);
+	}
+	$scope.fetch_molecular_drug = function(){
+		$http({
+			url:base_url+"/api/moleculardrug",
+			method:"GET",
+			params:{mirna:query_mirna}
+		}).then(
+			function(response){
+				console.log(response);
+				$scope.molecular_drug = response.data.mir_drug_list;
+			}
+		)
+	}
 	$(function (){
     		$("[data-toggle='popover']").popover();
 	});
@@ -548,6 +580,8 @@ function MirnaController($http,$sce,$scope,$routeParams,EVmiRNAService){
 	$scope.fetch_pubmed();
 	$scope.fetch_pathway();
 	$scope.fetch_mirnatarget();
+	$scope.fetch_molecular_drug();
+	$scope.fetch_mirnafunction();
 	$scope.fetch_miRNA();
 	$scope.set_style =  function(){
 		$("#sequence").html($("#sequence").slice(0,1)+"<span style='color:red;'>"+$("#sequence").slice(1,7)+"</span>"+$("#sequence").slice(7));

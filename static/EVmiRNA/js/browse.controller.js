@@ -19,6 +19,14 @@ function BrowseController($scope,$http,EVmiRNAService) {
             $scope.browse = response.data;
              }
         )
+	$http({
+		url:"/api/mirnalist",
+		method:"GET"
+	}).then(
+		function(response){
+			$scope.mirnabrowse = response.data;
+		}
+	)
      };
     $scope.get_list();
 }
