@@ -126,17 +126,24 @@ mirna_fields = {
 	"mirna":fields.String(attribute="miRNA_id")
 }
 mirna_list_fields = {
-	"mirna_list":fields.List(fields.Nested(mirna_fields))
+	"mirna_list":fields.List(fields.Nested(mirna_fields)),
+	"records_num":fields.Integer
 }
 class SearchmiRNA(Resource):
 	@marshal_with(mirna_list_fields)
 	def get(self):
-		result = []
-		temp = {}
-		mirnaList = list(mongo.db.mir_annotation.find())
-		return {"mirna_list":mirnaList}
+		parser = reqparse.RequestParser()
+		parser.add_argument('page', type=int,default =1)
+		parser.add_argument('per_page',type=int,default =20)
+		args = parser.parse_args()
+		page = args["page"]
+		per_page = args["per_page"]
+		record_skip = (page - 1) * per_page
+		mirnaList = list(mongo.db.mir_annotation.find().skip(record_skip).limit(per_page))
+		mirnatotal = mongo.db.mir_annotation.find().count()
+		return {"mirna_list":mirnaList,"records_num":mirnatotal}
 
-api.add_resource(SearchmiRNA,"/api/mirnalist")
+api.add_resource(SearchmiRNA,"/api/mirna_list")
 
 
 
@@ -159,24 +166,6 @@ miR_basic_fields = {
 	'two_to_eight':fields.String,
 	'the_remaining':fields.String,
 	}
-class mirna_info(Resource):
-	@marshal_with(miR_basic_fields)
-	def get(self):
-		parser = reqparse.RequestParser()
-		parser.add_argument('mirna',type = str)
-		parser.add_argument('family',type=str)
-		args = parser.parse_args()
-		condition = {}
-		if args['mirna']:
-			condition = {'miRNA_id':args['mirna']}
-			mirna_info = mongo.db.mir_annotation.find(condition)
-		else:
-			mirna_info = mongo.db.mir_annotation.find_one()
-		app.logger.debug("mirna_info={}".format(mirna_info))
-		return mirna_info
-
-api.add_resource(mirna_info,"/api/mirna_info")
-
 miR_basic_list_fields = {
 	'mirna_basic_list' : fields.List(fields.Nested(miR_basic_fields))
 }
@@ -204,7 +193,7 @@ class mirna_info_list(Resource):
 			mirna_info.append(item)
 		return  {"mirna_basic_list":mirna_info}
 
-api.add_resource(mirna_info_list,'/api/mirna_list')
+api.add_resource(mirna_info_list,'/api/mirna_info')
 
 ###miRNA_target
 miR_target_fields = {
@@ -967,3 +956,89 @@ class DrugTarget(Resource):
 		return {"mir_drug_list":result,"records_num":len(result)}
 api.add_resource(DrugTarget,"/api/moleculardrug")
 	
+###tcge expression
+tcga_expression_fields = {
+	"KIRC_normal" : fields.String,
+	"THYM_normal" : fields.String,
+	"KIRC_case" : fields.String,
+	"UVM_case" : fields.String,
+	"THCA_normal" : fields.String,
+	"ESCA_normal" : fields.String,
+	"BLCA_normal" : fields.String,
+	"SKCM_normal" : fields.String,
+	"READ_case" : fields.String,
+	"BRCA_normal" : fields.String,
+	"LGG_normal" : fields.String,
+	"KIRP_normal" : fields.String,
+	"SKCM_case" : fields.String,
+	"HNSC_normal" : fields.String,
+	"ESCA_case" : fields.String,
+	"THYM_case" : fields.String,
+	"BRCA_case" : fields.String,
+	"STAD_normal" : fields.String,
+	"CHOL_case" : fields.String,
+	"PRAD_normal" : fields.String,
+	"LUAD_normal" : fields.String,
+	"LIHC_case" : fields.String,
+	"THCA_case" : fields.String,
+	"UCS_case" : fields.String,
+	"CHOL_normal" : fields.String,
+	"ACC_case" : fields.String,
+	"KICH_normal" : fields.String,
+	"DLBC_normal" : fields.String,
+	"CESC_normal" : fields.String,
+	"UCEC_normal" : fields.String,
+	"READ_normal" : fields.String,
+	"COAD_normal" : fields.String,
+	"GBM_case" : fields.String,
+	"TGCT_case" : fields.String,
+	"COAD_case" : fields.String,
+	"OV_normal" : fields.String,
+	"FPPP_normal" : fields.String,
+	"CESC_case" : fields.String,
+	"SARC_normal" : fields.String,
+	"LIHC_normal" : fields.String,
+	"LUAD_case" : fields.String,
+	"OV_case" : fields.String,
+	"TGCT_normal" : fields.String,
+	"KICH_case" : fields.String,
+	"HNSC_case" : fields.String,
+	"LAML_case" : fields.String,
+	"DLBC_case" : fields.String,
+	"MESO_case" : fields.String,
+	"PRAD_case" : fields.String,
+	"BLCA_case" : fields.String,
+	"LUSC_normal" : fields.String,
+	"UCS_normal" : fields.String,
+	"ACC_normal" : fields.String,
+	"KIRP_case" : fields.String,
+	"LGG_case" : fields.String,
+	"UVM_normal" : fields.String,
+	"PAAD_normal" : fields.String,
+	"LAML_normal" : fields.String,
+	"PCPG_normal" : fields.String,
+	"LUSC_case" : fields.String,
+	"FPPP_case" : fields.String,
+	"MESO_normal" : fields.String,
+	"STAD_case" : fields.String,
+	"PAAD_case" : fields.String,
+	"UCEC_case" : fields.String,
+	"GBM_normal" : fields.String,
+	"PCPG_case" : fields.String,
+	"SARC_case" : fields.String,
+	"mirna":fields.String(attribute="miRNA_id")
+}
+tcga_expression_list_fields = {
+	"tcga_expression_list":fields.List(fields.Nested(tcga_expression_fields))
+}
+class TCGAexpression(Resource):
+	@marshal_with(tcga_expression_list_fields)
+	def get(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument("mirna",type=str)
+		args = parser.parse_args()
+		result = []
+		if args["mirna"]:
+			result = list(mongo.db.exp_tcga_mir.find({"miRNA_id":args["mirna"]}))
+		return {"tcga_expression_list":result}
+api.add_resource(TCGAexpression,"/api/tcgaexpression")

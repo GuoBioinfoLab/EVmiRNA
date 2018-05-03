@@ -18,24 +18,29 @@ function SearchController($scope,$http,$window,$routeParams,EVmiRNAService){
         };
 	$scope.filter_id = function(){
 		$scope.check($scope.query_miRNA);
-		if(flag == 0){
-			console.log(flag);
-                	var tempbit = $scope.query_miRNA.search(/hsa-miR/i);
-			var query_mirna;
-                	if (tempbit != 0){
-                		var query_item = $scope.query_miRNA.replace(/hsa-miR/i,"miR");
-                        	query_mirna = "hsa-"+query_item;
-                	}
-                	window.open(base_url+"#!miRNA_info?miRNA="+query_mirna,"_self");
-			var tempbit = $scope.query_miRNA.search(/hsa-miR/i);
-			if (tempbit != 0){
-				var query_item = $scope.query_miRNA.replace(/hsa-miR/i,"miR");
-				window.open(base_url+"#!miRNA_info?miRNA="+"hsa-"+query_item,"_self");
-			}
-			else{
-				window.open(base_url+"#!miRNA_info?miRNA="+$scope.query_miRNA,"_self");
-			}
-		}
+		$http({
+			url:base_url+"/api/exp_source",
+			params:{mirna:$scope.query_miRNA},
+			method:"GET"
+		}).then(
+			function(response){
+				var temp = response.data.exp_source_list;
+				if(temp.length != 0){
+					if(flag == 0){
+                			var tempbit = $scope.query_miRNA.search(/hsa-miR/i);
+                        		if (tempbit != 0){
+                                		var query_item = $scope.query_miRNA.replace(/hsa-miR/i,"miR");
+                                		window.open(base_url+"#!miRNA_info?miRNA="+"hsa-"+query_item,"_self");
+                        		}
+                        		else{
+                                		window.open(base_url+"#!miRNA_info?miRNA="+$scope.query_miRNA,"_self");
+                        		}
+					}
+				}
+				else{
+					window.open(base_url+"#!search","_self");
+				}
+			})
 	};
 	$scope.filter_fam = function(){
 		window.open(base_url+"#!family?mirnafam="+$scope.query_fam,"_self");
@@ -56,7 +61,7 @@ function SearchController($scope,$http,$window,$routeParams,EVmiRNAService){
 				source: mirnalist
 			},
 			{
-				minLength:3
+				minLength:6
 			});
 		});
 	});

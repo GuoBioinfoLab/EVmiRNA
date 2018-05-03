@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>EVmiRNA</title>
 
     <link rel="icon" href="/static/EVmiRNA/img/EVmiRNA-icon.ico">
@@ -57,40 +57,38 @@
 
 </head>
 <body>
-<div class="page-wrapper theme chiller-theme toggled">
-    <main class="page-content" style="background-color:DarkSlateGray;height:60px;">
-    </main>
-    <nav id="sidebar" class="sidebar-wrapper">
+<div class="page-wrapper chiller-theme toggled">
+    <div class="page-content" style="background-color:DarkSlateGray;height:54px;">
+    </div>
+    <div id="sidebar" class="sidebar-wrapper">
         <div class="sidebar-content">
+	  <div class="sidebar-brand">
+                    <strong>EVmiRNA</strong>
+          </div>
 	  <div id="toggle-sidebar">
 		<div></div>
 		<div></div>
 		<div></div>
 	   </div>
-	  <div class="sidebar-brand">
-                    <a href="#!/home">EVmiRNA</a>
-                </div>
-          <div class="sidebar-menu">
+          <div class="sidebar-menu" style="background-color:CadetBlue;color:Black;">
               <ul>
-                <li><a href="#!/home"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;Home</a></li>
-                    <li><a href="#!/browse"><i class="fa fa-bank" aria-hidden="true"></i>&nbsp;Browse</a></li>
-                    <li><a href="#!/search"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;Search</a></li>
-                    <li><a href="#!/download"><i class="fa fa-download" aria-hidden="true"></i>&nbsp;Download</a></li>
-                    <li><a href="#!/document"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;Document</a></li>
-                    <li><a href="#!/contact"><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp;Contact</a></li>
+                    <li><a href="#!/home"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;<strong>Home</strong></a></li>
+                    <li><a href="#!/browse"><i class="fa fa-bank" aria-hidden="true"></i>&nbsp;<strong>Browse</strong></a></li>
+                    <li><a href="#!/search"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;<strong>Search</strong></a></li>
+                    <li><a href="#!/download"><i class="fa fa-download" aria-hidden="true"></i>&nbsp;<strong>Download</strong></a></li>
+                    <li><a href="#!/document"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;<strong>Document</strong></a></li>
+                    <li><a href="#!/contact"><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp;<strong>Contact</strong></a></li>
               </ul>
              </div><!-- sidebar-menu  -->           
         </div><!-- sidebar-content  -->
-    </nav><!-- sidebar-wrapper  -->
-        <!-- sidebar-wrapper  -->
-    <main class="page-content">
+    </div><!-- sidebar-wrapper  -->
+    <div class="page-content page-wrapper">
             <div class="container-fluid">
-                <div class="container" style="width:100%;"> 
+                <div class="container-fluid"> 
                     <div ng-view></div>
                 </div>
             <div ng-include="'/static/EVmiRNA/partials/footer.html'"></div>
-    </main>
-    <!-- page-content" -->
+    </div>
 </div>
 
 

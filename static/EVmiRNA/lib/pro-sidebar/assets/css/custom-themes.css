@@ -193,7 +193,7 @@
 .light-theme .sidebar-wrapper .sidebar-header,
 .light-theme .sidebar-wrapper .sidebar-search,
 .light-theme .sidebar-wrapper .sidebar-menu {
-    border-top: 1px solid #ffffff;
+    /*border-top: 1px solid #ffffff;*/
 }
 
 .light-theme .sidebar-wrapper .sidebar-search input.search-menu,

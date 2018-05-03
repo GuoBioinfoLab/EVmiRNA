@@ -10,36 +10,33 @@
 		<strong>miRNA</strong>
 	</div>
 	<div class="panel-body">
-		<div class="form-group ui-widget">
-			<label class="col-sm-2 col-xs-2 col-md-2 col-lg-2 control-label" for="mirnaid">miRNA id</label>
-			<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+		<form class="form-inline">
+			<div class="form-group ui-widget">
+				<label class="control-label" for="mirnaid">ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 				<input type="text"  id="mirnaid" class="form-control" ng-model="query_miRNA">
+				<button type="submit" class="btn btn-primary" ng-click="filter_id()">search</button>
+				<label class="control-label" for="mirnaid">Input a miRNA id as ' miR-204-5p'</label>
 			</div>
-			<div class="col-sm-1 col-xs-1 col-md-1 col-lg-1">
-				<button class="btn btn-primary" ng-click="filter_id()">search</button>
+		</form>
+		<br/>
+		<form class="form-inline">
+			<div class="form-group">
+				<label class="control-label" for="mirnafam">Family</label>
+					<input type="text" id="mirnafam" class="form-control" ng-model="query_fam">
+					<button class="btn btn-primary" ng-click="filter_fam()">search</button>
+					<label class="control-label" for="mirnafam">Input a miRNA family as 'miR-495-3p'</label>
 			</div>
-			<span class=" col-sm-7 col-xs-7 col-md-7 col-lg-7 help-block">Input a miRNA id as ' miR-204-5p'</span>
-		</div>
-		<div class="form-group">
-			<label class="col-sm-2  col-xs-2 col-md-2 col-lg-2 control-label" for="mirnafam">miRNA family</label>
-			<div class="col-sm-2 col-md-2 col-lg-2 col-xs-2  ">
-				<input type="text" id="mirnafam" class="form-control" ng-model="query_fam">
-			</div>
-			<div class="col-sm-1 col-xs-1 col-md-1 col-lg-1">
-				<button class="btn btn-primary" ng-click="filter_fam()">search</button>
-			</div>
-			<span class=" col-sm-7  col-xs-7 col-md-7 col-lg-7   help-block">Input a miRNA family as 'miR-495-3p'</span>
-		</div>
+		</form>
 	</div>
 </div>
 <div class="panel panel-info">
 	<div class="panel-heading">
-		<strong>Source</strong>
+		<strong>Sample</strong>
 	</div>
 	<div class="panel-body">
-		<div class="form-group">
-			<label class="col-sm-2  col-xs-2 col-md-2 col-lg-2 control-label">Cell Line</label>
-			<div class="col-sm-5  col-xs-5 col-md-5 col-lg-5">
+		<form class="form-inline">
+			<div class="form-group">
+			<label class="control-label" for="query_cell_line">Cell Line</label>
 				<select class="form-control selectpicker show-menu-arrow" id="query_cell_line" name="select_cellline"  ng-model="query_cellline">
 	                        <option>SCC-9</option>
 				<option>MDA-MB-231</option>
@@ -73,16 +70,15 @@
 				<option>LCL</option>
 				<option>Mutu-1</option>
 	                	</select>
-			</div>
-			<div class="col-sm-1  col-xs-1 col-md-1 col-lg-1">
 	                	<button class="btn btn-primary" ng-click="filter_cell_line()">search</button>
-			</div>
-			<span class=" col-sm-4  col-xs-4 col-md-4 col-lg-4 help-block">Select a cell line</span>
+			<label class="control-label" for="query_cell_line">Select a cell line</span>
 	    	</div>
+		</form>
+		<br/>
+		<form class="form-inline">
 		<div class="form-group">
-			<label class="col-sm-2  col-xs-2 col-md-2 col-lg-2 control-label">Source</label>
-			<div class="col-sm-5  col-xs-5 col-md-5 col-lg-5">
-				<select class="form-control selectpicker show-menu-arrow" id="query_source" ng-model="query_source" name="select_source">
+			<label class="control-label" for="querysource">Source</label>
+				<select class="form-control selectpicker show-menu-arrow" id="querysource" ng-model="query_source" name="select_source">
 	                        <option >Fibroblasts</option>
 	                        <option >Urine</option>
 	                        <option >Human epithelial cells</option>
@@ -101,16 +97,15 @@
 	                        <option >Kidney</option>
 	                        <option >Blood</option>
 	                	</select>
-			</div>
-			<div class="col-sm-1  col-xs-1 col-md-1 col-lg-1">
 	                	<button class="btn btn-primary" ng-click="filter_source()">search</button>
-			</div>
-			<span class="col-sm-4  col-xs-4 col-md-4 col-lg-4  help-block">Select source</span>
+			<label class="control-label" for="querysource">Select source</label>
 	    </div>
+		</form>
+	    <br/>
+	    <form class="form-inline">
 	    <div class="form-group">
-		<label class="col-sm-2  col-xs-2 col-md-2 col-lg-2 control-label">Cancer</label>
-		<div class="col-sm-5  col-xs-5 col-md-5 col-lg-5">
-			<select class="form-control selectpicker show-menu-arrow" id="query_disease" name="select_disease" ng-model="query_desease">
+		<label class="control-label" for="querydisease">Cancer</label>
+			<select class="form-control selectpicker show-menu-arrow" id="querydisease" name="select_disease" ng-model="query_desease">
 				<option>Squamous cell carcinoma</option>
         			<option>Prostate Cancer</option>
         			<option>Mast cell leukemia</option>
@@ -123,12 +118,10 @@
         			<option>Pancreatic Cancer</option>
         			<option>Lymphoma</option>
 			</select>
-		</div>
-		<div class="col-sm-1  col-xs-1 col-md-1 col-lg-1">
 			<button class="btn btn-primary" ng-click="filter_desease()">search</button>
-		</div>
-		<span class="col-sm-4  col-xs-4 col-md-4 col-lg-4 help-block">Select cancer</span>
-	    </div>
+		<label class="control-label" for="querydisease">Select cancer</span>
+	    </div> 
+	   </form>
 	</div>
 </div>
 
