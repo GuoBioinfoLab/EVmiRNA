@@ -18,23 +18,20 @@ function SearchController($scope,$http,$window,$routeParams,EVmiRNAService){
         };
 	$scope.filter_id = function(){
 		$scope.check($scope.query_miRNA);
+		var query_param =  "hsa-"+$scope.query_miRNA;
 		$http({
 			url:base_url+"/api/exp_source",
-			params:{mirna:$scope.query_miRNA},
+			params:{mirna:query_param},
 			method:"GET"
 		}).then(
 			function(response){
 				var temp = response.data.exp_source_list;
+				console.log("temp");
+				console.log(temp.length);
+				console.log(response);
 				if(temp.length != 0){
 					if(flag == 0){
-                			var tempbit = $scope.query_miRNA.search(/hsa-miR/i);
-                        		if (tempbit != 0){
-                                		var query_item = $scope.query_miRNA.replace(/hsa-miR/i,"miR");
-                                		window.open(base_url+"#!miRNA_info?miRNA="+"hsa-"+query_item,"_self");
-                        		}
-                        		else{
-                                		window.open(base_url+"#!miRNA_info?miRNA="+$scope.query_miRNA,"_self");
-                        		}
+                                		window.open(base_url+"#!miRNA_info?miRNA=hsa-"+$scope.query_miRNA,"_self");
 					}
 				}
 				else{
