@@ -3,7 +3,7 @@
 angular.module('EVmiRNA', ['ui.bootstrap', 'ngRoute', 'pageslide-directive', 'ui.bootstrap-slider', 'bw.paging'])
     .config(function ($routeProvider) {
         $routeProvider
-            .when("/home", {
+            .when("/", {
                 templateUrl: "/static/EVmiRNA/pages/home.html",
                 controller: "HomeController",
             })

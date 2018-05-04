@@ -853,32 +853,32 @@ function MirnaController($http,$sce,$scope,$location,$anchorScroll,$routeParams,
 			}
 		);
 	}
-	$scope.gotoInformation = function(){
-		$location.hash("information");
-		$anchorScroll();
+	$scope.gotoinfo = function(){
+		$location.hash('information');
+      		$anchorScroll();
 	}
-	$scope.gotoExpression = function(){
-		$location.hash("expression");
-		$anchorScroll();
-	}
-	$scope.gotoTarget = function(){
-		$location.hash("target");
+	$scope.gotoexp = function(){
+		$location.hash('expression');
                 $anchorScroll();
 	}
-	$scope.gotoPathway = function(){
-                $location.hash("pathway");
+	$scope.gototer = function(){
+		$location.hash('target');
+                $anchorScroll();
+	}
+	$scope.gotopath = function(){	
+		$location.hash('pathway');
+                $anchorScroll();
+	}
+	$scope.gotofunc = function(){
+                $location.hash('function');
                 $anchorScroll();
         }
-	$scope.gotoDrug = function(){
-                $location.hash("drug");
+	$scope.gotodrug = function(){
+                $location.hash('drug');
                 $anchorScroll();
         }
-	$scope.gotoPublication = function(){
-                $location.hash("publication");
-                $anchorScroll();
-        }
-	$scope.gotoFunction = function(){
-                $location.hash("function");
+	$scope.gotopub = function(){
+                $location.hash('publication');
                 $anchorScroll();
         }
 }
