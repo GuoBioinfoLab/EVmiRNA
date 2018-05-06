@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('EVmiRNA', ['ui.bootstrap', 'ngRoute', 'pageslide-directive', 'ui.bootstrap-slider', 'bw.paging'])
-    .config(function ($routeProvider) {
+    .config(function ($routeProvider, $locationProvider) {
         $routeProvider
             .when("/", {
                 templateUrl: "/static/EVmiRNA/pages/home.html",
@@ -50,6 +50,7 @@ angular.module('EVmiRNA', ['ui.bootstrap', 'ngRoute', 'pageslide-directive', 'ui
             .otherwise({
                 redirectTo: "/404.html",
             });
+	    $locationProvider.html5Mode(true);
     })
     .config(
 	function ($interpolateProvider) {

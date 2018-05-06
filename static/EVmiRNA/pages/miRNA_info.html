@@ -1,65 +1,62 @@
-<div class="row">
-<div class="col-xs-2" style="position:fixed;right:0">
-<nav class="navbar-default navbar" id="navbar-mirna">
-	<ul class="nav nav-tabs nav-stacked">
-                <li ><a  ng-click="gotoinfo()">Basic information</a></li>
-                <li ><a  ng-click="gotoexp()">Expression</a></li>
-                <li ><a  ng-show="tarinfo" ng-click="gototer()">Target</a></li>
-                <li ><a  ng-show="pathinfo" ng-click="gotopath()">Pathway</a></li>
-                <li ><a  ng-show="funcinfo" ng-click="gotofunc()">Function</a></li>
-                <li ><a  ng-show="druginfo" ng-click="gotodrug()">Drug</a></li>
-                <li ><a  ng-show="pubinfo"ng-click="gotopub()">Publication</a></li>
-	</ul>
-</nav>
-</div>
-<div class="col-xs-10">
-<div class="panel panel-success anchor" id="information"> 
-	<div class="panel-heading">
-		<strong>
-			Basic information of miRNA: {$ query_miRNA $}
-		</strong>
-	</div>
-	<div class="panel-body">
-		<dl class="dl-horizontal" ng-repeat="miRNA in mirna_basic_list">
-		<dt>id:</dt>
-                <dd>{$ miRNA.mirna $}</dd>
-                <dt>accession:</dt>
-                <dd>{$ miRNA.accession $}</dd>
-                <dt>mature sequence:</dt>
-                <dd style="word-wrap:break-word;"><strong>{$ miRNA.first_base $}<span style="color:red;">{$ miRNA.two_to_eight $}</span>{$ miRNA.the_remaining $}</strong></dd>
-
-                <dt>precursor:</dt>
-                <dd>{$ miRNA.premirna $}</dd>
-		<dt>position:</dt>
-		<dd>{$ miRNA.start $} - {$ miRNA.end $}</dd>
-		<dt>family:</dt>
-		<dd>{$ miRNA.family $}</dd>
-		<!--<dt>pre-miRsequence:</dt>-->
-                <!--<dd style="word-wrap:break-word">{$ miRNA.pre_seq $}</dd>-->
-		</dl>
-	</div>
-</div>
-<div class="panel panel-info anchor" id="expression">
-		<div class="panel-heading">
-			<strong>Expression</strong>
-		</div>
-		<div class="panel-body">
-		<div>
-			<div class="btn-group btn-group-justified" role="group">
-					<div class="btn-group" role="group">
-                                        <button type="button" class="btn btn-default" class="source" ng-click="draw_exp_source()">Source</button>
-					</div>
-					<div class="btn-group" role="group">
-                                        <button type="button" class="btn btn-default" class="source_mv" ng-click="draw_source_mv()">Source_mv_exo</button>
-					</div>
-					<div class="btn-group" role="group">
-                                        <button type="button" class="btn btn-default"  class="cancer" ng-click="draw_exp_cancer()">Cancer</button>
-					</div>
-					<div class="btn-group" role="group">
-                                        <button type="button" class="btn btn-default" class="cellline" ng-click="draw_celline()">cell line</button>
-					</div>
-                        </div>
-			<div class="btn-group btn-group-justified" role="group">
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2">
+                <ul class="nav nav-tabs nav-stacked" style="background-color:Khaki;position:fixed">
+                    <li><a href="#information">Basic information</a></li>
+                    <li><a href="#expression">Expression</a></li>
+                    <li ng-show="tarinfo"><a href="#target">Target</a></li>
+                    <li ng-show="pathinfo"><a href="#pathway">Pathway</a></li>
+                    <li ng-show="funinfo"><a href="#function">Function</a></li>
+                    <li ng-show="druginfo"><a href="#drug">Drug</a></li>
+                    <li ng-show="pubinfo"><a href="#publication">Publication</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-10">
+                <div class="panel panel-success" id="information"> 
+                    <div class="panel-heading">
+                        <strong>Basic information of miRNA: {$ query_miRNA $}</strong>
+                    </div>
+                    <div class="panel-body">
+                        <dl class="dl-horizontal" ng-repeat="miRNA in mirna_basic_list">
+                        <dt>id:</dt>
+                        <dd>{$ miRNA.mirna $}</dd>
+                        <dt>accession:</dt>
+                        <dd>{$ miRNA.accession $}</dd>
+                        <dt>mature sequence:</dt>
+                        <dd style="word-wrap:break-word;"><strong>{$ miRNA.first_base $}<span style="color:red;">{$ miRNA.two_to_eight $}</span>{$ miRNA.the_remaining $}</strong></dd>
+                        <dt>precursor:</dt>
+                        <dd>{$ miRNA.premirna $}</dd>
+                        <dt>position:</dt>
+                        <dd>{$ miRNA.start $} - {$ miRNA.end $}</dd>
+                        <dt>family:</dt>
+                        <dd>{$ miRNA.family $}</dd>
+                        <!--<dt>pre-miRsequence:</dt>-->
+                        <!--<dd style="word-wrap:break-word">{$ miRNA.pre_seq $}</dd>-->
+                         </dl>
+                    </div>
+                </div>
+                <div class="panel panel-info" id="expression">
+            		<div class="panel-heading">
+                	<strong>Expression</strong>
+            		</div>
+            		<div class="panel-body">
+            		<div>
+                <div class="btn-group btn-group-justified" role="group">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" class="source" ng-click="draw_exp_source()">Source</button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" class="source_mv" ng-click="draw_source_mv()">Source_mv_exo</button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default"  class="cancer" ng-click="draw_exp_cancer()">Cancer</button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" class="cellline" ng-click="draw_celline()">cell line</button>
+                    </div>
+                </div>
+                <div class="btn-group btn-group-justified" role="group">
                                         <div class="btn-group" role="group">
                                         <button type="button" class="btn btn-default" class="source" ng-click="expSourceBox()">Source Box</button>
                                         </div>
@@ -72,189 +69,189 @@
                                         <div class="btn-group" role="group">
                                         <button type="button" class="btn btn-default" class="cellline" ng-click="expCelllineBox()">Cell line Box</button>
                                         </div>
-                        </div>
-			<input type="radio" name="outliner" value="1"/>add <input type="radio" name="outliner" value="0"/>remove
-                        <div class="row">
-                                <div id="barContainer"  style="height:500px;width:100%;text-align:center;"></div>
-                        </div>
-			<hr/>
-			<div class="row">
-				<div id="tcgadataContainer" style="height:500px;width:100%;text-align:center;"></div>
-			</div>
-
-		</div>
-		</div>
-	</div>
-	<div class="panel panel-info anchor " id="target" ng-show="tarinfo">
-		<div class="panel-heading">
-			<strong> miRNA target information</strong>
-		</div>
-		<div class="panel-body ">
-			<button type="button" class="btn btn-warning pull-right" ng-click="download()">download</button><hr/>
-			<div class="table-responsive">
-			<div class="col-lg-7"
-     				paging
-     				page="currentPage"
-     				page-size=8
-     				total="records_number"
-     				scroll-top="true"
-     				hide-if-empty="true"
-     				show-prev-next="true"
-     				show-first-last="true"
-     				text-title-page="Page {page} Hover Over"
-     				text-title-first="First hover"
-     				text-title-last="Last hover"
-     				text-title-next="Next hover"
-     				text-title-prev="Prev hover"
-     				show-prev-next="true"
-    				show-first-last="true"
-     				ul-class="pagination"
-     				active-class="active"
-     				disabled-class="disabled"
-     				paging-action="update_page('test',page,page-size,total)"
-			>
-			</div>
-			<table class="table text-center table-bordered table-striped table-hover table-responsive tablesorter tablesorter-bootstrap table-condensed" ng-show="mirna_target_list.length" data-striped="true" ts-wrapper >
-				<thead>
-				<tr class="success">
-					<th class="col-md-2 text-center">target symbol</th>
-					<th class="col-md-2 text-center" >target chromosome</th>
-					<th class="col-md-3 text-center">target start</th>
-					<th class="col-md-3 text-center">target end</th>
-					<th class="col-md-2 text-center">type</th>
-				    </tr>
-					</thead>
-					<tbody>
-					<tr ng-repeat="item in mirna_target_list  track by $index" ts-repeat>
-						<td><a href="https://www.ncbi.nlm.nih.gov/gene/?term={$ item.target_symbol $}" target="_blank">{$ item.target_symbol $}</a></td>
-						<td>{$ item.target_chr $}</td>
-						<td>{$ item.target_start $}</td>
-						<td>{$ item.target_end $}</td>
-						<td>{$ item.p_v $}</td>
-					</tr>
-					</tbody>
-			</table>
-			</div>
-			<div paging  class="col-lg-7"
-				     page="currentPage"
-				     page-size=8
-				     total="records_number"
-				     scroll-top="true"
-				     hide-if-empty="true"
-				     show-prev-next="true"
-				     show-first-last="true"
-				     text-title-page="Page {page} Hover Over"
-				     text-title-first="First hover"
-				     text-title-last="Last hover"
-				     text-title-next="Next hover"
-				     text-title-prev="Prev hover"
-				     show-prev-next="true"
-				     show-first-last="true"
-				     ul-class="pagination"
-				     active-class="active"
-				     disabled-class="disabled"
-				     paging-action="update_page('test',page,page-size,total)"
-				>
-			</div>
-		</div>
-	</div>
-		<div  class="panel panel-info anchor" id="pathway" ng-show="pathinfo">
-		<div class="panel-heading">
-			<strong>Pathway information</strong>
-		</div>
-		<div class="panel-body">
+                    </div>
+                    <input type="radio" name="outliner" value="1"/>add <input type="radio" name="outliner" value="0"/>remove
+                    <div class="row">
+                        <div id="barContainer"  style="height:500px;width:100%;text-align:center;"></div>
+                    </div>
+                    <div class="row">
+                        <div id="tcgadataContainer" style="height:500px;width:100%;text-align:center;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-info" id="target" ng-show="tarinfo">
+            <div class="panel-heading">
+                <strong> miRNA target information</strong>
+            </div>
+            <div class="panel-body ">
+                <button type="button" class="btn btn-warning pull-right" ng-click="download()">download</button><hr/>
+                <div class="table-responsive">
+                <div class="col-lg-7"
+                        paging
+                        page="currentPage"
+                        page-size=8
+                        total="records_number"
+                        scroll-top="true"
+                        hide-if-empty="true"
+                        show-prev-next="true"
+                        show-first-last="true"
+                        text-title-page="Page {page} Hover Over"
+                        text-title-first="First hover"
+                        text-title-last="Last hover"
+                        text-title-next="Next hover"
+                        text-title-prev="Prev hover"
+                        show-prev-next="true"
+                        show-first-last="true"
+                        ul-class="pagination"
+                        active-class="active"
+                        disabled-class="disabled"
+                        paging-action="update_page('test',page,page-size,total)"
+                >
+                </div>
+                <table class="table text-center table-bordered table-striped table-hover table-responsive tablesorter tablesorter-bootstrap table-condensed" ng-show="mirna_target_list.length" data-striped="true" ts-wrapper >
+                <thead>
+                <tr class="success">
+                    <th class="col-md-2 text-center">target symbol</th>
+                    <th class="col-md-2 text-center" >target chromosome</th>
+                    <th class="col-md-3 text-center">target start</th>
+                    <th class="col-md-3 text-center">target end</th>
+                    <th class="col-md-2 text-center">type</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in mirna_target_list  track by $index" ts-repeat>
+                        <td><a href="https://www.ncbi.nlm.nih.gov/gene/?term={$ item.target_symbol $}" target="_blank">{$ item.target_symbol $}</a></td>
+                        <td>{$ item.target_chr $}</td>
+                        <td>{$ item.target_start $}</td>
+                        <td>{$ item.target_end $}</td>
+                        <td>{$ item.p_v $}</td>
+                    </tr>
+                    </tbody>
+            </table>
+            </div>
+            <div paging  class="col-lg-7"
+                     page="currentPage"
+                     page-size=8
+                     total="records_number"
+                     scroll-top="true"
+                     hide-if-empty="true"
+                     show-prev-next="true"
+                     show-first-last="true"
+                     text-title-page="Page {page} Hover Over"
+                     text-title-first="First hover"
+                     text-title-last="Last hover"
+                     text-title-next="Next hover"
+                     text-title-prev="Prev hover"
+                     show-prev-next="true"
+                     show-first-last="true"
+                     ul-class="pagination"
+                     active-class="active"
+                     disabled-class="disabled"
+                     paging-action="update_page('test',page,page-size,total)"
+                >
+                </div>
+        </div>
+        </div>
+        <div  class="panel panel-info" id="pathway" ng-show="pathinfo">
+            <div class="panel-heading">
+                <strong>Pathway information</strong>
+            </div>
+            <div class="panel-body">
                         <button class="btn btn-warning pull-right" ng-click="downloadkegg()">download</button><hr/>
-			<div class="table-responcive"  style="overflow:scroll;width:100%;height:auto;max-height:500px;">
-				<table class="table table-bordered table-striped" style="table-layout:fixed;">
-					<thead>
-					<tr class="success">
-						<th class="col-xs-1">#</th>
-						<th class="col-xs-1">kegg id</th>
-						<th class="col-xs-2">kegg description</th>
-						<th class="col-xs-4">gene</th>
-						<th class="col-xs-2">p value</th>
-						<!--<th class="col-xs-2">possibility</th>-->
-					</tr>
-					</thead>
-					<tbody>
-					<tr ng-repeat="item in mirna_pathway_list">
-					<td>{$ $index+1 $}</td>
-					<td><a href="http://www.kegg.jp/kegg-bin/show_pathway?{$ item.kegg $}" target="_blank" class="col">{$ item.kegg $}</a></td>
-					<td>{$ item.kegg_dscp $}</td>
-					<td style="word-wrap:break-word"><span ng-repeat="i in item.gene "><a href="https://www.ncbi.nlm.nih.gov/gene/?term={$ i $}" target="_blank">{$ i $}&nbsp;</a></span></td>
-					<td>{$ item.pvalue $}</td>
-					<!--<td>{$ item.possibility $}</td>-->
-					</tr>
-					</tbody>
-				</table> 
-			</div>
-		</div>
-	</div>
-	<div class="panel panel-info anchor" id="function" ng-show="funcinfo">
-		<div class="panel-heading">
-			<strong>Function</strong>
-		</div>
-		<div class="panel-body">
-			<div class="table-responcive" style="width:100%;max-height:500px;overflow:scroll;height:auto;">
-				<table class="table table-condensed  table-responsive table-striped table-hover">
-					<thead>
-						<tr class="success">
-							<th class="col-xs-1">gene</th>
-							<th class="col-xs-7">function</th>
-							<th class="col-xs-2">timestamps</th>
-							<th class="col-xs-2">pubmed</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="item in mirna_function_list">
-							<td>{$ item.miR_gene_id $}</td>
-							<td>{$ item.mir_function $}</td>
-							<td>{$ item.timestamps $}</td>
-							<td><a href="https://www.ncbi.nlm.nih.gov/pubmed/?term={$ item.pubmed_id $}" target="_blank">{$ item.pubmed_id $}</a></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-	<div class="panel panel-info anchor" id="drug" ng-show="druginfo">
-		<div class="panel-heading">
-			<strong>Small molecular drug to {$ query_miRNA $}</strong>
-		</div>
-		<div class="panel-body">
-			<ol>
-				<li ng-repeat="item in molecular_drug">
-				<dl class="dl-horizontal">
-						<dt>small molecule:</dt><dd>{$ item["small melocule"] $}</dd>
-						<dt>condition:</dt><dd>{$ item.Condition $}</dd>
-						<dt>miRNA expression:</dt><dd>{$ item["Expression pattern of miRNA"] $}</dd>
-						<dt>Support:</dt><dd>{$ item.Support $}</dd>
-						<dt>miRBase:</dt><dd>{$ item.miRBase $}</dd>
-						<dt>Detection method:</dt><dd>{$ item["Detection method"] $}</dd>
-						<dt>Pubmed id:</dt><dd>{$ item.PMID $}</dd>
-						<dt>DB:</dt><dd>{$ item.DB $}</dd>
-						<dt>CID:</dt><dd>{$ item.CID $}</dd>
-						<dt>FDA:</dt><dd>{$ item.FDA $}</dd>
-						<dt>Reference:</dt><dd style="word-wrap:break-word;">{$ item.Reference $}</dd>
-				</dl>
-				</li>
-			</ol>
-		</div>
-	</div>
-	<div class="panel panel-info anchor" id="publication" ng-show="pubinfo">
-		<div class="panel-heading">
-			<strong>Publication</strong>
-		</div>
-		<div class="panel-body">
-			<div style="width:100%;height:auto;overflow:scroll;max-height:500px;">
-				<ol>
-					<li ng-repeat="item in mirna_pubmed_list">
-					<a href="https://www.ncbi.nlm.nih.gov/pubmed/?term={$ item.PMID $}" class="col" target="_blank"><strong>{$ item.title $}</strong></a><br>
-					PMID:{$ item.PMID $}&nbsp;&nbsp;&nbsp;&nbsp;{$ item.journal $}&nbsp;&nbsp;{$ item.year $}<br>
-					</li>
-				</ol>
-			</div>
-		</div>
-	</div>
-</div>
+            <div class="table-responcive"  style="overflow:scroll;width:100%;height:auto;max-height:500px;">
+                <table class="table table-bordered table-striped" style="table-layout:fixed;">
+                    <thead>
+                    <tr class="success">
+                        <th class="col-xs-1">#</th>
+                        <th class="col-xs-1">kegg id</th>
+                        <th class="col-xs-2">kegg description</th>
+                        <th class="col-xs-4">gene</th>
+                        <th class="col-xs-2">p value</th>
+                        <!--<th class="col-xs-2">possibility</th>-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in mirna_pathway_list">
+                    <td>{$ $index+1 $}</td>
+                    <td><a href="http://www.kegg.jp/kegg-bin/show_pathway?{$ item.kegg $}" target="_blank" class="col">{$ item.kegg $}</a></td>
+                    <td>{$ item.kegg_dscp $}</td>
+                    <td style="word-wrap:break-word"><span ng-repeat="i in item.gene "><a href="https://www.ncbi.nlm.nih.gov/gene/?term={$ i $}" target="_blank">{$ i $}&nbsp;</a></span></td>
+                    <td>{$ item.pvalue $}</td>
+                    <!--<td>{$ item.possibility $}</td>-->
+                    </tr>
+                    </tbody>
+                    </table> 
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-info" id="function" ng-show="funcinfo">
+            <div class="panel-heading">
+                <strong>Function</strong>
+            </div>
+            <div class="panel-body">
+                <div class="table-responcive" style="width:100%;max-height:500px;overflow:scroll;height:auto;">
+                    <table class="table table-condensed  table-responsive table-striped table-hover">
+                        <thead>
+                            <tr class="success">
+                                <th class="col-xs-1">gene</th>
+                                <th class="col-xs-7">function</th>
+                                <th class="col-xs-2">timestamps</th>
+                                <th class="col-xs-2">pubmed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in mirna_function_list">
+                            <td>{$ item.miR_gene_id $}</td>
+                            <td>{$ item.mir_function $}</td>
+                            <td>{$ item.timestamps $}</td>
+                            <td><a href="https://www.ncbi.nlm.nih.gov/pubmed/?term={$ item.pubmed_id $}" target="_blank">{$ item.pubmed_id $}</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-info"id="drug"  ng-show="druginfo">
+        <div class="panel-heading">
+            <strong>Small molecular drug to {$ query_miRNA $}</strong>
+        </div>
+        <div class="panel-body">
+            <ol>
+                <li ng-repeat="item in molecular_drug">
+                <dl class="dl-horizontal">
+                        <dt>small molecule:</dt><dd>{$ item["small melocule"] $}</dd>
+                        <dt>condition:</dt><dd>{$ item.Condition $}</dd>
+                        <dt>miRNA expression:</dt><dd>{$ item["Expression pattern of miRNA"] $}</dd>
+                        <dt>Support:</dt><dd>{$ item.Support $}</dd>
+                        <dt>miRBase:</dt><dd>{$ item.miRBase $}</dd>
+                        <dt>Detection method:</dt><dd>{$ item["Detection method"] $}</dd>
+                        <dt>Pubmed id:</dt><dd>{$ item.PMID $}</dd>
+                        <dt>DB:</dt><dd>{$ item.DB $}</dd>
+                        <dt>CID:</dt><dd>{$ item.CID $}</dd>
+                        <dt>FDA:</dt><dd>{$ item.FDA $}</dd>
+                        <dt>Reference:</dt><dd style="word-wrap:break-word;">{$ item.Reference $}</dd>
+                </dl>
+                </li>
+            </ol>
+        </div>
+    </div>
+        <div class="panel panel-info"  id="publication"  ng-show="pubinfo">
+            <div class="panel-heading">
+                <strong>Publication</strong>
+            </div>
+            <div class="panel-body">
+                <div style="width:100%;height:auto;overflow:scroll;max-height:500px;">
+                    <ol>
+                    <li ng-repeat="item in mirna_pubmed_list">
+                    <a href="https://www.ncbi.nlm.nih.gov/pubmed/?term={$ item.PMID $}" class="col" target="_blank"><strong>{$ item.title $}</strong></a><br>
+                    PMID:{$ item.PMID $}&nbsp;&nbsp;&nbsp;&nbsp;{$ item.journal $}&nbsp;&nbsp;{$ item.year $}<br>
+                    </li>
+                </ol>
+                </div>
+            </div>
+            </div>
+            </div>
+        </div>
+    </div>
 </div>

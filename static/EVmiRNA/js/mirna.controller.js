@@ -4,11 +4,14 @@ angular.module('EVmiRNA')
 	.controller('MirnaController',MirnaController);
 
 function MirnaController($http,$sce,$scope,$location,$anchorScroll,$routeParams,EVmiRNAService){
+
 	console.log($routeParams.miRNA);
 	var base_url = EVmiRNAService.getAPIBaseUrl();
 	var query_mirna =  $routeParams.miRNA;
 	$scope.error = 0;
 	$scope.query_miRNA = query_mirna;
+
+
 	$scope.fetch_miRNA = function(){
 		$http({
 			url: base_url+'/api/mirna_info',
@@ -703,14 +706,7 @@ function MirnaController($http,$sce,$scope,$location,$anchorScroll,$routeParams,
 	$(function (){
     		$("[data-toggle='popover']").popover();
 	});
-	$scope.draw_exp_source();
-	$scope.fetch_pubmed();
-	$scope.fetch_pathway();
-	$scope.fetch_mirnatarget();
-	$scope.fetch_molecular_drug();
-	$scope.fetch_mirnafunction();
-	$scope.fetch_miRNA();
-	$scope.tcgaexpression();
+	
 	$scope.set_style =  function(){
 		$("#sequence").html($("#sequence").slice(0,1)+"<span style='color:red;'>"+$("#sequence").slice(1,7)+"</span>"+$("#sequence").slice(7));
 	};
@@ -853,32 +849,14 @@ function MirnaController($http,$sce,$scope,$location,$anchorScroll,$routeParams,
 			}
 		);
 	}
-	$scope.gotoinfo = function(){
-		$location.hash('information');
-      		$anchorScroll();
-	}
-	$scope.gotoexp = function(){
-		$location.hash('expression');
-                $anchorScroll();
-	}
-	$scope.gototer = function(){
-		$location.hash('target');
-                $anchorScroll();
-	}
-	$scope.gotopath = function(){	
-		$location.hash('pathway');
-                $anchorScroll();
-	}
-	$scope.gotofunc = function(){
-                $location.hash('function');
-                $anchorScroll();
-        }
-	$scope.gotodrug = function(){
-                $location.hash('drug');
-                $anchorScroll();
-        }
-	$scope.gotopub = function(){
-                $location.hash('publication');
-                $anchorScroll();
-        }
+	$(document).ready(function(){
+		$scope.draw_exp_source();
+		$scope.fetch_pubmed();
+		$scope.fetch_pathway();
+		$scope.fetch_mirnatarget();
+		$scope.fetch_molecular_drug();
+		$scope.fetch_mirnafunction();
+		$scope.fetch_miRNA();
+		$scope.tcgaexpression();
+		});
 }

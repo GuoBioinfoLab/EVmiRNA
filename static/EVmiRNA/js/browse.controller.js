@@ -47,6 +47,6 @@ function BrowseController($scope,$http,$window,EVmiRNAService) {
         )
 	}
 	$scope.filter_mirna = function(){
-		window.open(base_url+"#!miRNA_info?miRNA="+$scope.query_mirna,"_blank");
+		window.open(base_url+"miRNA_info?miRNA="+$scope.query_mirna,"_blank");
 	}
 }
