@@ -25,7 +25,7 @@ function SearchController($scope,$http,$window,$routeParams,EVmiRNAService){
 				window.open(base_url+"#!miRNA_info?miRNA="+"hsa-"+query_item,"_self");
 			}
 			else{
-			window.open(base_url+"#!miRNA_info?miRNA="+"hsa-"+$scope.query_miRNA,"_self");
+			window.open(base_url+"#!miRNA_info?miRNA="+$scope.query_miRNA,"_self");
 			}
 		}
 	};
@@ -48,7 +48,7 @@ function SearchController($scope,$http,$window,$routeParams,EVmiRNAService){
 				source: mirnalist
 			},
 			{
-				minLength:3
+				minLength:6
 			});
 		});
 	});
