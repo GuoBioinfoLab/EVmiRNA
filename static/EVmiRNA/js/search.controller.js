@@ -40,16 +40,16 @@ function SearchController($scope,$http,$window,$routeParams,EVmiRNAService){
 			})
 	};
 	$scope.filter_fam = function(){
-		window.open(base_url+"family?mirnafam="+$scope.query_fam,"_self");
+		window.open(base_url+"#!family?mirnafam="+$scope.query_fam,"_self");
 	};
 	$scope.filter_source = function(){
-		window.open(base_url+"sample?sample=source&source="+$scope.query_source,"_self");
+		window.open(base_url+"#!sample?sample=source&source="+$scope.query_source,"_self");
 	};
 	$scope.filter_cell_line = function(){
-		window.open(base_url+"sample?sample=cell_line&cellline="+$scope.query_cellline,"_self");
+		window.open(base_url+"#!sample?sample=cell_line&cellline="+$scope.query_cellline,"_self");
 	}
 	$scope.filter_desease = function(){
-		window.open(base_url+"sample?sample=desease&desease="+$scope.query_desease,"_self");
+		window.open(base_url+"#!sample?sample=desease&desease="+$scope.query_desease,"_self");
 	}
 	$.get("/api/mirnalist",function(content){
 		var mirnalist = content;
