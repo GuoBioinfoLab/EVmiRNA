@@ -2570,24 +2570,6 @@ hsa-miR-1283
 hsa-miR-1282
 hsa-miR-1289
 hsa-miR-192-3p
-hsa-let-7g-5p
-hsa-let-7d-5p
-hsa-let-7a-3p
-hsa-let-7i-3p
-hsa-let-7e-5p
-hsa-let-7b-3p
-hsa-let-7e-3p
-hsa-let-7f-2-3p
-hsa-let-7b-5p
-hsa-let-7a-5p
-hsa-let-7a-2-3p
-hsa-let-7i-5p
-hsa-let-7c-5p
-hsa-let-7d-3p
-hsa-let-7f-1-3p
-hsa-let-7g-3p
-hsa-let-7f-5p
-hsa-let-7c-3p
 =======
 miR-495-3p
 miR-1976
@@ -2681,7 +2663,7 @@ miR-637
 miR-638
 miR-639
 miR-6819-5p
-let-7g-5p
+hsa-let-7g-5p
 miR-6762-3p
 miR-6787-5p
 miR-18b-5p
@@ -2742,7 +2724,7 @@ miR-3920
 miR-3921
 miR-3926
 miR-3924
-let-7d-5p
+hsa-let-7d-5p
 miR-4251
 miR-6761-3p
 miR-181c-3p
@@ -2756,7 +2738,7 @@ miR-6790-3p
 miR-4749-5p
 miR-4735-5p
 miR-4757-3p
-let-7a-3p
+hsa-let-7a-3p
 miR-454-5p
 miR-4725-3p
 miR-3187-5p
@@ -2834,7 +2816,7 @@ miR-548ao-5p
 miR-5572
 miR-642b-3p
 miR-6516-5p
-let-7i-3p
+hsa-let-7i-3p
 miR-374b-5p
 miR-487a-3p
 miR-3912-3p
@@ -3045,7 +3027,7 @@ miR-3675-5p
 miR-184
 miR-4751
 miR-548h-3p
-let-7e-5p
+hsa-let-7e-5p
 miR-6828-3p
 miR-4722-5p
 miR-4758-5p
@@ -3311,7 +3293,7 @@ miR-3664-5p
 miR-6818-3p
 miR-548f-3p
 miR-124-5p
-let-7b-3p
+hsa-let-7b-3p
 miR-5589-5p
 miR-5591-5p
 miR-4695-3p
@@ -3411,7 +3393,7 @@ miR-3679-5p
 miR-4709-5p
 miR-582-3p
 miR-1227-5p
-let-7e-3p
+hsa-let-7e-3p
 miR-149-3p
 miR-3185
 miR-3180
@@ -3494,7 +3476,7 @@ miR-1231
 miR-5197-5p
 miR-4255
 miR-19b-2-5p
-let-7f-2-3p
+hsa-let-7f-2-3p
 miR-1200
 miR-93-3p
 miR-1203
@@ -3664,7 +3646,7 @@ miR-6877-5p
 miR-6759-5p
 miR-6886-5p
 miR-3664-3p
-let-7b-5p
+hsa-let-7b-5p
 miR-1-3p
 miR-301b-5p
 miR-4524a-5p
@@ -3820,7 +3802,7 @@ miR-579-3p
 miR-937-3p
 miR-3157-5p
 miR-450a-1-3p
-let-7a-5p
+hsa-let-7a-5p
 miR-4735-3p
 miR-6831-3p
 miR-450a-2-3p
@@ -3873,7 +3855,7 @@ miR-6731-3p
 miR-6884-3p
 miR-1255a
 miR-548ar-5p
-let-7a-2-3p
+hsa-let-7a-2-3p
 miR-345-5p
 miR-379-3p
 miR-6854-5p
@@ -3906,7 +3888,7 @@ miR-1292-5p
 miR-4446-3p
 miR-190a-5p
 miR-6777-3p
-let-7i-5p
+hsa-let-7i-5p
 miR-6858-3p
 miR-7113-5p
 miR-1234-3p
@@ -4027,7 +4009,7 @@ miR-4316
 miR-4317
 miR-4318
 miR-4319
-let-7c-5p
+hsa-let-7c-5p
 miR-6870-3p
 miR-548e-3p
 miR-891a-5p
@@ -4237,7 +4219,7 @@ miR-29c-5p
 miR-5681a
 miR-5681b
 miR-1305
-let-7d-3p
+hsa-let-7d-3p
 miR-1302
 miR-1303
 miR-181c-5p
@@ -4664,7 +4646,7 @@ miR-10a-3p
 miR-98-3p
 miR-202-3p
 miR-4761-3p
-let-7f-1-3p
+hsa-let-7f-1-3p
 miR-412-3p
 miR-154-3p
 miR-4485-5p
@@ -4874,7 +4856,7 @@ miR-548ad-5p
 miR-518b
 miR-3155b
 miR-3155a
-let-7g-3p
+hsa-let-7g-3p
 miR-4725-5p
 miR-6787-3p
 miR-5588-3p
@@ -4954,7 +4936,7 @@ miR-1181
 miR-370-5p
 miR-99b-5p
 miR-3925-5p
-let-7f-5p
+hsa-let-7f-5p
 miR-487a-5p
 miR-6736-5p
 miR-7152-3p
@@ -5108,7 +5090,7 @@ miR-4801
 miR-668-5p
 miR-4665-5p
 miR-17-5p
-let-7c-3p
+hsa-let-7c-3p
 miR-4712-3p
 miR-378a-3p
 miR-3942-5p
@@ -5160,4 +5142,4 @@ miR-1283
 miR-1282
 miR-1289
 miR-192-3p
->>>>>>> 2e98444ca32f22aa6ca55ca9c22d0ee6472ca3eb
+>>>>>>> 399db4e7a595766f0aa4e719e472588796c35eb8

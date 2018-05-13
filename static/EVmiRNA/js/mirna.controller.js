@@ -3,15 +3,18 @@
 angular.module('EVmiRNA')
 	.controller('MirnaController',MirnaController);
 
-function MirnaController($http,$sce,$scope,$routeParams,EVmiRNAService){
+function MirnaController($http,$sce,$scope,$location,$anchorScroll,$routeParams,EVmiRNAService){
+
 	console.log($routeParams.miRNA);
 	var base_url = EVmiRNAService.getAPIBaseUrl();
 	var query_mirna =  $routeParams.miRNA;
 	$scope.error = 0;
 	$scope.query_miRNA = query_mirna;
+
+
 	$scope.fetch_miRNA = function(){
 		$http({
-			url: base_url+'/api/mirna_list',
+			url: base_url+'/api/mirna_info',
 			method:'GET',
 			params: {mirna:query_mirna}
 		}).then(
@@ -19,7 +22,8 @@ function MirnaController($http,$sce,$scope,$routeParams,EVmiRNAService){
 			console.log(response);
 			$scope.mirna_basic_list = response.data.mirna_basic_list;
 			}
-		)};
+		);
+	};
 	$scope.fetch_mirnatarget = function(){
 		$http({
 			url:base_url+'/api/mirna_target',
@@ -30,6 +34,12 @@ function MirnaController($http,$sce,$scope,$routeParams,EVmiRNAService){
 				console.log(response);
 				$scope.mirna_target_list = response.data.mir_target_list;
 				$scope.records_number = response.data.records_num;
+				var info = response.data.records_num;
+				if(info != 0){
+					$scope.tarinfo =1;
+				}else{
+					$scope.tarinfo = 0;
+				}
 			});
 	};
 	$scope.update_page = function(test,page,size,total){
@@ -43,10 +53,6 @@ function MirnaController($http,$sce,$scope,$routeParams,EVmiRNAService){
 		}).then(
 			function(response){
 			console.log(response);
-			var temp = response.data.mir_target_list;
-			if(temp.length == 0){
-				$scope.error=1;
-			}
 			$scope.mirna_target_list = response.data.mir_target_list;
 			$scope.records_number = response.data.records_num;
 			}
@@ -60,6 +66,12 @@ function MirnaController($http,$sce,$scope,$routeParams,EVmiRNAService){
 			function(response){
 			console.log(response);
 			$scope.mirna_pathway_list = response.data.mir_pathway_list;
+			var list =  response.data.mir_pathway_list;
+			if(list.length == 0){
+				$scope.pathinfo = 0;
+			}else{
+				$scope.pathinfo = 1;
+			}
 			}
 		)};
 	$scope.fetch_pubmed = function(){
@@ -71,8 +83,121 @@ function MirnaController($http,$sce,$scope,$routeParams,EVmiRNAService){
 			function(response){
 			console.log(response);
 			$scope.mirna_pubmed_list = response.data.mir_pubmed_list;
+			var list = response.data.mir_pubmed_list;
+			if(list.length == 0){
+                                $scope.pubinfo = 0;
+                        }else{
+                                $scope.pubinfo = 1;
+                        }
 			}
 		)};
+	$scope.tcgaexpression = function(){
+		$http({
+			url:base_url+"/api/tcgaexpression",
+			method:"GET",
+			params:{mirna:query_mirna}
+		}).then(
+			function(response){
+				console.log(response);
+				var tcgaexp = response.data.tcga_expression_list;
+				var datapoints = [
+					{label:"ACC_case",y:Number(tcgaexp[0].ACC_case)}, 
+            		{label:"ACC_normal",y:Number(tcgaexp[0].ACC_normal)}, 
+            		{label:"BLCA_case",y:Number(tcgaexp[0].BLCA_case)}, 
+            		{label:"BLCA_normal",y:Number(tcgaexp[0].BLCA_normal)}, 
+            		{label:"BRCA_case",y:Number(tcgaexp[0].BRCA_case)}, 
+            		{label:"BRCA_normal",y:Number(tcgaexp[0].BRCA_normal)}, 
+            		{label:"CESC_case",y:Number(tcgaexp[0].CESC_case)},
+            		{label:"CESC_normal",y:Number(tcgaexp[0].CESC_normal)}, 
+            		{label:"CHOL_case",y:Number(tcgaexp[0].CHOL_case)}, 
+            		{label:"CHOL_normal",y:Number(tcgaexp[0].CHOL_normal)}, 
+            		{label:"COAD_case",y:Number(tcgaexp[0].COAD_case)}, 
+            		{label:"COAD_normal",y:Number(tcgaexp[0].COAD_normal)}, 
+            		{label:"DLBC_case",y:Number(tcgaexp[0].DLBC_case)}, 
+            		{label:"DLBC_normal", y:Number(tcgaexp[0].DLBC_normal)},
+            		{label:"ESCA_case", y:Number(tcgaexp[0].ESCA_case)},
+            		{label:"ESCA_normal", y:Number(tcgaexp[0].ESCA_normal)},
+            		{label:"FPPP_case", y:Number(tcgaexp[0].FPPP_case)},
+            		{label:"FPPP_normal", y:Number(tcgaexp[0].FPPP_normal)},
+            		{label:"GBM_case", y:Number(tcgaexp[0].GBM_case)},
+            		{label:"GBM_normal", y:Number(tcgaexp[0].GBM_normal)},
+            		{label:"HNSC_case", y:Number(tcgaexp[0].HNSC_case)},
+            		{label:"HNSC_normal", y:Number(tcgaexp[0].HNSC_normal)},
+            		{label:"KICH_case", y:Number(tcgaexp[0].KICH_case)},
+            		{label:"KICH_case", y:Number(tcgaexp[0].KICH_case)},
+            		{label:"KICH_normal",y:Number(tcgaexp[0].KICH_normal)},
+            		{label:"KIRC_case", y:Number(tcgaexp[0].KIRC_case)},
+            		{label:"KIRC_normal", y:Number(tcgaexp[0].KIRC_normal)},
+            		{label:"KIRP_case", y:Number(tcgaexp[0].KIRP_case)},
+            		{label:"KIRP_normal", y:Number(tcgaexp[0].KIRP_normal)},
+            		{label:"LAML_case", y:Number(tcgaexp[0].LAML_case)},
+            		{label:"LAML_normal", y:Number(tcgaexp[0].LAML_normal)},
+            		{label:"LGG_case", y:Number(tcgaexp[0].LGG_case)},
+            		{label:"LGG_normal", y:Number(tcgaexp[0].LGG_normal)},
+            		{label:"LIHC_case", y:Number(tcgaexp[0].LIHC_case)},
+            		{label:"LIHC_normal", y:Number(tcgaexp[0].LIHC_normal)},
+            		{label:"LUAD_case", y:Number(tcgaexp[0].LUAD_case)},
+            		{label:"LUAD_normal", y:Number(tcgaexp[0].LUAD_normal)},
+            		{label:"LUSC_case", y:Number(tcgaexp[0].LUSC_case)},
+            		{label:"LUSC_normal", y:Number(tcgaexp[0].LUSC_normal)},
+            		{label:"MESO_case", y:Number(tcgaexp[0].MESO_case)},
+            		{label:"MESO_normal", y:Number(tcgaexp[0].MESO_normal)},
+            		{label:"OV_case", y:Number(tcgaexp[0].OV_case)},
+            		{label:"OV_normal", y:Number(tcgaexp[0].OV_normal)},
+            		{label:"PAAD_case", y:Number(tcgaexp[0].PAAD_case)},
+            		{label:"PAAD_normal", y:Number(tcgaexp[0].PAAD_normal)},
+            		{label:"PCPG_case", y:Number(tcgaexp[0].PCPG_case)},
+            		{label:"PCPG_normal", y:Number(tcgaexp[0].PCPG_normal)},
+            		{label:"PRAD_case", y:Number(tcgaexp[0].PRAD_case)},
+            		{label:"PRAD_normal", y:Number(tcgaexp[0].PRAD_normal)},
+            		{label:"READ_case", y:Number(tcgaexp[0].READ_case)},
+            		{label:"READ_normal", y:Number(tcgaexp[0].READ_normal)},
+            		{label:"SARC_case", y:Number(tcgaexp[0].SARC_case)},
+            		{label:"SARC_normal", y:Number(tcgaexp[0].SARC_normal)},
+            		{label:"SKCM_case", y:Number(tcgaexp[0].SKCM_case)},
+            		{label:"SKCM_normal", y:Number(tcgaexp[0].SKCM_normal)},
+            		{label:"STAD_case", y:Number(tcgaexp[0].STAD_case)},
+            		{label:"STAD_normal",y:Number(tcgaexp[0].STAD_normal)}, 
+            		{label:"TGCT_case",y:Number(tcgaexp[0].TGCT_case)}, 
+            		{label:"TGCT_normal",y:Number(tcgaexp[0].TGCT_normal)}, 
+            		{label:"THCA_case",y:Number(tcgaexp[0].THCA_case)}, 
+            		{label:"THCA_normal",y:Number(tcgaexp[0].THCA_normal)}, 
+            		{label:"THYM_case",y:Number(tcgaexp[0].THYM_case)}, 
+            		{label:"THYM_normal",y:Number(tcgaexp[0].THYM_normal)}, 
+            		{label:"UCEC_case",y:Number(tcgaexp[0].UCEC_case)}, 
+            		{label:"UCEC_normal",y:Number(tcgaexp[0].UCEC_normal)}, 
+            		{label:"UCS_case",y:Number(tcgaexp[0].UCS_case)}, 
+            		{label:"UCS_normal",y:Number(tcgaexp[0].UCS_normal)}, 
+            		{label:"UVM_case",y:Number(tcgaexp[0].UVM_case)}, 
+            		{label:"UVM_normal",y:Number(tcgaexp[0].UVM_normal)}
+				];
+				var chart = new CanvasJS.Chart("tcgadataContainer",{
+					animationEnabled: true,
+					exportEnabled: true,
+					theme: "light1",
+					title:{
+						text:query_mirna
+					}, 
+					axisX:{
+						interval:1,
+						labelFontSize:10,
+						labelAngle:-45
+					},
+					axisY:{
+							interlacedColor:"rgba(1,77,101,.2)",
+							gridColor:"rgba(1,77,101,.1)",
+							title:"RPKM"
+					},
+					data:[{
+						type: "column", 
+						color:"#014D65",
+						dataPoints:datapoints
+					}]
+				});
+				chart.render();
+			}
+		)
+	}
 	$scope.draw_exp_source = function(){
 		$scope.mirnaSourcebar = function(){
 			$http({
@@ -541,14 +666,47 @@ function MirnaController($http,$sce,$scope,$routeParams,EVmiRNAService){
 			}
 		);
 	};
+	$scope.fetch_mirnafunction =function(){
+		$http({
+			url:base_url+"/api/mirna_function",
+			params:{mirna:query_mirna},
+			method:"GET"
+		}).then(
+			function(response){
+				console.log(response);
+				$scope.mirna_function_list = response.data.mir_function_list;
+				var list = $scope.mirna_function_list;
+				if(list.length == 0){
+					$scope.funcinfo = 0;
+				}else{
+					$scope.funcinfo = 1;
+				}
+			}
+		);
+	}
+	$scope.fetch_molecular_drug = function(){
+		$http({
+			url:base_url+"/api/moleculardrug",
+			method:"GET",
+			params:{mirna:query_mirna}
+		}).then(
+			function(response){
+				console.log(response);
+				$scope.molecular_drug = response.data.mir_drug_list;
+				var list = response.data.mir_drug_list;
+				if(list.length == 0){
+                                        $scope.druginfo = 0;
+                                }else{
+                                        $scope.druginfo = 1;
+                                }
+
+			}
+		)
+	}
 	$(function (){
     		$("[data-toggle='popover']").popover();
 	});
-	$scope.draw_exp_source();
-	$scope.fetch_pubmed();
-	$scope.fetch_pathway();
-	$scope.fetch_mirnatarget();
-	$scope.fetch_miRNA();
+	
 	$scope.set_style =  function(){
 		$("#sequence").html($("#sequence").slice(0,1)+"<span style='color:red;'>"+$("#sequence").slice(1,7)+"</span>"+$("#sequence").slice(7));
 	};
@@ -691,4 +849,14 @@ function MirnaController($http,$sce,$scope,$routeParams,EVmiRNAService){
 			}
 		);
 	}
+	$(document).ready(function(){
+		$scope.draw_exp_source();
+		$scope.fetch_pubmed();
+		$scope.fetch_pathway();
+		$scope.fetch_mirnatarget();
+		$scope.fetch_molecular_drug();
+		$scope.fetch_mirnafunction();
+		$scope.fetch_miRNA();
+		$scope.tcgaexpression();
+		});
 }
