@@ -20,4 +20,4 @@ test
 txt
 >>>>>>> 10464527f519a1d81cf2f0603344c4cf88bcf364
 
-test test
+just test
