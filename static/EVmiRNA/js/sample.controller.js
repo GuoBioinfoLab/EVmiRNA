@@ -59,7 +59,7 @@ function SampleController($http,$scope,$window,$routeParams,EVmiRNAService){
 						text:"mirna expression of"+" "+$scope.source
 					},
 					data:[{
-						type:"pie",
+						type:"column",
 						startAngle:"25",
 						toolTipContent:"<b>{label}</b>:{y}%",
 						showInLegend:"true",
