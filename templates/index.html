@@ -5,33 +5,33 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>EVmiRNA</title>
+    <link rel="icon" href="/static/EVmiRNA/image/EVmiRNA-icon.ico">
 
-    <link rel="icon" href="/static/EVmiRNA/img/EVmiRNA-icon.ico">
-
-
-    <link rel="stylesheet" href="/static/EVmiRNA/css/bootstrap.css">
     <link rel="stylesheet" href="/static/EVmiRNA/lib/bootstrap-slider/css/bootstrap-slider.css">
     <link rel="stylesheet" href="/static/EVmiRNA/css/main.css">
     <link rel="stylesheet" href="/static/EVmiRNA/lib/jquery/jquery-ui.css">
-    <!--<link rel="stylesheet" href="/static/EVmiRNA/lib/pro-sidebar/assets/css/jquery.mCustomScrollbar.min.css">
-    <link rel="stylesheet" href="/static/EVmiRNA/lib/pro-sidebar/assets/css/custom.css">
-    <link rel="stylesheet" href="/static/EVmiRNA/lib/pro-sidebar/assets/css/custom-themes.css">
-    <link rel="stylesheet" href="/static/EVmiRNA/lib/fonts/css/font-awesome.min.css">
-    <link rel="shortcut ico"  type="image/png"  href="/static/EVmiRNA/lib/pro-sidebar/assets/img/favicon.png">-->
 
-
-    <script src="/static/EVmiRNA/lib/angular/angular.js"></script>
+    <!-- <script src="/static/EVmiRNA/lib/jquery/jquery-3.1.1.min.js"></script> -->
+    <script src="/static/EVmiRNA/lib/bootstrap/jquery.min.js"></script>
+    <script src="/static/EVmiRNA/lib/angular/angular.min.js"></script>
     <script src="/static/EVmiRNA/lib/angular/angular-route.js"></script>
     <script src="/static/EVmiRNA/lib/angular/angular-resource.js"></script>
     <script src="/static/EVmiRNA/lib/angular/angular-sanitize.js"></script>
     <script src="/static/EVmiRNA/lib/angular-paging/paging.js"></script>
     <script src="/static/EVmiRNA/lib/angular-pageslide-directive/angular-pageslide-directive.js"></script>
+    
+    <!-- angular tabs -->
+    <script src="/static/EVmiRNA/lib/angular-material/angular-material.js"></script>
+    <script src="/static/EVmiRNA/lib/angular/angular-animate.min.js"></script>
+    <script src="/static/EVmiRNA/lib/angular/angular-aria.min.js"></script>
+    <script src="/static/EVmiRNA/lib/angular/angular-messages.min.js"></script>
+    <script src="/static/EVmiRNA/lib/angular-material/svg-assets-cache.js"></script>
 
-    <!--下面是路由--!>
+    <!--下面是路由 -->
     <script src="/static/EVmiRNA/js/app.js"></script>
-    <!--下面是controller js--!>
     <script src="/static/EVmiRNA/js/home.controller.js"></script>
     <script src="/static/EVmiRNA/js/browse.controller.js"></script>
+    <script src="/static/EVmiRNA/js/special.controller.js"></script>
     <script src="/static/EVmiRNA/js/search.controller.js"></script>
     <script src="/static/EVmiRNA/js/mirna.controller.js"></script>
     <script src="/static/EVmiRNA/js/test.controller.js"></script>
@@ -40,25 +40,44 @@
     <script src="/static/EVmiRNA/js/download.controller.js"></script>
     <script src="/static/EVmiRNA/js/document.controller.js"></script>
     <script src="/static/EVmiRNA/js/contact.controller.js"></script>
+    <script src="/static/EVmiRNA/js/sra.controller.js"></script>
+    <script src="/static/EVmiRNA/js/sraexp.controller.js"></script>
+    <script src="/static/EVmiRNA/js/topmirna.controller.js"></script>
+    <script src="/static/EVmiRNA/js/mirnalist.controller.js"></script>
+    <script src="/static/EVmiRNA/js/conexp.controller.js"></script>
+    <script src="/static/EVmiRNA/js/mirnabasic.controller.js"></script>
+    <script src="/static/EVmiRNA/js/mirexp.controller.js"></script>
+    <!-- <script src="/static/EVmiRNA/js/mirpath.controller.js"></script> -->
+    <!-- <script src="/static/EVmiRNA/js/mirfunc.controller.js"></script> -->
+    <!-- <script src="/static/EVmiRNA/js/mirdrug.controller.js"></script> -->
+    <!-- <script src="/static/EVmiRNA/js/mirtar.controller.js"></script> -->
 
-    <script src="/static/EVmiRNA/lib/jquery/jquery-3.1.1.min.js"></script>
-    <script src="/static/EVmiRNA/lib/jquery/jquery-3.1.1.js"></script>
+
+    <!-- 库  -->
     <script src="/static/EVmiRNA/lib/jquery/jquery-ui.js"></script>
-    <script src="/static/EVmiRNA/lib/bootstrap/bootstrap.js"></script>
+    <script src="/static/EVmiRNA/lib/bootstrap/bootstrap.min.js"></script>
     <script src="/static/EVmiRNA/lib/ui-bootstrap/ui-bootstrap-tpls-2.4.0.js"></script>
-    <script src="/static/EVmiRNA/lib/bootstrap-slider/bootstrap-slider.js"></script>
+    <!-- <script src="/static/EVmiRNA/lib/bootstrap-slider/bootstrap-slider.js"></script> -->
     <script src="/static/EVmiRNA/lib/bootstrap-slider/angular-bootstrap-slider.js"></script>
-
-    <!--<script src="/static/EVmiRNA/lib/pro-sidebar/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="/static/EVmiRNA/lib/pro-sidebar/assets/js/custom.js"></script>-->
-
     <script src="/static/EVmiRNA/lib/canvasjs/canvasjs.min.js"></script>
     <script src="/static/EVmiRNA/lib/canvasjs/jquery.canvasjs.min.js"></script>
-    <base href="/">
+
+    
+    <script src="/static/EVmiRNA/lib/bootstrap-treeview/bootstrap-treeview.js"></script>
+    <link rel="stylesheet" href="/static/EVmiRNA/lib/angular-material/angular-material.css">
+    <link rel="stylesheet" href="/static/EVmiRNA/lib/angular-material/docs.css">
+    <link rel="stylesheet" href="/static/EVmiRNA/lib/angular-material/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/EVmiRNA/lib/bootstrap-treeview/bootstrap-treeview.css">
+
+    
+    <!-- bt css -->
+    <link rel="stylesheet" href="/static/EVmiRNA/css/bootstrap.min.css">
+
+    <!-- <base href="/"> -->
 </head>
 <body>
 <div ng-include="'/static/EVmiRNA/partials/navigation.html'"></div>
-<div class="container">
+<div>
     <div ng-view></div>
 </div>
 <div ng-include="'/static/EVmiRNA/partials/footer.html'"></div>

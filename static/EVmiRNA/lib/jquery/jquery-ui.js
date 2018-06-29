@@ -8488,18 +8488,22 @@ $.widget( "ui.autocomplete", {
 		if ( items.length && items[ 0 ].label && items[ 0 ].value ) {
 			return items;
 		}
-		return $.map( items, function( item ) {
-			if ( typeof item === "string" ) {
-				return {
-					label: item,
-					value: item
-				};
-			}
-			return $.extend( {}, item, {
-				label: item.label || item.value,
-				value: item.value || item.label
-			} );
-		} );
+		var i=0;  
+        return $.map( items, function( item ) {  
+            if(i >= 13 )
+                return;  
+            i++;  
+            if ( typeof item === "string" ) {  
+                return {  
+                    label: item,  
+                    value: item  
+                };  
+            }  
+            return $.extend({  
+                label: item.label || item.value,  
+                value: item.value || item.label  
+            }, item );  
+        }); 
 	},
 
 	_suggest: function( items ) {

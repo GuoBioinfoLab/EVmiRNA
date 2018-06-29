@@ -1,19 +1,137 @@
-<nav class="navbar navbar-default navbar-inner">
-        <div class="container">
-        
-            <div class="navbar-header">
-                <a href="#!/" class="navbar-brand">EVmiRNA</a>
-            </div>
+<style>
+.navbar{
+margin-bottom:0px;
+font-size:15px;
+}
+
+.fhead{
+    height:115px;
+    background: rgb(95,69,134);
+    text-align: left;
+    vertical-align: middle;
+
     
-            <div class="collapse navbar-collapse" id="navigation">
-                <ul class="nav navbar-nav">
-                    <li><a href="/">Home</a></li>
-				    <li><a href="/browse">Browse</a></li>
-				    <li><a href="/search">Search</a></li>
-                    <li><a href="/download">Download</a></li>
-                    <li><a href="/document">Document</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                </ul>
-            </div>
+    }
+	
+	a:focus{
+	outline:0;
+	}
+    
+</style>
+
+<nav class="navbar navbar-default navbar-static-top" >
+    <div class="container">
+    <div class="collapse navbar-collapse " id="navigation">
+            <ul class="nav navbar-nav ">
+                <li id="home2"><a id="home1" href="#!/" hidefocus="true"><b>EVmiRNA</b>&nbsp<i class="fa fa-home"></i></a></li>
+                <li id="browse2"><a id="browse1" href="#!/browse" hidefocus="true" ><b>Sample</b></a></li>
+                <li id="mirnalist2"><a id="mirnalist1" href="#!/mirnalist" hidefocus="true" ><b>miRNA</b></a></li>
+                <li id="special2"><a id="special1" href="#!/special" hidefocus="true" ><b>Specific miRNA</b></a></li>
+                <li id="search2"><a id="search1" href="#!/search"><b>Search</b>&nbsp<i class="fa fa-search"></i></a></li>
+                <!-- <li id="download2"><a id="download1" href="#!/download"><b>Download</b>&nbsp<i class="fa fa-cloud-download"></i></a></li> -->
+                <li id="document2"><a id="document1" href="#!/document"><b>Document</b>&nbsp<i class="fa fa-book"></i></a></li>
+                <li id="contact2"><a id="contact1" href="#!/contact"><b>Contact</b>&nbsp<i class="fa fa-volume-control-phone"></i></a></li>
+                <li ng-controller="HomeController" >
+                    <input class="top-input" id="mirnaid" type="text" ng-model="query_miRNA" placeholder="miR-126-5p" style="margin:0.3cm 0 0 0">
+                <i class="fa fa-search" ng-click="filter_id()"></i>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
+
+
+  <script type="text/javascript">
+  $(document).ready(function(){
+    
+$('input:text').focus(
+    function(){
+        $(this).val('');
+    });
+  
+ 
+    $("#home1").click(function(){
+      $(".navbar li").css("background","");
+      //$("#home2").css("background","lightgray");
+  });
+
+  
+$("#browse1").click(function(){
+    $(".navbar li").css("background","");
+    $("#browse2").css("background","lightgray");
+});
+
+
+$("#mirnalist1").click(function(){
+  $(".navbar li").css("background","");
+  $("#mirnalist2").css("background","lightgray");
+});
+
+$("#special1").click(function(){
+    $(".navbar li").css("background","");
+    $("#special2").css("background","lightgray");
+});
+
+
+$("#search1").click(function(){
+  $(".navbar li").css("background","");
+  $("#search2").css("background","lightgray");
+});
+
+
+$("#download1").click(function(){
+  $(".navbar li").css("background","");
+  $("#download2").css("background","lightgray");
+});
+
+
+$("#document1").click(function(){
+  $(".navbar li").css("background","");
+  $("#document2").css("background","lightgray");
+});
+
+
+$("#contact1").click(function(){
+  $(".navbar li").css("background","");
+  $("#contact2").css("background","lightgray");
+});
+
+var l = window.location.href.split('/');
+var l = l[l.length-1];
+var l = l.split("?");
+var l = l[0];
+
+if(l == 'browse'){
+$(".navbar li").css("background","");
+$("#browse2").css("background","lightgray");};
+
+if(l == 'mirnalist'){
+$(".navbar li").css("background","");
+$("#mirnalist2").css("background","lightgray");};
+
+if(l == 'special'){
+$(".navbar li").css("background","");
+$("#special2").css("background","lightgray");};
+
+if(l == 'search'){
+  $(".navbar li").css("background","");
+  $("#search2").css("background","lightgray");
+};
+
+if(l == 'download'){
+  $(".navbar li").css("background","");
+  $("#download2").css("background","lightgray");
+};
+
+if(l =='document'){
+  $(".navbar li").css("background","");
+  $("#document2").css("background","lightgray");
+};
+
+if(l == 'contact'){
+  $(".navbar li").css("background","");
+  $("#contact2").css("background","lightgray");
+};
+
+});
+  </script>

@@ -1,6 +1,6 @@
+<hr size="4">
 <div class="container">
-    <hr class="divider"/>
-    <div id="footer" class="text-center">
+    <div id="footer" class="text-center" align="center">
         <p class="container">
             <strong>Copyright &copy;</strong>
             <a href="http://bioinfo.life.hust.edu.cn" target="_blank">Guo Lab</a>,
@@ -11,5 +11,54 @@
         <p class="container">
             Any comments and suggestions, please <a href="#!/contact/" target="blank">contact us</a>
         </p>
+        
+        <div style="width:200px;text-align: center;margin: 0 auto">
+           <img src="//www.clustrmaps.com/map_v2.png?d=2_rXDZwjcR5gr37ARv095xG09070B9UFdmU-5DrKDx0&cl=ffffff"  class="img-responsive" >
+        </div>
+        
     </div>
+
+   
 </div>
+    <div>
+        <button onclick="topFunction()" id="myBtn" title="Go to top"><b>Top</b></button>
+    </div>
+<style>
+    #myBtn {
+      display: none;
+      position: fixed;
+      bottom: 200px;
+      right: 200px;
+      z-index: 99;
+      font-size: 18px;
+      border: none;
+      outline: none;
+      background-color: #87C540;
+      color: white;
+      cursor: pointer;
+      padding: 15px;
+      border-radius: 4px;
+    }
+
+    #myBtn:hover {
+      background-color: #555;
+    }
+</style>
+
+<script type="text/javascript">
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("myBtn").style.display = "block";
+        } else {
+            document.getElementById("myBtn").style.display = "none";
+        }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+</script>

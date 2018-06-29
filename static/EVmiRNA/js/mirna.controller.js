@@ -6,11 +6,67 @@ angular.module('EVmiRNA')
 function MirnaController($http,$sce,$scope,$location,$anchorScroll,$routeParams,EVmiRNAService){
 
 	console.log($routeParams.miRNA);
+
 	var base_url = EVmiRNAService.getAPIBaseUrl();
 	var query_mirna =  $routeParams.miRNA;
 	$scope.error = 0;
 	$scope.query_miRNA = query_mirna;
-
+    function removeClasshtml(){
+        $("#bainfo").css({"backgroundColor":"","color":"darkred"});
+        $("#exp").css({"backgroundColor":"","color":"darkred"});
+        $("#tar").css({"backgroundColor":"","color":"darkred"});
+        $("#pub").css({"backgroundColor":"","color":"darkred"});
+        $("#dru").css({"backgroundColor":"","color":"darkred"});
+        $("#fun").css({"backgroundColor":"","color":"darkred"});
+        $("#pat").css({"backgroundColor":"","color":"darkred"});
+    }
+    
+	$scope.gotoAnchor = function(x){
+      var newHash = 'anchor' + x;
+			var id = $location.hash();
+      if ($location.hash() !== newHash) {
+        // set the $location.hash to `newHash` and
+        // $anchorScroll will automatically scroll to it
+        $location.hash('anchor' + x);
+				$anchorScroll();
+				$location.hash(id);
+      } else {
+        // call $anchorScroll() explicitly,
+        // since $location.hash hasn't changed
+        $anchorScroll();
+      }
+      switch(x){
+          case 1: 
+          removeClasshtml();
+          $("#bainfo").css({"backgroundColor":"#0088cc","color":"GhostWhite"});
+          break;
+          case 2:
+          removeClasshtml();
+          $("#exp").css({"backgroundColor":"#0088cc","color":"GhostWhite"});
+          break;
+          case 3:
+          removeClasshtml();
+          $("#tar").css({"backgroundColor":"#0088cc","color":"GhostWhite"});
+          break;
+          case 4:
+          removeClasshtml();
+          $("#pat").css({"backgroundColor":"#0088cc","color":"GhostWhite"});
+          break;
+          case 5:
+          removeClasshtml();
+          $("#fun").css({"backgroundColor":"#0088cc","color":"GhostWhite"});
+          break;
+          case 6:
+          removeClasshtml();
+          $("#dru").css({"backgroundColor":"#0088cc","color":"GhostWhite"});
+          break;
+          case 7:
+          removeClasshtml();
+          $("#pub").css({"backgroundColor":"#0088cc","color":"GhostWhite"});
+          break;
+          
+      }
+    };
 
 	$scope.fetch_miRNA = function(){
 		$http({
@@ -24,6 +80,8 @@ function MirnaController($http,$sce,$scope,$location,$anchorScroll,$routeParams,
 			}
 		);
 	};
+    
+    // target
 	$scope.fetch_mirnatarget = function(){
 		$http({
 			url:base_url+'/api/mirna_target',
@@ -57,6 +115,27 @@ function MirnaController($http,$sce,$scope,$location,$anchorScroll,$routeParams,
 			$scope.records_number = response.data.records_num;
 			}
 		)};
+        
+    $scope.all_mirtarget = function(){
+		var condition = {};
+		$http({
+			url: base_url+'/api/mirna_list_target',
+			method: 'GET',
+			params: {mirna:query_mirna}
+		}).then(
+			function(response){
+			console.log(response);
+			$scope.mirna_target_list_all = response.data.mir_list_target_list;
+            $scope.tarinfo =1;
+			}
+		)};
+        
+    $scope.sortType1 = 'target_symbol'; 
+    $scope.sortReverse1 = false;
+     // up target  
+        
+        
+        
 	$scope.fetch_pathway = function(){
 		$http({
 			url: base_url+'/api/mirna_pathway',
@@ -74,6 +153,7 @@ function MirnaController($http,$sce,$scope,$location,$anchorScroll,$routeParams,
 			}
 			}
 		)};
+        
 	$scope.fetch_pubmed = function(){
 		$http({
 			url: base_url+'/api/mirna_pubmed',
@@ -91,6 +171,7 @@ function MirnaController($http,$sce,$scope,$location,$anchorScroll,$routeParams,
                         }
 			}
 		)};
+
 	$scope.tcgaexpression = function(){
 		$http({
 			url:base_url+"/api/tcgaexpression",
@@ -100,572 +181,329 @@ function MirnaController($http,$sce,$scope,$location,$anchorScroll,$routeParams,
 			function(response){
 				console.log(response);
 				var tcgaexp = response.data.tcga_expression_list;
+
+				if(tcgaexp.length == 0){
+					$scope.tcgainfo = 0;
+				}else{
+					$scope.tcgainfo = 1;
+				};
+                
+
 				var datapoints = [
-					{label:"ACC_case",y:Number(tcgaexp[0].ACC_case)}, 
-            		{label:"ACC_normal",y:Number(tcgaexp[0].ACC_normal)}, 
-            		{label:"BLCA_case",y:Number(tcgaexp[0].BLCA_case)}, 
-            		{label:"BLCA_normal",y:Number(tcgaexp[0].BLCA_normal)}, 
-            		{label:"BRCA_case",y:Number(tcgaexp[0].BRCA_case)}, 
-            		{label:"BRCA_normal",y:Number(tcgaexp[0].BRCA_normal)}, 
-            		{label:"CESC_case",y:Number(tcgaexp[0].CESC_case)},
-            		{label:"CESC_normal",y:Number(tcgaexp[0].CESC_normal)}, 
-            		{label:"CHOL_case",y:Number(tcgaexp[0].CHOL_case)}, 
-            		{label:"CHOL_normal",y:Number(tcgaexp[0].CHOL_normal)}, 
-            		{label:"COAD_case",y:Number(tcgaexp[0].COAD_case)}, 
-            		{label:"COAD_normal",y:Number(tcgaexp[0].COAD_normal)}, 
-            		{label:"DLBC_case",y:Number(tcgaexp[0].DLBC_case)}, 
-            		{label:"DLBC_normal", y:Number(tcgaexp[0].DLBC_normal)},
-            		{label:"ESCA_case", y:Number(tcgaexp[0].ESCA_case)},
-            		{label:"ESCA_normal", y:Number(tcgaexp[0].ESCA_normal)},
-            		{label:"FPPP_case", y:Number(tcgaexp[0].FPPP_case)},
-            		{label:"FPPP_normal", y:Number(tcgaexp[0].FPPP_normal)},
-            		{label:"GBM_case", y:Number(tcgaexp[0].GBM_case)},
-            		{label:"GBM_normal", y:Number(tcgaexp[0].GBM_normal)},
-            		{label:"HNSC_case", y:Number(tcgaexp[0].HNSC_case)},
-            		{label:"HNSC_normal", y:Number(tcgaexp[0].HNSC_normal)},
-            		{label:"KICH_case", y:Number(tcgaexp[0].KICH_case)},
-            		{label:"KICH_case", y:Number(tcgaexp[0].KICH_case)},
-            		{label:"KICH_normal",y:Number(tcgaexp[0].KICH_normal)},
-            		{label:"KIRC_case", y:Number(tcgaexp[0].KIRC_case)},
-            		{label:"KIRC_normal", y:Number(tcgaexp[0].KIRC_normal)},
-            		{label:"KIRP_case", y:Number(tcgaexp[0].KIRP_case)},
-            		{label:"KIRP_normal", y:Number(tcgaexp[0].KIRP_normal)},
-            		{label:"LAML_case", y:Number(tcgaexp[0].LAML_case)},
-            		{label:"LAML_normal", y:Number(tcgaexp[0].LAML_normal)},
-            		{label:"LGG_case", y:Number(tcgaexp[0].LGG_case)},
-            		{label:"LGG_normal", y:Number(tcgaexp[0].LGG_normal)},
-            		{label:"LIHC_case", y:Number(tcgaexp[0].LIHC_case)},
-            		{label:"LIHC_normal", y:Number(tcgaexp[0].LIHC_normal)},
-            		{label:"LUAD_case", y:Number(tcgaexp[0].LUAD_case)},
-            		{label:"LUAD_normal", y:Number(tcgaexp[0].LUAD_normal)},
-            		{label:"LUSC_case", y:Number(tcgaexp[0].LUSC_case)},
-            		{label:"LUSC_normal", y:Number(tcgaexp[0].LUSC_normal)},
-            		{label:"MESO_case", y:Number(tcgaexp[0].MESO_case)},
-            		{label:"MESO_normal", y:Number(tcgaexp[0].MESO_normal)},
-            		{label:"OV_case", y:Number(tcgaexp[0].OV_case)},
-            		{label:"OV_normal", y:Number(tcgaexp[0].OV_normal)},
-            		{label:"PAAD_case", y:Number(tcgaexp[0].PAAD_case)},
-            		{label:"PAAD_normal", y:Number(tcgaexp[0].PAAD_normal)},
-            		{label:"PCPG_case", y:Number(tcgaexp[0].PCPG_case)},
-            		{label:"PCPG_normal", y:Number(tcgaexp[0].PCPG_normal)},
-            		{label:"PRAD_case", y:Number(tcgaexp[0].PRAD_case)},
-            		{label:"PRAD_normal", y:Number(tcgaexp[0].PRAD_normal)},
-            		{label:"READ_case", y:Number(tcgaexp[0].READ_case)},
-            		{label:"READ_normal", y:Number(tcgaexp[0].READ_normal)},
-            		{label:"SARC_case", y:Number(tcgaexp[0].SARC_case)},
-            		{label:"SARC_normal", y:Number(tcgaexp[0].SARC_normal)},
-            		{label:"SKCM_case", y:Number(tcgaexp[0].SKCM_case)},
-            		{label:"SKCM_normal", y:Number(tcgaexp[0].SKCM_normal)},
-            		{label:"STAD_case", y:Number(tcgaexp[0].STAD_case)},
-            		{label:"STAD_normal",y:Number(tcgaexp[0].STAD_normal)}, 
-            		{label:"TGCT_case",y:Number(tcgaexp[0].TGCT_case)}, 
-            		{label:"TGCT_normal",y:Number(tcgaexp[0].TGCT_normal)}, 
-            		{label:"THCA_case",y:Number(tcgaexp[0].THCA_case)}, 
-            		{label:"THCA_normal",y:Number(tcgaexp[0].THCA_normal)}, 
-            		{label:"THYM_case",y:Number(tcgaexp[0].THYM_case)}, 
-            		{label:"THYM_normal",y:Number(tcgaexp[0].THYM_normal)}, 
-            		{label:"UCEC_case",y:Number(tcgaexp[0].UCEC_case)}, 
-            		{label:"UCEC_normal",y:Number(tcgaexp[0].UCEC_normal)}, 
-            		{label:"UCS_case",y:Number(tcgaexp[0].UCS_case)}, 
-            		{label:"UCS_normal",y:Number(tcgaexp[0].UCS_normal)}, 
-            		{label:"UVM_case",y:Number(tcgaexp[0].UVM_case)}, 
-            		{label:"UVM_normal",y:Number(tcgaexp[0].UVM_normal)}
+					{label:"ACC case",y:Number(Number(tcgaexp[0].ACC_case).toFixed(2))},
+					{label:"ACC normal",y:Number(Number(tcgaexp[0].ACC_normal).toFixed(2))},
+					{label:"BLCA case",y:Number(Number(tcgaexp[0].BLCA_case).toFixed(2))},
+					{label:"BLCA normal",y:Number(Number(tcgaexp[0].BLCA_normal).toFixed(2))},
+					{label:"BRCA case",y:Number(Number(tcgaexp[0].BRCA_case).toFixed(2))},
+					{label:"BRCA normal",y:Number(Number(tcgaexp[0].BRCA_normal).toFixed(2))},
+					{label:"CESC case",y:Number(Number(tcgaexp[0].CESC_case).toFixed(2))},
+					{label:"CESC normal",y:Number(Number(tcgaexp[0].CESC_normal).toFixed(2))},
+					{label:"CHOL case",y:Number(Number(tcgaexp[0].CHOL_case).toFixed(2))},
+					{label:"CHOL normal",y:Number(Number(tcgaexp[0].CHOL_normal).toFixed(2))},
+					{label:"COAD case",y:Number(Number(tcgaexp[0].COAD_case).toFixed(2))},
+					{label:"COAD normal",y:Number(Number(tcgaexp[0].COAD_normal).toFixed(2))},
+					{label:"DLBC case",y:Number(Number(tcgaexp[0].DLBC_case).toFixed(2))},
+					{label:"DLBC normal", y:Number(Number(tcgaexp[0].DLBC_normal).toFixed(2))},
+					{label:"ESCA case", y:Number(Number(tcgaexp[0].ESCA_case).toFixed(2))},
+					{label:"ESCA normal", y:Number(Number(tcgaexp[0].ESCA_normal).toFixed(2))},
+					{label:"FPPP case", y:Number(Number(tcgaexp[0].FPPP_case).toFixed(2))},
+					{label:"FPPP normal", y:Number(Number(tcgaexp[0].FPPP_normal).toFixed(2))},
+					{label:"GBM case", y:Number(Number(tcgaexp[0].GBM_case).toFixed(2))},
+					{label:"GBM normal", y:Number(Number(tcgaexp[0].GBM_normal).toFixed(2))},
+					{label:"HNSC case", y:Number(Number(tcgaexp[0].HNSC_case).toFixed(2))},
+					{label:"HNSC normal", y:Number(Number(tcgaexp[0].HNSC_normal).toFixed(2))},
+					{label:"KICH case", y:Number(Number(tcgaexp[0].KICH_case).toFixed(2))},
+					{label:"KICH normal",y:Number(Number(tcgaexp[0].KICH_normal).toFixed(2))},
+					{label:"KIRC case", y:Number(Number(tcgaexp[0].KIRC_case).toFixed(2))},
+					{label:"KIRC normal", y:Number(Number(tcgaexp[0].KIRC_normal).toFixed(2))},
+					{label:"KIRP case", y:Number(Number(tcgaexp[0].KIRP_case).toFixed(2))},
+					{label:"KIRP normal", y:Number(Number(tcgaexp[0].KIRP_normal).toFixed(2))},
+					{label:"LAML case", y:Number(Number(tcgaexp[0].LAML_case).toFixed(2))},
+					{label:"LAML normal", y:Number(Number(tcgaexp[0].LAML_normal).toFixed(2))},
+					{label:"LGG case", y:Number(Number(tcgaexp[0].LGG_case).toFixed(2))},
+					{label:"LGG normal", y:Number(Number(tcgaexp[0].LGG_normal).toFixed(2))},
+					{label:"LIHC case", y:Number(Number(tcgaexp[0].LIHC_case).toFixed(2))},
+					{label:"LIHC normal", y:Number(Number(tcgaexp[0].LIHC_normal).toFixed(2))},
+					{label:"LUAD case", y:Number(Number(tcgaexp[0].LUAD_case).toFixed(2))},
+					{label:"LUAD normal", y:Number(Number(tcgaexp[0].LUAD_normal).toFixed(2))},
+					{label:"LUSC case", y:Number(Number(tcgaexp[0].LUSC_case).toFixed(2))},
+					{label:"LUSC normal", y:Number(Number(tcgaexp[0].LUSC_normal).toFixed(2))},
+					{label:"MESO case", y:Number(Number(tcgaexp[0].MESO_case).toFixed(2))},
+					{label:"MESO normal", y:Number(Number(tcgaexp[0].MESO_normal).toFixed(2))},
+					{label:"OV case", y:Number(Number(tcgaexp[0].OV_case).toFixed(2))},
+					{label:"OV normal", y:Number(Number(tcgaexp[0].OV_normal).toFixed(2))},
+					{label:"PAAD case", y:Number(Number(tcgaexp[0].PAAD_case).toFixed(2))},
+					{label:"PAAD normal", y:Number(Number(tcgaexp[0].PAAD_normal).toFixed(2))},
+					{label:"PCPG case", y:Number(Number(tcgaexp[0].PCPG_case).toFixed(2))},
+					{label:"PCPG normal", y:Number(Number(tcgaexp[0].PCPG_normal).toFixed(2))},
+					{label:"PRAD case", y:Number(Number(tcgaexp[0].PRAD_case).toFixed(2))},
+					{label:"PRAD normal", y:Number(Number(tcgaexp[0].PRAD_normal).toFixed(2))},
+					{label:"READ case", y:Number(Number(tcgaexp[0].READ_case).toFixed(2))},
+					{label:"READ normal", y:Number(Number(tcgaexp[0].READ_normal).toFixed(2))},
+					{label:"SARC case", y:Number(Number(tcgaexp[0].SARC_case).toFixed(2))},
+					{label:"SARC normal", y:Number(Number(tcgaexp[0].SARC_normal).toFixed(2))},
+					{label:"SKCM case", y:Number(Number(tcgaexp[0].SKCM_case).toFixed(2))},
+					{label:"SKCM normal", y:Number(Number(tcgaexp[0].SKCM_normal).toFixed(2))},
+					{label:"STAD case", y:Number(Number(tcgaexp[0].STAD_case).toFixed(2))},
+					{label:"STAD normal",y:Number(Number(tcgaexp[0].STAD_normal).toFixed(2))},
+					{label:"TGCT case",y:Number(Number(tcgaexp[0].TGCT_case).toFixed(2))},
+					{label:"TGCT normal",y:Number(Number(tcgaexp[0].TGCT_normal).toFixed(2))},
+					{label:"THCA case",y:Number(Number(tcgaexp[0].THCA_case).toFixed(2))},
+					{label:"THCA normal",y:Number(Number(tcgaexp[0].THCA_normal).toFixed(2))},
+					{label:"THYM case",y:Number(Number(tcgaexp[0].THYM_case).toFixed(2))},
+					{label:"THYM normal",y:Number(Number(tcgaexp[0].THYM_normal).toFixed(2))},
+					{label:"UCEC case",y:Number(Number(tcgaexp[0].UCEC_case).toFixed(2))},
+					{label:"UCEC normal",y:Number(Number(tcgaexp[0].UCEC_normal).toFixed(2))},
+					{label:"UCS case",y:Number(Number(tcgaexp[0].UCS_case).toFixed(2))},
+					{label:"UCS normal",y:Number(Number(tcgaexp[0].UCS_normal).toFixed(2))},
+					{label:"UVM case",y:Number(Number(tcgaexp[0].UVM_case).toFixed(2))},
+					{label:"UVM normal",y:Number(Number(tcgaexp[0].UVM_normal).toFixed(2))}
 				];
+                
 				var chart = new CanvasJS.Chart("tcgadataContainer",{
-					animationEnabled: true,
-					exportEnabled: true,
-					theme: "light1",
-					title:{
-						text:query_mirna
-					}, 
+					// animationEnabled: true,
+					// exportEnabled: true,
+					// theme: "light1",
+					backgroundColor: "#FFFFFF",
+					width: 900,
+					title:{	},
+					// title:{	text:query_mirna+" expression in TCGA Samples",fontSize:20,fontWeight:"bold",fontFamily: "Arial"},
 					axisX:{
 						interval:1,
 						labelFontSize:10,
 						labelAngle:-45
 					},
 					axisY:{
-							interlacedColor:"rgba(1,77,101,.2)",
-							gridColor:"rgba(1,77,101,.1)",
-							title:"RPKM"
+							// interlacedColor:"rgba(1,77,101,.2)",
+							// gridColor:"rgba(1,77,101,.1)",
+							title:"Expression RPM"
 					},
 					data:[{
-						type: "column", 
-						color:"#014D65",
+						// type: "column",
+						// color:"#014D65",
 						dataPoints:datapoints
-					}]
+					}],
 				});
 				chart.render();
 			}
 		)
 	}
-	$scope.draw_exp_source = function(){
-		$scope.mirnaSourcebar = function(){
+
+    // var a = "0.1234";
+  
+    // alert(a.toFixed(2)));
+    
+// mv source pic
+	$scope.draw_exp_mv_source = function(){
+		$scope.mirnamvSourcebar = function(){
 			$http({
-				url:base_url+'/api/exp_source',
+				url:base_url+'/api/exp_mv_source',
 				method:'GET',
 				params:{mirna:query_mirna}
 			}).then(
 				function(response){
-		            		console.log(response);
-					$scope.exp_source = response.data.exp_source_list;
+      		console.log(response);
+					$scope.exp_mv_source = response.data.exp_mv_source_list;
 					var chart = new CanvasJS.Chart("barContainer", {
-						animationEnabled: true,
-						width:600,
-						exportEnabled: true,
-						theme: "light1", 
+						// animationEnabled: true,
+						width:900,
+						// exportEnabled: true,
+						// theme: "light1",
+						backgroundColor: "#FFFFFF",
 						axisX:{
 							interval:1,
-							labelFontSize:10,
-							labelAngle:-45
+							labelFontSize:15,
+							labelAngle:-30
 						},
+						title:{},
+						// title:{text:$scope.exp_source[0].mirna+" in Extracellular vesicles from Sources",fontSize:20,fontWeight:"bold",fontFamily: "Arial"},
 						axisY:{
-							interlacedColor:"rgba(1,77,101,.2)",
-							gridColor:"rgba(1,77,101,.1)",
-							title:$scope.exp_source[0].mirna+" "+"expression"
+							// interlacedColor:"rgba(1,77,101,.2)",
+							// gridColor:"rgba(1,77,101,.1)",
+							title:"Expression RPM"
 						},
 						data: [{
-							type: "column", 
-							color:"#014D65",
+							// type: "column",
+							// color:"#014D65",
 							dataPoints:[
-							{label:"Breast",y:$scope.exp_source[0].Breast},
-							{label:"Tongue",y:$scope.exp_source[0].Tongue},
-							{label:"Kidney",y:$scope.exp_source[0].Kidney},
-							{label:"Saliva",y:$scope.exp_source[0].Saliva},
-							{label:"Lymph",y:$scope.exp_source[0].Lymph},
-							{label:"Blood",y:$scope.exp_source[0].Blood},
-							{label:"Urine",y:$scope.exp_source[0].Urine},
-							{label:"Colon",y:$scope.exp_source[0].Colon},
-							{label:"Seminal fluid",y:$scope.exp_source[0].Seminal_fluid},
-                                                        {label:"Human mast cells",y:$scope.exp_source[0].Human_mast_cells},
-                                                        {label:"CLL cell line",y:$scope.exp_source[0].CLL_cell_line},
-                                                        {label:"Breast milk",y:$scope.exp_source[0].Breast_milk},
-                                                        {label:"Fibroblasts",y:$scope.exp_source[0].Fibroblasts},
-							{label:"Human epithelial cells",y:$scope.exp_source[0].Human_epithelial_cells},
-                                                        {label:"Mesenchymal Stem Cells",y:$scope.exp_source[0].Mesenchymal_Stem_Cells},
-							{label:"Human Mammary Epithelial Cells",y:$scope.exp_source[0].Human_Mammary_Epithelial_Cells},
-                                                        {label:"B-lymphoblastoid cell lines",y:$scope.exp_source[0].Blymphoblastoid_cell_lines},
+							{label:"Blood",y:Number($scope.exp_mv_source[0].Blood.toFixed(2))},
+							{label:"Breast",y:Number($scope.exp_mv_source[0].Breast.toFixed(2))},
+							{label:"Colon",y:Number($scope.exp_mv_source[0].Colon.toFixed(2))},
+							{label:"Fibroblast",y:Number($scope.exp_mv_source[0].Fibroblasts.toFixed(2))},
+							{label:"Mesenchymal stem cell",y:Number($scope.exp_mv_source[0].Mesenchymal_Stem_Cells.toFixed(2))},
+							{label:"Urine",y:Number($scope.exp_mv_source[0].Urine.toFixed(2))},
+							]
+						}]
+					});
+//					alert(chart.)
+					chart.render();
+				})
+		};
+		$scope.mirnamvSourcebar();
+	};
+
+
+// mv cancer pic
+	$scope.draw_exp_mv_cancer = function(){
+		$scope.mirnamvcancerbar = function(){
+			$http({
+				url:base_url +'/api/exp_mv_cancer',
+				method:'GET',
+				params:{mirna:query_mirna}
+			}).then(
+				function(response){
+					console.log(response);
+					$scope.exp_mv_cancer = response.data.exp_mv_cancer_list;
+					var chart = new CanvasJS.Chart("barContainer", {
+            // animationEnabled: true,
+            // exportEnabled: true,
+						width:900,
+            // theme: "light1", // "light1", "light2", "dark1", "dark2"
+						backgroundColor: "#FFFFFF",
+            axisX:{
+							interval:1,
+							labelFontSize:15,
+							labelAngle:-30
+						},
+						title:{},
+						// title:{text:$scope.exp_cancer[0].mirna+" expression in Extracellular Vesicles from Cancers",fontSize:20,fontWeight:"bold",fontFamily: "Arial"	},
+						axisY:{
+							title:"Expression RPM",
+							// gridColor:"rgba(1,77,101,.1)",
+							// interlacedColor:"rgba(1,77,101,.2)"
+						},
+            data: [{
+                type: "column",
+							// color:"#014D65",
+                dataPoints:[
+								{label:"Breast adenocarcinoma",  y:Number($scope.exp_mv_cancer[0].Breast_adenocarcinoma.toFixed(2))},
+								{label:"Colon carcinoma",y:Number($scope.exp_mv_cancer[0].Colon_carcinoma.toFixed(2))},
+								{label:"Chronic myelocytic leukemia",y:Number($scope.exp_mv_cancer[0].chronic_myelocytic_leukemia.toFixed(2))},
+								{label:"Pancreatic cancer",y:Number($scope.exp_mv_cancer[0].Pancreatic_Cancer.toFixed(2))},
+								{label:"Prostate cancer",y:Number($scope.exp_mv_cancer[0].Prostate_Cancer.toFixed(2))},
+								// {label:"Healthy control",y:Number($scope.exp_mv_cancer[0].Healthy_Control.toFixed(2))},
+	                        ]
+	                    }]
+	             	});
+                chart.render();
+	            })
+		};
+		$scope.mirnamvcancerbar();
+	};
+
+
+// exo source pic
+	$scope.draw_exp_exo_source = function(){
+		$scope.mirnaexoSourcebar = function(){
+			$http({
+				url:base_url+'/api/exp_exo_source',
+				method:'GET',
+				params:{mirna:query_mirna}
+			}).then(
+				function(response){
+                    console.log(response);
+					$scope.exp_exo_source = response.data.exp_exo_source_list;
+					var chart = new CanvasJS.Chart("barContainer", {
+						// animationEnabled: true,
+						width:900,
+						// exportEnabled: true,
+						// theme: "light1",
+						backgroundColor: "#FFFFFF",
+						axisX:{
+							interval:1,
+							labelFontSize:15,
+							labelAngle:-30
+						},
+						title:{},
+						// title:{text:$scope.exp_source[0].mirna+" in Extracellular vesicles from Sources",fontSize:20,fontWeight:"bold",fontFamily: "Arial"},
+						axisY:{
+							// interlacedColor:"rgba(1,77,101,.2)",
+							// gridColor:"rgba(1,77,101,.1)",
+							title:"Expression RPM"
+						},
+						data: [{
+							type: "column",
+							// color:"#014D65",
+							dataPoints:[
+							{label:"Blood",y:Number($scope.exp_exo_source[0].Blood.toFixed(2))},
+							{label:"Breast",y:Number($scope.exp_exo_source[0].Breast.toFixed(2))},
+							{label:"Breast milk",y:Number($scope.exp_exo_source[0].Breast_milk.toFixed(2))},
+							{label:"B-lymphoblastoid cell",y:Number($scope.exp_exo_source[0].B_lymphoblastoid_cell.toFixed(2))},
+							{label:"Chronic lymphocytic leukemia cell",y:Number($scope.exp_exo_source[0].CLL_cell.toFixed(2))},
+							{label:"Colon",y:Number($scope.exp_exo_source[0].Colon.toFixed(2))},
+							{label:"Human epithelial cell",y:Number($scope.exp_exo_source[0].Human_epithelial_cell.toFixed(2))},
+							{label:"Human mast cell",y:Number($scope.exp_exo_source[0].Human_mast_cell.toFixed(2))},
+							{label:"Human mammary epithelial cell",y:Number($scope.exp_exo_source[0].Human_mammary_epithelial_cell.toFixed(2))},
+							{label:"Kidney",y:Number($scope.exp_exo_source[0].Kidney.toFixed(2))},
+							{label:"Lymph",y:Number($scope.exp_exo_source[0].Lymph.toFixed(2))},
+							{label:"Mesenchymal stem cell",y:Number($scope.exp_exo_source[0].Mesenchymal_stem_cell.toFixed(2))},
+							{label:"Saliva",y:Number($scope.exp_exo_source[0].Saliva.toFixed(2))},
+							{label:"Seminal fluid",y:Number($scope.exp_exo_source[0].Seminal_fluid.toFixed(2))},
+							{label:"Tongue",y:Number($scope.exp_exo_source[0].Tongue.toFixed(2))},
 							]
 						}]
 					});
 					chart.render();
 				})
 		};
-		$scope.mirnaSourcebar();
+		$scope.mirnaexoSourcebar();
 	};
-	$scope.draw_exp_cancer = function(){
-		$scope.mirnacancerbar = function(){
+
+
+
+// exo cancer pic
+	$scope.draw_exp_exo_cancer = function(){
+		$scope.mirnaexocancerbar = function(){
 			$http({
-				url:base_url +'api/exp_cancer',
+				url:base_url +'/api/exp_exo_cancer',
 				method:'GET',
 				params:{mirna:query_mirna}
 			}).then(
 				function(response){
 					console.log(response);
-					$scope.exp_cancer = response.data.exp_cancer_list;
+					$scope.exp_exo_cancer = response.data.exp_exo_cancer_list;
 					var chart = new CanvasJS.Chart("barContainer", {
-	                    animationEnabled: true,
-	                    exportEnabled: true,
-			    width:600,
-	                    theme: "light1", // "light1", "light2", "dark1", "dark2"
-	                    axisX:{
+                    // animationEnabled: true,
+                    // exportEnabled: true,
+                    width:900,
+                    // theme: "lig ht1", // "light1", "light2", "dark1", "dark2"
+                    backgroundColor: "#FFFFFF",
+                    axisX:{
 							interval:1,
-							labelFontSize:11,
-							labelAngle:-45
+							labelFontSize:15,
+							labelAngle:-30
 						},
+						title:{},
+						// title:{text:$scope.exp_cancer[0].mirna+" expression in Extracellular Vesicles from Cancers",fontSize:20,fontWeight:"bold",fontFamily: "Arial"	},
 						axisY:{
-							title:$scope.exp_cancer[0].mirna+" "+"expression",
-							gridColor:"rgba(1,77,101,.1)",
-							interlacedColor:"rgba(1,77,101,.2)"
+							title:"Expression RPM",
+							// gridColor:"rgba(1,77,101,.1)",
+							// interlacedColor:"rgba(1,77,101,.2)"
 						},
-	                    data: [{
-	                        type: "column",
-							color:"#014D65",
-	                        dataPoints:[
-								{label:"Colon carcinoma",y:$scope.exp_cancer[0].Colon_carcinoma},
-								{label:"Prostate Cancer",y:$scope.exp_cancer[0].Prostate_Cancer},
-								{label:"Oral cancer",y:$scope.exp_cancer[0].Oral_cancer},
-								{label:"Lymphoma",y:$scope.exp_cancer[0].Lymphoma},
-				    				{label:"Chronic lymphocytic leukemi", y: $scope.exp_cancer[0].Chronic_lymphocytic_leukemi},
-                                                                {label:"chronic_myelocytic_leukemia",y:$scope.exp_cancer[0].chronic_myelocytic_leukemia},
-                                    				{label:"Squamous cell carcinoma",y:$scope.exp_cancer[0].Squamous_cell_carcinoma},
-                                                                {label:"Breast adenocarcinoma",  y:$scope.exp_cancer[0].Breast_adenocarcinoma},
-                                                		{label:"Pancreatic Cancer",y:$scope.exp_cancer[0].Pancreatic_Cancer},
-                                                                {label:"Mast cell leukemia",y:$scope.exp_cancer[0].Mast_cell_leukemia},
-								{label:"Healthy_Control",y:$scope.exp_cancer[0].Healthy_Control}
+            data: [{
+                type: "column",
+							// color:"#014D65",
+                dataPoints:[
+                    {label:"Breast adenocarcinoma",  y:Number($scope.exp_exo_cancer[0].Breast_adenocarcinoma.toFixed(2))},
+                    {label:"Colon carcinoma",y:Number($scope.exp_exo_cancer[0].Colon_carcinoma.toFixed(2))},
+                    {label:"Chronic lymphocytic leukemia",y:Number($scope.exp_exo_cancer[0].Chronic_lymphocytic_leukemia.toFixed(2))},
+                    {label:"Lymphoma",y:Number($scope.exp_exo_cancer[0].Lymphoma.toFixed(2))},
+                    {label:"Leukemia",y:Number($scope.exp_exo_cancer[0].Leukemia.toFixed(2))},
+                    {label:"Oral cancer",y:Number($scope.exp_exo_cancer[0].Oral_cancer.toFixed(2))},
+                    {label:"Prostate cancer",y:Number($scope.exp_exo_cancer[0].Prostate_Cancer.toFixed(2))},
+                    {label:"Squamous cell carcinoma",y:Number($scope.exp_exo_cancer[0].Squamous_cell_carcinoma.toFixed(2))},
+                    // {label:"Healthy control",y:Number($scope.exp_exo_cancer[0].Healthy_Control.toFixed(2))},
 	                        ]
 	                    }]
 	             	});
-	            chart.render();
-	            }
-	        )
+                        chart.render();
+	            })
 		};
-		$scope.mirnacancerbar();
+		$scope.mirnaexocancerbar();
 	};
-	$scope.draw_celline = function(){
-		$scope.celllinebar = function(){
-			$http({
-				url:base_url+"/api/exp_cellline",
-				method:'GET',
-				params:{mirna:query_mirna}
-				}).then(
-					function(response){
-					console.log(response);
-					$scope.exp_celline = response.data.exp_cellline_list;
-					var chart = new CanvasJS.Chart("barContainer", {
-				    	animationEnabled: true,
-				    	exportEnabled: true,
-				    	theme: "light1", 
-					width:600,
-				        axisX:{
-							interval:1,
-							labelFontSize:10,
-							labelAngle:-45
-						},
-						axisY:{
-							interlacedColor:"rgba(1,77,101,.2)",
-							gridColor:"rgba(1,77,101,.1)",
-							title:$scope.exp_celline[0].mirna+" "+"expression"
-						},
-				       	data: [{
-				            type: "column",
-					    	color:"#014D65",
-				            dataPoints:[
-				{label:"Blood",y:$scope.exp_celline[0].Blood},
-				{label:"HMC1",y:$scope.exp_celline[0].HMC1},
-				{label:"Saliva",y:$scope.exp_celline[0].Saliva},
-				{label:"Fibroblasts",y:$scope.exp_celline[0].Fibroblasts},
-				{label:"Seminal fluid",y:$scope.exp_celline[0].Seminal_fluid},
-				{label:"DLD-1",y:$scope.exp_celline[0].DLD1},
-				{label:"SCC9",  y:$scope.exp_celline[0].SCC9},
-                                {label:"MDAMB231", y: $scope.exp_celline[0].MDAMB231},
-                                {label:"Bjab",y:$scope.exp_celline[0].Bjab},
-                                {label:"MCF7",y:$scope.exp_celline[0].MCF7},
-                                {label:"LIM1863",y:$scope.exp_celline[0].LIM1863},
-                                {label:"MCF10A",y:$scope.exp_celline[0].MCF10A},
-                                {label:"TY1",y:$scope.exp_celline[0].TY1},
-                                {label:"K562",y:$scope.exp_celline[0].K562},
-                                {label:"BJAB",y:$scope.exp_celline[0].BJAB},
-								{label:"DKO-1",y:$scope.exp_celline[0].DKO-1},
-								{label:"DKs-8",y:$scope.exp_celline[0].DKs8},
-								{label:"HEK293T",y:$scope.exp_celline[0].HEK293T},
-								{label:"HMEC",y:$scope.exp_celline[0].HMEC},
-								{label:"Urine",y:$scope.exp_celline[0].Urine},
-								{lable:"CLL cell line",y:$scope.exp_celline[0].CLL_cell_line},
-								{label:"Cal-27",y:$scope.exp_celline[0].Cal27},
-								{label:"BCBL-1",y:$scope.exp_celline[0].BCBL1},
-								{label:"Breast milk",y:$scope.exp_celline[0].Breast_milk},
-								{label:"LCL",y:$scope.exp_celline[0].LCL},
-								{label:"Mutu-1",y:$scope.exp_celline[0].Mutu1},
-				{label:"Umbilical cord Mesenchymal Stem Cells",y:$scope.exp_celline[0].Umbilical_cord_Mesenchymal_Stem_Cells},
-                                {label:"Adipose Mesenchymal Stem Cells",y:$scope.exp_celline[0].Adipose_Mesenchymal_Stem_Cells},
-                                {label:"Fetus Mesenchymal Stem Cells",y:$scope.exp_celline[0].Fetus_Mesenchymal_Stem_Cells},
-                                {label:"Adult Mesenchymal Stem Cells",y:$scope.exp_celline[0].Adult_Mesenchymal_Stem_Cells},
-                                {label:"Blymphoblastoid cell lines",y:$scope.exp_celline[0].Blymphoblastoid_cell_lines}
-				            ]
-				        }]
-				    });
-				chart.render();
-				}
-			 )
-		};
-		$scope.celllinebar();
-	};
-	$scope.draw_source_mv = function(){
-		function sourcemvbar(){
-			$http({
-			url:base_url+'/api/exp_source_mv',
-			method:'GET',
-			params:{mirna:query_mirna}
-		}).then(
-			function(response){
-				console.log(response);
-				$scope.exp_source_mv = response.data.exp_source_mv_list;
-				 var chart = new CanvasJS.Chart("barContainer", {
-                    animationEnabled: true,
-		    width:600,
-                    exportEnabled: true,
-                    theme: "light1", 
-					axisX:{
-						interval:1,
-						labelFontSize:11,
-						labelAngle:-45
-					},
-					axisY:{
-						title:$scope.exp_source_mv[0].mirna+" "+"expression",
-						gridColor:"rgba(1,77,101,.1)",
-						interlacedColor:"rgba(1,77,101,.2)"
-					},
-                    data: [{
-                        type: "column",
-						color:"#014D65",
-                        dataPoints:[
-							{label:"Urine MV",y:$scope.exp_source_mv[0].Urine_MV},
-                            {label:"Blood MV",y:$scope.exp_source_mv[0].Blood_MV},
-							{label:"Blood Exo",y:$scope.exp_source_mv[0].Blood_Exo},
-							{label:"Tongue Exo",y:$scope.exp_source_mv[0].Tongue_Exo},
-							{label:"Colon MV",y:$scope.exp_source_mv[0].Colon_MV},
-                            {label:"Colon Exo",y:$scope.exp_source_mv[0].Colon_Exo},
-                            {label:"Breast MV",  y:$scope.exp_source_mv[0].Breast_MV},
-							{label:"Kidney Exo",y:$scope.exp_source_mv[0].Kidney_Exo},
-                            {label:"Breast Exo",y:$scope.exp_source_mv[0].Breast_Exo},
-							{label:"Saliva Exo",y:$scope.exp_source_mv[0].Saliva_Exo},
-							{label:"Breast milk Exo",y:$scope.exp_source_mv[0].Breast_milk_Exo},
-                            {label:"Lymph Exo",y:$scope.exp_source_mv[0].Lymph_Exo},
-							{label:"Fibroblasts MV",y:$scope.exp_source_mv[0].Fibroblasts_MV},
-							{label:"CLL cell line Exo",y:$scope.exp_source_mv[0].CLL_cell_line_Exo},
-                            {label:"Seminal fluid Exo",y:$scope.exp_source_mv[0].Seminal_fluid_Exo},
-                            {label:"Human mast cells Exo",y:$scope.exp_source_mv[0].Human_mast_cells_Exo},
-                          	{label:"Human epithelial cells Exo",y:$scope.exp_source_mv[0].Human_epithelial_cells_Exo},
-                            {label:"Mesenchymal Stem Cells MV",y:$scope.exp_source_mv[0].Mesenchymal_Stem_Cells_MV},
-							{label:"Mesenchymal Stem Cells Exo",y:$scope.exp_source_mv[0].Mesenchymal_Stem_Cells_Exo},
-                          	{label:"Human Mammary Epithelial Cells Exo", y: $scope.exp_source_mv[0].Human_Mammary_Epithelial_Cells_Exo},
-                           	{label:"Blymphoblastoid cell lines Exo",y:$scope.exp_source_mv[0].Blymphoblastoid_cell_lines_Exo},
-                            ]
-                    }]
-                });
-                chart.render();
-                }
-            )
-		}
-		sourcemvbar();
-	};
-	$scope.expSourceBox = function(){
-		$http({
-			url:base_url+"/api/sourceall",
-			method:"GET",
-			params:{mirna:query_mirna}
-		}).then(
-			function(response){
-				console.log(response);
-				$scope.sourceAllList = response.data.source_all_list;
-				var dataPoints = [];
-				var outliner = [];
-				var l = $scope.sourceAllList.length;
-				for (var n = 0;n<l;n++){
-					dataPoints.push({
-						x:n,
-						label:$scope.sourceAllList[n].source,
-						y:[
-							$scope.sourceAllList[n].min,
-							$scope.sourceAllList[n].Q1,
-							$scope.sourceAllList[n].Q3,
-							$scope.sourceAllList[n].max,
-							$scope.sourceAllList[n].Q2
-						]
-					});
-					if($("input[name='outliner']:checked").val() == 1){
-						var outlinerL = $scope.sourceAllList[n].outliner.length;
-						if(outlinerL >0){
-							for(var nn = 0; nn<outlinerL;nn++){
-								outliner.push({
-									x:n,
-									label:$scope.sourceAllList[n].source,
-									y:Number($scope.sourceAllList[n].outliner[nn])
-							})
-							}
-					}	
-					}
-				}
-				console.log(outliner);
-				var chart = new CanvasJS.Chart("barContainer",{
-					animationEnabled:true,
-					theme:"light2",
-					axisY:{
-						title:$scope.sourceAllList[0].miRNA_id+" "+"expression"
-					},
-					axisX:{
-						interval:1
-					},
-					data:[{
-						type:"boxAndWhisker",
-						dataPoints: dataPoints
-					},
-					{
-						type:"scatter",
-						dataPoints: outliner
-					}]
-				});
-				chart.render();
-			}
-		);
-	};
-	$scope.expSourcemvBox = function(){
-		$http({
-			url:base_url+"/api/sourcemvexp",
-			method:"GET",
-			params:{mirna:query_mirna}
-		}).then(
-			function(response){
-				console.log(response);
-				$scope.sourcemvAllList = response.data.sourcemv_all_list;
-				var dataPoints = [];
-				var outliner = [];
-				var l = $scope.sourcemvAllList.length;
-				for (var n = 0;n<l;n++){
-					dataPoints.push({
-						x:n,
-						label:$scope.sourcemvAllList[n].sourcemv,
-						y:[
-							$scope.sourcemvAllList[n].min,
-							$scope.sourcemvAllList[n].Q1,
-							$scope.sourcemvAllList[n].Q3,
-							$scope.sourcemvAllList[n].max,
-							$scope.sourcemvAllList[n].Q2
-						]
-					});
-					if($("input[name='outliner']:checked").val() == 1){
-					var outlinerL = $scope.sourcemvAllList[n].outliner.length;
-					if(outlinerL >0){
-						for(var nn = 0; nn<outlinerL;nn++){
-							outliner.push({
-								x:n,
-								label:$scope.sourcemvAllList[n].source,
-								y:Number($scope.sourcemvAllList[n].outliner[nn])
-							})
-						}
-					}
-					}
-				}
-				var chart = new CanvasJS.Chart("barContainer",{
-					animationEnabled:true,
-					theme:"light2",
-					axisY:{
-						title:$scope.sourcemvAllList[0].miRNA_id+" "+"expression"
-					},
-					axisX:{
-						interval:1
-					},
-					data:[{
-						type:"boxAndWhisker",
-						dataPoints: dataPoints
-					},
-					{
-						type:"scatter",
-						dataPoints: outliner
-					}]
-				});
-				chart.render();
-			}
-		);
-	};
-	$scope.expCancerBox = function(){
-		$http({
-			url:base_url+"/api/deseaseexp",
-			method:"GET",
-			params:{mirna:query_mirna}
-		}).then(
-			function(response){
-				console.log(response);
-				$scope.deseaseAllList = response.data.desease_all_list;
-				var dataPoints = [];
-				var outliner = [];
-				var l = $scope.deseaseAllList.length;
-				for (var n = 0;n<l;n++){
-					dataPoints.push({
-						x:n,
-						label:$scope.deseaseAllList[n].desease,
-						y:[
-							$scope.deseaseAllList[n].min,
-							$scope.deseaseAllList[n].Q1,
-							$scope.deseaseAllList[n].Q3,
-							$scope.deseaseAllList[n].max,
-							$scope.deseaseAllList[n].Q2
-						]
-					});
-					if($("input[name='outliner']:checked").val() == 1){
-					var outlinerL = $scope.deseaseAllList[n].outliner.length;
-					if(outlinerL >0){
-						for(var nn = 0; nn<outlinerL;nn++){
-							outliner.push({
-								x:n,
-								label:$scope.deseaseAllList[n].source,
-								y:Number($scope.deseaseAllList[n].outliner[nn])
-							})
-						}
-					}}
-				}
-				console.log(outliner);
-				var chart = new CanvasJS.Chart("barContainer",{
-					animationEnabled:true,
-					theme:"light2",
-					axisY:{
-						title:$scope.deseaseAllList[0].miRNA_id+" "+"expression"
-					},
-					axisX:{
-						interval:1
-					},
-					data:[{
-						type:"boxAndWhisker",
-						dataPoints: dataPoints
-					},
-					{
-						type:"scatter",
-						dataPoints: outliner
-					}]
-				});
-				chart.render();
-			}
-		);
-	};
-	$scope.expCelllineBox = function(){
-		$http({
-			url:base_url+"/api/cell_line_exp",
-			method:"GET",
-			params:{mirna:query_mirna}
-		}).then(
-			function(response){
-				console.log(response);
-				$scope.celllineAllList = response.data.cellLine_all_list;
-				var dataPoints = [];
-				var outliner = [];
-				var l = $scope.celllineAllList.length;
-				for (var n = 0;n<l;n++){
-					dataPoints.push({
-						x:n,
-						label:$scope.celllineAllList[n]["cell line"],
-						y:[
-							$scope.celllineAllList[n].min,
-							$scope.celllineAllList[n].Q1,
-							$scope.celllineAllList[n].Q3,
-							$scope.celllineAllList[n].max,
-							$scope.celllineAllList[n].Q2
-						]
-					});
-					if($("input[name='outliner']:checked").val() == 1)
-					var outlinerL = $scope.celllineAllList[n].outliner.length;
-					if(outlinerL >0){
-						for(var nn = 0; nn<outlinerL;nn++){
-							outliner.push({
-								x:n,
-								label:$scope.celllineAllList[n].source,
-								y:Number($scope.celllineAllList[n].outliner[nn])
-							})
-						}
-					}
-				}
-				console.log(outliner);
-				var chart = new CanvasJS.Chart("barContainer",{
-					animationEnabled:true,
-					theme:"light2",
-					axisY:{
-						title:$scope.celllineAllList[0].miRNA_id+" "+"expression"
-					},
-					axisX:{
-						interval:1
-					},
-					data:[{
-						type:"boxAndWhisker",
-						dataPoints: dataPoints
-					},
-					{
-						type:"scatter",
-						dataPoints: outliner
-					}]
-				});
-				chart.render();
-			}
-		);
-	};
+
+
+
 	$scope.fetch_mirnafunction =function(){
 		$http({
 			url:base_url+"/api/mirna_function",
@@ -684,6 +522,7 @@ function MirnaController($http,$sce,$scope,$location,$anchorScroll,$routeParams,
 			}
 		);
 	}
+
 	$scope.fetch_molecular_drug = function(){
 		$http({
 			url:base_url+"/api/moleculardrug",
@@ -703,13 +542,15 @@ function MirnaController($http,$sce,$scope,$location,$anchorScroll,$routeParams,
 			}
 		)
 	}
+
 	$(function (){
     		$("[data-toggle='popover']").popover();
 	});
-	
+
 	$scope.set_style =  function(){
 		$("#sequence").html($("#sequence").slice(0,1)+"<span style='color:red;'>"+$("#sequence").slice(1,7)+"</span>"+$("#sequence").slice(7));
 	};
+
 	$scope.download = function(){
 		var condition = {};
 		condition["per_page"] = 10000;
@@ -780,6 +621,7 @@ function MirnaController($http,$sce,$scope,$location,$anchorScroll,$routeParams,
 			}
 		);
 	}
+
 	$scope.downloadkegg = function(){
 		var condition = {};
 		condition["mirna"] = query_mirna;
@@ -849,14 +691,18 @@ function MirnaController($http,$sce,$scope,$location,$anchorScroll,$routeParams,
 			}
 		);
 	}
+
+
+
 	$(document).ready(function(){
-		$scope.draw_exp_source();
+		$scope.draw_exp_mv_source();
 		$scope.fetch_pubmed();
 		$scope.fetch_pathway();
-		$scope.fetch_mirnatarget();
+		$scope.all_mirtarget();
 		$scope.fetch_molecular_drug();
 		$scope.fetch_mirnafunction();
 		$scope.fetch_miRNA();
-		$scope.tcgaexpression();
+		$scope.tcgaexpression()
+		$scope.gotoAnchor(1);
 		});
 }

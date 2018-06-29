@@ -1,84 +1,93 @@
-<div class="container-fluid">
-    <div class="panel panel-info">
-    <div class="panel-heading">
-	<strong>Sample browse</strong>
-    </div>
-    <div class="panel-body">
-    <div class="table-responsive"  style="height:auto;max-height:400px;overflow:scroll;">
-    <table class="table table-hover table-striped">
-        <thead>
-            <tr class="success">
-            <th>Source</th>
-            <th>Cell line</th>
-            <th>EV type</th>
-            <th>Disease</th>
-            <th>Sample NO.</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat='s in browse'>
-                <td>{$ s.source $}</td>
-                <td>{$ s.cellline $}</td>
-                <td>{$ s.mv_exo $}</td>
-                <td>{$ s.desease $}</td>
-                <td><a href="#!?sample={$ s.sample_num $}" >{$ s.sample_num $}</a></td>
-                <!--add sample run info--!>
-            </tr>
-        </tbody>
-    </table>
-    </div>
-    </div>
+<div class="fhead">
+    <div class="container" style="padding-top:10px">
+        <span style="font-size:30px;color:white;"><b>Samples</b></span><br>
+        <span style="color:white;font-size:20px">Browse by secreted sources of Exosomes or Microvesicles</span>
     </div>
 </div>
-<div>
-<div class="panel panel-info">
-		<div class="panel-heading">
-					<strong>miRNA browse</strong>
-		</div>
-        <div class="panel-body">
-		<form class="form-inline">
-		 <div class="form-group">
-			<label for="inputmirna">Input miRNA ID:</label>
-			<input type="text"  class="form-control" id="inputmirna" ng-model="query_mirna">
-			<button type="submit" class="btn btn-primary" ng-click="filter_mirna()">Search</button>
-			</div>
-		</form>
-		<hr/>
-		<div class="table-responsive">
-			<table class="table table-hover table-responsive table-condensed table-striped">
-             		<div class="col-xs-7"
-                                paging
-                                page="currentPage"
-                                page-size=20
-                                total="records_number"
-                                scroll-top="true"
-                                hide-if-empty="true"
-                                show-prev-next="true"
-                                show-first-last="true"
-                                text-title-page="Page {page} Hover Over"
-                                text-title-first="First hover"
-                                text-title-last="Last hover"
-                                text-title-next="Next hover"
-                                text-title-prev="Prev hover"
-                                show-prev-next="true"
-                                show-first-last="true"
-                                ul-class="pagination"
-                                active-class="active"
-                                disabled-class="disabled"
-                                paging-action="update_page('test',page,page-size,total)"
-                        >
-                        </div>
-				<thead>
-				    <tr class="success">
-					<th>ID</th>
-				    </tr>
-                			</thead>
-                			<tbody>
-						<tr ng-repeat="mirna in mirnabrowse">
-							<td><a href="#!miRNA_info?miRNA={$ mirna.mirna $}" target="_self">{$ mirna.mirna $}</a></td>
-						</tr>
-                			</tbody>
-			</table>
-		</div>
-        </div>
+
+<style type="text/css">
+.tx{
+    text-align:center
+}
+
+.caption{
+    height:40px
+}
+
+.table thead tr th, .table tbody tr td {
+     border: 0px solid transparent !important;
+}
+</style>
+
+<div class="container">
+
+<div id="SOURs" >
+
+  <!-- browse 各种 Sample type  -->
+    <h3 class="page-header"><b>Exosomes</b></h3>
+
+    <div>
+        <table class="table">
+            <thead>
+            <!--<span><b>Secreted Source</b></span>-->
+            </thead>
+          <tr ng-repeat="i in exo_source" class="row">
+            <td ng-repeat="b in i" class="col-sm-2 col-md-2">
+            <div class="thumbnail">
+                <a href="#!/sample?sample=source&source={$ exo_source_a[b] $}&type=exo&sra={$ b $}" target="_blank"><img src="/static/EVmiRNA/image/img/{$ exo_source_img[b] $}" alt="{$ b $}"></a>
+                <div class="caption tx">
+                    <a href="#!/sample?sample=source&source={$ exo_source_a[b] $}&type=exo&sra={$ b $}" style="font-family:UbuntuLight, Arial, sans-serif;font-size:15px;" target="_blank">{$ exo_source_st[b] $}<md-tooltip md-direction="top"><p>{$ b $}</p></md-tooltip></a>
+                </div>
+            </div>
+            
+            </td>
+          </tr>
+        </table>
+     </div>
+
+    <!--<div >-->
+        <!--<table class="table table-bordered">-->
+            <!--<thead>-->
+            <!--<span><b>Secreted Cancer type</b></span>-->
+            <!--</thead>-->
+          <!--<tr ng-repeat="i in exo_cancer" class="row">-->
+            <!--<td ng-repeat="b in i" class="col-lg-4"><a href="#!/sample?sample=cancer&cancer={$ exo_cancer_a[b] $}&type=exo&sra={$ b $}" target="_blank">{$ b $}      <img src="/static/EVmiRNA/image/img/{$ exo_cancer_img[b] $}" height="20"></a></td>-->
+          <!--</tr>-->
+        <!--</table>-->
+    <!--</div>-->
+    <!--<br>-->
+
+    
+    <h3 class="page-header"><b>Microvesicles</b></h3>
+    <div>
+        <table class="table">
+            <thead>
+            <!--<span><b>Secreted Source</b></span>-->
+            </thead>
+          <tr ng-repeat="i in mv_source" class="row">
+            <td ng-repeat="b in i" class="col-sm-2 col-md-2">
+            <div class="thumbnail">
+                <a href="#!/sample?sample=source&source={$ mv_source_a[b] $}&type=mv&sra={$ b $}" target="_blank"><img src="/static/EVmiRNA/image/img/{$ mv_source_img[b] $}" alt="{$ b $}"></a>
+                <div class="caption tx">
+                    <a href="#!/sample?sample=source&source={$ mv_source_a[b] $}&type=mv&sra={$ b $}"  style="font-family:UbuntuLight, Arial, sans-serif;font-size:15px;" target="_blank">{$ mv_source_st[b] $}<md-tooltip md-direction="top"><p>{$ b $}</p></md-tooltip></a>
+                </div>
+            </div>
+            </td>
+          </tr>
+        </table>
+    </div>
+<br>
+
+    <!--<div >-->
+        <!--<table class="table table-bordered">-->
+            <!--<thead>-->
+            <!--<span><b>Secreted Cancer type</b></span>-->
+            <!--</thead>-->
+          <!--<tr ng-repeat="i in mv_cancer" class="row">-->
+            <!--<td ng-repeat="b in i" class="col-lg-4"><a href="#!/sample?sample=cancer&cancer={$ mv_cancer_a[b] $}&type=mv&sra={$ b $}" target="_blank">{$ b $}      <img src="/static/EVmiRNA/image/img/{$ mv_cancer_img[b] $}" height="20"></a></td>-->
+          <!--</tr>-->
+        <!--</table>-->
+    <!--</div>-->
+
+</div>
 </div>

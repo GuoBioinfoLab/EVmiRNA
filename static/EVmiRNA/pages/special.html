@@ -1,7 +1,13 @@
+<div class="fhead">
+    <div class="container" style="padding-top:10px">
+    <span   style="font-size:30px;color:white;"><b>Specific miRNA</b> </span><br>
+    <span style="color:white;font-size:20px">Identify Specific miRNAs of Sources and Cancer types by <a href="http://bioinfo.life.hust.edu.cn/SEGtool/" target="_blank" style="color:#7ACCC8">SEGtool</a></span>
+    </div>
+</div>
 
-
-
-<div class="container-fluid">
+<br>
+<br>
+<div class="container" style="height:auto;">
 
 <style type="text/css">
 
@@ -11,7 +17,7 @@
 .dialogdemoBasicUsage .footer {
   width: 100%;
   text-align: center;
-  margin-left: 20px; }
+  margin-left: 5px; }
 
 .dialogdemoBasicUsage .footer, .dialogdemoBasicUsage .footer > code {
   font-size: 0.8em;
@@ -39,10 +45,8 @@
     .md-tab{text-transform: none;
            font-weight: bold;
     }
-
-
     .wrapper {
-      /* height: 100%; */
+      width: 100%;
     }
     .wrapper .content {
       background-color:  transparent !important;
@@ -70,11 +74,11 @@
       top: 216px;
     } */
     .wrapper .sidebar {
-      width: 230px;
       background-color: #F2F2F2;
     }
     .wrapper .sidebar .label {
-      height: 30px;
+      height: 20px;
+      width:100%;
       /* color: white; */
       cursor: pointer;
       outline: none;
@@ -82,7 +86,7 @@
      font-weight: bold;
      font-size: 13px;
      color: black;
-     text-align: left;
+     /*text-align: left;*/
     }
     /* .wrapper .sidebar .label .md-icon-button {
       height: 72px;
@@ -94,652 +98,298 @@
     .wrapper .sidebar .active {
       background-color: lightgrey;
     }
-
+    #tree {
+        font-size: 14px;
+    }
+    .list-group-item {
+        padding :0;
+    }
 </style>
 
-<button type="button" class="btn btn-primary" id="allsources" ng-click="allsources()">Sample types</button>
-<button type="button" class="btn btn-default" id="exosomes"  ng-click="exosomes()">Exosomes</button>
-<button type="button" class="btn btn-default" id="microvesicles" ng-click="microvesicles()">Microvesicles</button>
-
-
-<br>
-<br>
-
-
-<!-- MVs -->
-<div id="MVs">
-<!-- browse Cancer biomarkers -->
-<div class="panel panel-default">
-
-    <div class="panel-heading">
-      <div class="row">
-        <div class="col-lg-8">
-          <b>Microvesicles Cancer Specific miRNAs Browse</b>
-
-          <span  class="fa fa-h-square"><md-tooltip md-direction="Bottom">We used <a href="http://bioinfo.life.hust.edu.cn/SEGtool/">SEGtool</a> filter Cancer Specific miRNAs</md-tooltip></span>
-
-        </div>
-        <div class="col-lg-4" align="right" >
-          <span style="text-decoration: underline; cursor:pointer" id="more2">MORE</span>
-          <span style="text-decoration: underline; cursor:pointer" id="less2">LESS</span>
-        </div>
-      </div>
+<div class="row">
+    <h4>Please click the EV source on the left manu to browse the specifically expressed miRNAs in that EV source.</h4>
+    <br>
+    <div class="col-lg-2">
+        <div id="tree"></div>
     </div>
-
-  <div class="panel-body" id="shensuo2">
-
-    <div class="wrapper"  layout="row" ng-init="activeT=1">
-
-    	<md-content layout-padding flex class="content">
-    		<div class="tab" ng-show="activeT===1">
-          <table class="table">
-            <tr ng-repeat="i in Breast_adenocarcinoma ">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
-            </tr>
-        </table>
-        </div>
-    		<div class="tab" ng-show="activeT===2">
-          <table class="table">
-            <tr ng-repeat="i in Colon_carcinoma">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
-            </tr>
+    <div class="col-lg-10">
+        <div class="wrapper" id="spe" layout="row" ng-init="activeT1=true">
+    	   <md-content layout-padding flex class="content">
+    		  <div class="tab" id="activeT1">
+            <table class="table table-bordered table-condensed">
+              <tr class="tableh">Current Display: Breast Adenocarcinoma (MicroVesicles)</tr>
+              <tr ng-repeat="i in Breast_adenocarcinoma_mv ">
+                <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
+              </tr>
           </table>
-        </div>
-    		<div class="tab" ng-show="activeT===3">
-          <table class="table">
-            <tr ng-repeat="i in chronic_myelocytic_leukemia">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
-            </tr>
-          </table>
-        </div>
-    	</md-content>
-
-    	<md-sidenav md-is-locked-open="true" class="sidebar">
-    		<div class="label" ng-click="activeT=1" ng-class="{'active': activeT===1}" layout="column" >Breast adenocarcinoma</div>
-    		<div class="label" ng-click="activeT=2" ng-class="{'active': activeT===2}" layout="column" >Colon carcinoma</div>
-    		<div class="label" ng-click="activeT=3" ng-class="{'active': activeT===3}" layout="column" >Chronic myelocytic leukemia</div>
-    	</md-sidenav>
-    </div>
-</div>
-</div>
-
-<!-- browse secreted source -->
-<div class="panel panel-default">
-
-    <div class="panel-heading">
-      <div class="row">
-        <div class="col-lg-8">
-          <b>Microvesicles Secreted source Specific miRNAs Browse</b>
-          <span class="fa fa-h-square">  <md-tooltip md-direction="Bottom">We used <a href="http://bioinfo.life.hust.edu.cn/SEGtool/">SEGtool</a> filter Secreted source Specific EVmiRNAs</md-tooltip> </span>
-        </div>
-        <div class="col-lg-4" align="right" >
-          <span style="text-decoration: underline; cursor:pointer" id="more3">MORE</span>
-          <span style="text-decoration: underline; cursor:pointer" id="less3">LESS</span>
-        </div>
-      </div>
-    </div>
-
-  <div class="panel-body" id="shensuo3">
-
-    <div class="wrapper" layout="row" ng-init="activeTab=10">
-
-    	<md-content layout-padding flex class="content">
-    		<div class="tab" ng-show="activeTab===10">
-          <table class="table">
+          </div>
+    		  <div class="tab" id="activeT2"><!--id="activeT2"-->
+            <table class="table table-bordered table-condensed">
+              <tr class="tableh">Current Display: Colon Carcinoma (MicroVesicles)</tr>
+              <tr ng-repeat="i in Colon_carcinoma_mv">
+                <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
+              </tr>
+            </table>
+          </div>
+          <div class="tab" id="activeT3">
+            <table class="table table-bordered table-condensed">
+              <tr class="tableh">Current Display: Chronic Myelocytic Leukemia (MicroVesicles)</tr>
+              <tr ng-repeat="i in chronic_myelocytic_leukemia_mv">
+                <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
+              </tr>
+            </table>
+          </div>
+          <div class="tab" id="activeT3a">
+            <table class="table table-bordered table-condensed">
+              <tr class="tableh">Current Display: Prostate cancer (MicroVesicles)</tr>
+              <tr ng-repeat="i in Prostate_cancer_mv">
+                <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
+              </tr>
+            </table>
+          </div>
+          <div class="tab" id="activeT3b">
+            <table class="table table-bordered table-condensed">
+              <tr class="tableh">Current Display: Pancreatic cancer (MicroVesicles)</tr>
+              <tr ng-repeat="i in Pancreatic_cancer_mv">
+                <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
+              </tr>
+            </table>
+          </div>
+          <div class="tab" id="activeTab10">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Blood (MicroVesicles)</tr>
             <tr ng-repeat="i in Blood">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
         </table>
         </div>
-    		<div class="tab" ng-show="activeTab===11">
-          <table class="table">
+        <div class="tab" id="activeTab11">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Breast (MicroVesicles)</tr>
             <tr ng-repeat="i in Breast">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
           </table>
         </div>
-    		<div class="tab" ng-show="activeTab===12">
-          <table class="table">
+        <div class="tab" id="activeTab12">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Colon (MicroVesicles)</tr>
             <tr ng-repeat="i in Colon">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
           </table>
         </div>
-    		<div class="tab" ng-show="activeTab===13">
-          <table class="table">
-            <tr ng-repeat="i in Fibroblasts">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+        <div class="tab" id="activeTab13">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Fibroblasts (MicroVesicles)</tr>
+            <tr ng-repeat="i in Fibroblasts_mv">
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
           </table>
         </div>
-        <div class="tab" ng-show="activeTab===14">
-          <table class="table">
+        <div class="tab" id="activeTab14">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Mesenchymal Stem Cells (MicroVesicles)</tr>
             <tr ng-repeat="i in Mesenchymal_Stem_Cells">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
         </table>
         </div>
-        <div class="tab" ng-show="activeTab===15">
-          <table class="table">
-            <tr ng-repeat="i in Urine">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+        <div class="tab" id="activeTab15">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Urine (MicroVesicles)</tr>
+            <tr ng-repeat="i in Urine_mv">
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
         </table>
         </div>
-    	</md-content>
-
-    	<md-sidenav md-is-locked-open="true" class="sidebar">
-    		<div class="label" ng-click="activeTab=10" ng-class="{'active': activeTab===10}" layout="column" >Blood</div>
-    		<div class="label" ng-click="activeTab=11" ng-class="{'active': activeTab===11}" layout="column" >Breast</div>
-    		<div class="label" ng-click="activeTab=12" ng-class="{'active': activeTab===12}" layout="column" >Colon</div>
-    		<div class="label" ng-click="activeTab=13" ng-class="{'active': activeTab===13}" layout="column" >Fibroblasts</div>
-    		<div class="label" ng-click="activeTab=14" ng-class="{'active': activeTab===14}" layout="column" >Mesenchymal Stem Cells</div>
-    		<div class="label" ng-click="activeTab=15" ng-class="{'active': activeTab===15}" layout="column" >Urine</div>
-    	</md-sidenav>
-    </div>
-</div>
-</div>
-</div>
-
-
-
-<!-- EXO -->
-<div id="EXOs">
-<!-- browse Caner biomarkers -->
-<div class="panel panel-default">
-
-    <div class="panel-heading">
-      <div class="row">
-        <div class="col-lg-8">
-          <b>Exosomes Cancer Specific miRNAs Browse</b>
-
-          <span  class="fa fa-h-square"><md-tooltip md-direction="Bottom">We used <a href="http://bioinfo.life.hust.edu.cn/SEGtool/">SEGtool</a> filter Cancer Specific miRNAs</md-tooltip></span>
-
-        </div>
-        <div class="col-lg-4" align="right" >
-          <span style="text-decoration: underline; cursor:pointer" id="more4">MORE</span>
-          <span style="text-decoration: underline; cursor:pointer" id="less4">LESS</span>
-        </div>
-      </div>
-    </div>
-
-  <div class="panel-body" id="shensuo4">
-
-    <div class="wrapper"  layout="row" ng-init="activeTb=1">
-
-    	<md-content layout-padding flex class="content">
-    		<div class="tab" ng-show="activeTb===1">
-          <table class="table">
+        <div class="tab" id="activeTb1">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Breast Adenocarcinoma (Exosomes)</tr>
             <tr ng-repeat="i in Breast_adenocarcinoma">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
         </table>
         </div>
-    		<div class="tab" ng-show="activeTb===2">
-          <table class="table">
+        <div class="tab" id="activeTb2">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Colon Carcinoma (Exosomes)</tr>
             <tr ng-repeat="i in Colon_carcinoma">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
           </table>
         </div>
-    		<div class="tab" ng-show="activeTb===3">
-          <table class="table">
+        <div class="tab" id="activeTb2b">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: CLL (Exosomes)</tr>
+            <tr ng-repeat="i in CLL">
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
+            </tr>
+          </table>
+        </div>
+        <div class="tab" id="activeTb3">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Lymphoma (Exosomes)</tr>
             <tr ng-repeat="i in Lymphoma">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
           </table>
         </div>
-    		<div class="tab" ng-show="activeTb===4">
-          <table class="table">
+         <div class="tab" id="activeTb3b">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Lymphoma (Exosomes)</tr>
+            <tr ng-repeat="i in Leukemia">
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
+            </tr>
+          </table>
+        </div>
+        <div class="tab" id="activeTb4">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Oral Cancer (Exosomes)</tr>
             <tr ng-repeat="i in Oral_cancer">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
           </table>
         </div>
-        <div class="tab" ng-show="activeTb===5">
-          <table class="table">
+        <div class="tab" id="activeTb5">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Prostate Cancer (Exosomes)</tr>
             <tr ng-repeat="i in Prostate_Cancer">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
         </table>
         </div>
-        <div class="tab" ng-show="activeTb===6">
-          <table class="table">
+        <div class="tab" id="activeTb6">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Squamous Cell Carcinoma (Exosomes)</tr>
             <tr ng-repeat="i in Squamous_cell_carcinoma">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
         </table>
         </div>
-    	</md-content>
-
-    	<md-sidenav md-is-locked-open="true" class="sidebar">
-    		<div class="label" ng-click="activeTb=1" ng-class="{'active': activeTb===1}" layout="column" >Breast adenocarcinoma</div>
-    		<div class="label" ng-click="activeTb=2" ng-class="{'active': activeTb===2}" layout="column" >Colon carcinoma</div>
-    		<div class="label" ng-click="activeTb=3" ng-class="{'active': activeTb===3}" layout="column" >Lymphoma</div>
-    		<div class="label" ng-click="activeTb=4" ng-class="{'active': activeTb===4}" layout="column" >Oral cancer</div>
-    		<div class="label" ng-click="activeTb=5" ng-class="{'active': activeTb===5}" layout="column" >Prostate Cancer</div>
-    		<div class="label" ng-click="activeTb=6" ng-class="{'active': activeTb===6}" layout="column" >Squamous cell carcinoma </div>
-    	</md-sidenav>
-    </div>
-</div>
-</div>
-
-<!-- browse secreted source -->
-<div class="panel panel-default">
-
-    <div class="panel-heading">
-      <div class="row">
-        <div class="col-lg-8">
-          <b>Exosomes Secreted source Specific miRNAs Browse</b>
-          <span class="fa fa-h-square">  <md-tooltip md-direction="Bottom">We used <a href="http://bioinfo.life.hust.edu.cn/SEGtool/">SEGtool</a> filter Secreted source Specific EVmiRNAs</md-tooltip> </span>
-        </div>
-        <div class="col-lg-4" align="right" >
-          <span style="text-decoration: underline; cursor:pointer" id="more6">MORE</span>
-          <span style="text-decoration: underline; cursor:pointer" id="less6">LESS</span>
-        </div>
-      </div>
-    </div>
-
-  <div class="panel-body" id="shensuo6">
-
-    <div class="wrapper" layout="row" ng-init="activeTabb=10">
-
-    	<md-content layout-padding flex class="content">
-    		<div class="tab" ng-show="activeTabb===10">
-          <table class="table">
+        <div class="tab" id="activeTabb10">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Blood (Exosomes)</tr>
             <tr ng-repeat="i in Blood">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
         </table>
         </div>
-    		<div class="tab" ng-show="activeTabb===11">
-          <table class="table">
+        <div class="tab" id="activeTabb11">
+          <table class="table table-bordered table-condensed">
+          <tr class="tableh">Current Display: Breast (Exosomes)</tr>
             <tr ng-repeat="i in Breast">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
           </table>
         </div>
-    		<div class="tab" ng-show="activeTabb===12">
-          <table class="table">
+        <div class="tab" id="activeTabb12">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Brease Milk (Exosomes)</tr>
             <tr ng-repeat="i in Breast_milk">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
           </table>
         </div>
-    		<div class="tab" ng-show="activeTabb===13">
-          <table class="table">
+        <div class="tab" id="activeTabb13">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Blymphoblastoid Cells (Exosomes)</tr>
             <tr ng-repeat="i in Blymphoblastoid_cells">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
           </table>
         </div>
-        <div class="tab" ng-show="activeTabb===14">
-          <table class="table">
+        <div class="tab" id="activeTabb14">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Colon (Exosomes)</tr>
             <tr ng-repeat="i in Colon">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
         </table>
         </div>
-        <div class="tab" ng-show="activeTabb===15">
-          <table class="table">
+        <div class="tab" id="activeTabb15">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: CLL Cells (Exosomes)</tr>
             <tr ng-repeat="i in CLL_cells">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
         </table>
         </div>
-        <div class="tab" ng-show="activeTabb===16">
-          <table class="table">
+        <div class="tab" id="activeTabb16">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Human Epithelial Cells (Exosomes)</tr>
             <tr ng-repeat="i in Human_epithelial_cells">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
         </table>
         </div>
-        <div class="tab" ng-show="activeTabb===17">
-          <table class="table">
+        <div class="tab" id="activeTabb17">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Human Mammary Epithelial Cells (Exosomes)</tr>
             <tr ng-repeat="i in Human_Mammary_Epithelial_Cells">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
         </table>
         </div>
-        <div class="tab" ng-show="activeTabb===18">
-          <table class="table">
+        <div class="tab" id="activeTabb18">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Human Mast Cells (Exosomes)</tr>
             <tr ng-repeat="i in Human_mast_cells">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
         </table>
         </div>
-        <div class="tab" ng-show="activeTabb===19">
-          <table class="table">
+        <div class="tab" id="activeTabb19">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Kidney (Exosomes)</tr>
             <tr ng-repeat="i in Kidney">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
         </table>
         </div>
-        <div class="tab" ng-show="activeTabb===20">
-          <table class="table">
+        <div class="tab" id="activeTabb20">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Lymph (Exosomes)</tr>
             <tr ng-repeat="i in Lymph">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
         </table>
         </div>
-        <div class="tab" ng-show="activeTabb===21">
-          <table class="table">
+        <div class="tab" id="activeTabb21">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Mesenchymal Stem Cells (Exosomes)</tr>
             <tr ng-repeat="i in Mesenchymal_Stem_Cells">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
         </table>
         </div>
-        <div class="tab" ng-show="activeTabb===22">
-          <table class="table">
+        <div class="tab" id="activeTabb22">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Saliva (Exosomes)</tr>
             <tr ng-repeat="i in Saliva">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
         </table>
         </div>
-        <div class="tab" ng-show="activeTabb===23">
-          <table class="table">CLL_cells
+        <div class="tab" id="activeTabb23">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Seminal Fluid (Exosomes)</tr>
             <tr ng-repeat="i in Seminal_fluid">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
         </table>
         </div>
-        <div class="tab" ng-show="activeTabb===24">
-          <table class="table">
+        <div class="tab" id="activeTabb24">
+          <table class="table table-bordered table-condensed">
+            <tr class="tableh">Current Display: Tongue (Exosomes)</tr>
             <tr ng-repeat="i in Tongue">
-              <td ng-repeat="b in i"><a href="#!/miRNA_info?miRNA={$ b $}" target="_blank">{$ b $}</a></td>
+              <td ng-repeat="b in i"><a href=""  ng-click="pic(b)" target="_blank">{$ b $}</a></td>
             </tr>
         </table>
         </div>
-    	</md-content>
-
-    	<md-sidenav md-is-locked-open="true" class="sidebar">
-    		<div class="label" ng-click="activeTabb=10" ng-class="{'active': activeTabb===10}" layout="column" >Blood</div>
-    		<div class="label" ng-click="activeTabb=11" ng-class="{'active': activeTabb===11}" layout="column" >Breast</div>
-    		<div class="label" ng-click="activeTabb=12" ng-class="{'active': activeTabb===12}" layout="column" >Breast milk</div>
-    		<div class="label" ng-click="activeTabb=13" ng-class="{'active': activeTabb===13}" layout="column" >B-lymphoblastoid cells</div>
-    		<div class="label" ng-click="activeTabb=14" ng-class="{'active': activeTabb===14}" layout="column" >Colon</div>
-            <div class="label" ng-click="activeTabb=15" ng-class="{'active': activeTabb===15}" layout="column" >Chronic lymphocytic leukemia</div>
-    		<div class="label" ng-click="activeTabb=16" ng-class="{'active': activeTabb===16}" layout="column" >Human epithelial cells</div>
-    		<div class="label" ng-click="activeTabb=16" ng-class="{'active': activeTabb===17}" layout="column" >Human mammary endothelial cells</div>
-    		<div class="label" ng-click="activeTabb=18" ng-class="{'active': activeTabb===18}" layout="column" >Human mast cells</div>
-    		<div class="label" ng-click="activeTabb=19" ng-class="{'active': activeTabb===19}" layout="column" >Kidney</div>
-    		<div class="label" ng-click="activeTabb=20" ng-class="{'active': activeTabb===20}" layout="column" >Lymph</div>
-    		<div class="label" ng-click="activeTabb=21" ng-class="{'active': activeTabb===21}" layout="column" >Mesenchymal Stem Cells</div>
-    		<div class="label" ng-click="activeTabb=22" ng-class="{'active': activeTabb===22}" layout="column" >Saliva</div>
-    		<div class="label" ng-click="activeTabb=23" ng-class="{'active': activeTabb===23}" layout="column" >Seminal fluid</div>
-    		<div class="label" ng-click="activeTabb=24" ng-class="{'active': activeTabb===24}" layout="column" >Tongue</div>
-    	</md-sidenav>
-    </div>
-</div>
-</div>
-</div>
-
-
-<div id="SOURs" >
-
-  <!-- browse 各种 Sample type  -->
-  <div class="panel panel-default">
-
-  <div class="panel-heading">
-    <div class="row">
-      <div class="col-lg-3">
-        <b>Sample Type Browse</b>
-
-        <span class="fa fa-h-square"><md-tooltip md-direction="Bottom">Insert Drive</md-tooltip></span>
-      </div>
-      <div class="col-lg-8" align="right" >
-        <span style="text-decoration: underline; cursor:pointer" id="more5">MORE</span>
-        <span style="text-decoration: underline; cursor:pointer" id="less5">LESS</span>
+    	 </md-content>
       </div>
     </div>
-  </div>
-
-  <div class="panel-body" id="shensuo5">
-
-  <div class="wrapper"  layout="row" ng-init="activeTaaab=1">
-  	<md-content layout-padding flex class="content">
-
-    <div class="tab" ng-show="activeTaaab===1">
-        <table class="table">
-          <tr ng-repeat="i in exo_source">
-            <td ng-repeat="b in i"><a href="#!/sample?sample=source&source={$ b $}&type=exo" target="_blank">{$ b $}</a></td>
-          </tr>
-        </table>
-     </div>
-
-    <div class="tab" ng-show="activeTaaab===2">
-        <table class="table">
-          <tr ng-repeat="i in exo_cancer">
-            <td ng-repeat="b in i"><a href="#!/sample?sample=cancer&cancer={$ b $}&type=exo" target="_blank">{$ b $}</a></td>
-          </tr>
-        </table>
-    </div>
-
-    <div class="tab" ng-show="activeTaaab===3">
-        <table class="table">
-          <tr ng-repeat="i in mv_source">
-            <td ng-repeat="b in i"><a href="#!/sample?sample=source&source={$ b $}&type=mv" target="_blank">{$ b $}</a></td>
-          </tr>
-        </table>
-    </div>
-
-    <div class="tab" ng-show="activeTaaab===4">
-        <table class="table">
-          <tr ng-repeat="i in mv_cancer">
-            <td ng-repeat="b in i"><a href="#!/sample?sample=cancer&cancer={$ b $}&type=mv" target="_blank">{$ b $}</a></td>
-          </tr>
-        </table>
-    </div>
-
-    </md-content>
-
-  	<md-sidenav md-is-locked-open="true" class="sidebar">
-  		<div class="label" ng-click="activeTaaab=1" ng-class="{'active': activeTaaab===1}" layout="column" >Exosomes Source</div>
-  		<div class="label" ng-click="activeTaaab=2" ng-class="{'active': activeTaaab===2}" layout="column" >Exosomes Cancer type</div>
-  		<div class="label" ng-click="activeTaaab=3" ng-class="{'active': activeTaaab===3}" layout="column" >Microvesicles Source</div>
-  		<div class="label" ng-click="activeTaaab=4" ng-class="{'active': activeTaaab===4}" layout="column" >Microvesicles Cancer type</div>
-  	</md-sidenav>
-
-  </div>
-  </div>
-  </div>
-
 </div>
 
-
-<script type="text/javascript">
-$(document).ready(function(hgt){
-// 原始 css
-    $("#shensuo1").css("height","300px");
-    $("#shensuo1").css("overflow","hidden");
-    $("#less").hide();
-
-// more css
-    $("#more").click(function(){
-      $("#shensuo1").css("height","100%");
-      $("#shensuo1").css("overflow","auto");
-      $("#more").hide();
-      $("#less").show();
-    })
-
-// less css
-$("#less").click(function(){
-  $("#shensuo1").css("height","300px");
-  $("#shensuo1").css("overflow","hidden");
-  $("#less").hide();
-  $("#more").show();
-})
-  });
-</script>
-
-
-<script type="text/javascript">
-$(document).ready(function(hgt){
-// 原始 css
-    $("#shensuo2").css("height","300px");
-    $("#shensuo2").css("overflow","hidden");
-    $("#less2").hide();
-
-// more css
-    $("#more2").click(function(){
-      $("#shensuo2").css("height","100%");
-      $("#shensuo2").css("overflow","auto");
-      $("#more2").hide();
-      $("#less2").show();
-    })
-
-// less css
-$("#less2").click(function(){
-  $("#shensuo2").css("height","300px");
-  $("#shensuo2").css("overflow","hidden");
-  $("#less2").hide();
-  $("#more2").show();
-})
-  });
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(hgt){
-// 原始 css
-    $("#shensuo3").css("height","300px");
-    $("#shensuo3").css("overflow","hidden");
-    $("#less3").hide();
-
-// more css
-    $("#more3").click(function(){
-      $("#shensuo3").css("height","100%");
-      $("#shensuo3").css("overflow","auto");
-      $("#more3").hide();
-      $("#less3").show();
-    })
-
-// less css
-$("#less3").click(function(){
-  $("#shensuo3").css("height","300px");
-  $("#shensuo3").css("overflow","hidden");
-  $("#less3").hide();
-  $("#more3").show();
-})
-  });
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(hgt){
-// 原始 css
-    $("#shensuo4").css("height","300px");
-    $("#shensuo4").css("overflow","hidden");
-    $("#less4").hide();
-
-// more css
-    $("#more4").click(function(){
-      $("#shensuo4").css("height","100%");
-      $("#shensuo4").css("overflow","auto");
-      $("#more4").hide();
-      $("#less4").show();
-    })
-
-// less css
-$("#less4").click(function(){
-  $("#shensuo4").css("height","300px");
-  $("#shensuo4").css("overflow","hidden");
-  $("#less4").hide();
-  $("#more4").show();
-})
-  });
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(hgt){
-// 原始 css
-    $("#shensuo5").css("height","300px");
-    $("#shensuo5").css("overflow","hidden");
-    $("#less5").hide();
-
-// more css
-    $("#more5").click(function(){
-      $("#shensuo5").css("height","100%");
-      $("#shensuo5").css("overflow","auto");
-      $("#more5").hide();
-      $("#less5").show();
-    })
-
-// less css
-$("#less5").click(function(){
-  $("#shensuo5").css("height","300px");
-  $("#shensuo5").css("overflow","hidden");
-  $("#less5").hide();
-  $("#more5").show();
-})
-  });
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(hgt){
-// 原始 css
-    $("#shensuo6").css("height","300px");
-    $("#shensuo6").css("overflow","hidden");
-    $("#less6").hide();
-
-// more css
-    $("#more6").click(function(){
-      $("#shensuo6").css("height","100%");
-      $("#shensuo6").css("overflow","auto");
-      $("#more6").hide();
-      $("#less6").show();
-    })
-
-// less css
-$("#less6").click(function(){
-  $("#shensuo6").css("height","300px");
-  $("#shensuo6").css("overflow","hidden");
-  $("#less6").hide();
-  $("#more6").show();
-})
-  });
-</script>
-
-<script>
-$(document).ready(function(hgt){
-
-  $("#EXOs").hide();
-  $("#MVs").hide();
-  $("#SOURs").show();
-
-  $("#exosomes").click(function(){
-    $("#exosomes").removeClass("btn-default");
-    $("#exosomes").addClass("btn-primary");
-    $("#microvesicles").removeClass("btn-primary");
-    $("#microvesicles").addClass("btn-default");
-    $("#allsources").removeClass("btn-primary");
-    $("#allsources").addClass("btn-default");
-    $("#EXOs").show();
-    $("#MVs").hide();
-    $("#SOURs").hide();
-  });
-
-  $("#microvesicles").click(function(){
-    $("#exosomes").addClass("btn-default");
-    $("#exosomes").removeClass("btn-primary");
-    $("#allsources").addClass("btn-default");
-    $("#allsources").removeClass("btn-primary");
-    $("#microvesicles").addClass("btn-primary");
-    $("#microvesicles").removeClass("btn-default");
-    $("#EXOs").hide();
-    $("#SOURs").hide();
-    $("#MVs").show();
-  });
-
-  $("#allsources").click(function(){
-    $("#exosomes").addClass("btn-default");
-    $("#exosomes").removeClass("btn-primary");
-    $("#allsources").addClass("btn-primary");
-    $("#allsources").removeClass("btn-default");
-    $("#microvesicles").addClass("btn-default");
-    $("#microvesicles").removeClass("btn-primary");
-    $("#EXOs").hide();
-    $("#SOURs").show();
-    $("#MVs").hide();
-  });
-
-});
-</script>
+</div>

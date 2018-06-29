@@ -1,105 +1,129 @@
-<div ng-show="one">
-	<div class="panel panel-success">
-		<div class="panel panel-heading">
-			<strong>Source:{$ source $}</strong>
-		</div>
-		<div class="panel panel-body">
-			<div id="sourceContainer" style="height:300px;width:100%;"></div>
-			<hr/>
-			<div class="panel panel-default">
-				<div class="panel-body bg-info">
-					<span style="color:Indigo;"><strong>You may be interested in:</strong></span><br><span ng-repeat="item in interestlist"><a href="#!miRNA_info?miRNA={$ item $}" target="_blank">{$ item $}</a>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-				</div>
-			</div>
-			<hr/>
-			<div style="height:600px;width:100%;overflow:scroll;">
-			<table class="table table-striped table-condensed table-hover">
-				<thead>
-				<tr class="success" style="font-size:large;">
-				<th>#</td>
-				<th>miRNA</th>
-				<th>expression</th>
+<div class="fhead">
+    <div class="container" style="padding-top:30px">
+        <span style="font-size:30px;color:white;"><b>{$ type1 $}&nbspfrom&nbsp{$ source $}&nbsp&nbsp</b></span>
+    </div>
+</div>
+
+<div class="container">
+
+
+<div ng-show="{$ one $}">
+	<!-- heat map -->
+	<h3  style="display:inline-block" id="select_top_mirna" ng-show="{$ hpshow $}">Sample Summary and Top 40 expressed miRNAs heatmap&nbsp<i class="fa fa-question-circle-o"><md-tooltip md-direction="top"><p>Selected top 40 highly expressed miRNAs </p></md-tooltip></i>&nbsp;&nbsp;<a href="{$ filesource $}" download="{$ filename $}">&nbsp&nbspDownload <i style="display:inline-block" class="fa fa-download"><md-tooltip md-direction="top"><p>Download Expression</p></md-tooltip></i></a></h3>
+	<div class="row">
+
+        
+        <div class="col-lg-5">
+        <h3>Heatmap</h3>
+            <img src="/static/EVmiRNA/image/expr/{$ heatmap[source_d] $}"   height="400px">
+        </div>
+        <div class="col-lg-1">
+        </div>
+
+        <div class="col-lg-5">
+        <h3>Sample Summary</h3>
+            <table class="table table-bordered table-condensed">
+                <tr>
+                    <td><b>Cancer type</b></td>
+                    <td><b>Sample counts</b></td>
+                </tr>
+                <tr ng-repeat="i in scc_key">
+                    <td>{$ i $}</td>
+                    <td>{$ scc_val[$index] $}</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="col-lg-2">
+        </div>
+    </div>
+	<br>
+	<br>
+
+	<h3>Expressed miRNA list of {$ source $} {$ type1 $}&nbsp<i  class="fa fa-question-circle-o" ><md-tooltip md-direction="top"><p>high to low Rangking of miRNA by expression</p></md-tooltip></i></h3>
+    
+
+    
+   <!--  <form  class="form-inline" style="margin:0 0 0.2cm 0">
+        <div class="form-group ui-widget">
+            <input class="form-control" type="text" ng-model="query_miRNA" placeholder="miRNA filter" >
+            <button class="btn btn-default" type="submit" ng-click="topmirna(query_miRNA)">Search</button>
+        </div>
+    </form> -->
+    
+    <div id="allmirtable" style="height:300px;overflow:hidden;">
+        <table class="table table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th width="10%">#</th>
+                    <th width="35%"><a href="" ng-click="sortType2 = 'mirna'; sortReverse2 = !sortReverse2"><b>miRNA ID</b></a>&nbsp&nbsp&nbsp<span ng-show="sortType2 == 'mirna' && !sortReverse2" class="fa fa-caret-up"></span><span ng-show="sortType2 == 'mirna' && sortReverse2" class="fa fa-caret-down"></span>
+                    <input class="form-control" type="text" ng-model="search.mirna" placeholder="miR-155" >
+                    </th>
+                    <th width="35%"><a href="" ng-click="sortType2 = 'expression'; sortReverse2 = !sortReverse2"><b>Average Expr.</b></a>&nbsp&nbsp&nbsp<span ng-show="sortType2 == 'expression' && !sortReverse2" class="fa fa-caret-up"></span><span ng-show="sortType2 == 'expression' && sortReverse2" class="fa fa-caret-down"></span>
+                    <input class="form-control" type="text" ng-model="search.expression" placeholder="Filter by expression" >
+                    </th>
+                    <th width="20%" align="center">Expression histogram</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="i in interestlist | filter: search | orderBy:sortType2:sortReverse2 ">
+                <td>{$ $index+1 $}</td>
+                <td><a href="http://bioinfo.life.hust.edu.cn/EVmiRNA#!/miRNA_info?miRNA={$ i.mirna $}" target="_blank">{$ i.mirna $}</a></td>
+                <td>{$ i.expression $}</td>
+                <td align="center"><i ng-click="topmirna(i.mirna)" class="fa fa-bar-chart"></td>
+            </tr>
+        </table>
+    </div>
+
+    
+    <div style="text-align:center;">
+        <button id="tablemore" class="btn btn-info" style="opacity:0.5;">MORE</button>
+        <button id="tableless" class="btn btn-info" style="opacity:0.5;position:fixed;right:200px;top:200px;">LESS</button>
+    </div>
+	<br>
+	<br>
+	
+    <h3>SRA samples information&nbsp<i class="fa fa-question-circle-o"><md-tooltip md-direction="top"><p>SRA information</p></md-tooltip></i></h3>
+	<div  style="height: {$ sraheight $}px; overflow:scroll; overflow-x:hidden;">
+		<table class="table table-bordered table-condensed" >
+			<tr>
+				<th>#</th>
+				<th>SRA id</th>
+				<th>Source</th>
+				<th><a href="" ng-click="sortType = 'cancer'; sortReverse = !sortReverse"><b>Cancer</b></a>&nbsp&nbsp&nbsp<span ng-show="sortType == 'cancer' && !sortReverse" class="fa fa-caret-up"></span><span ng-show="sortType == 'cancer' && sortReverse" class="fa fa-caret-down"></span></th>
+				<th>Study</th>
+				<th align="center">Expression</th>
+			</tr>
+			<tbody >
+				<tr ng-repeat="i in sourcesralist| orderBy:sortType:sortReverse">
+					<td>{$ $index+1 $}</td>
+					<td><a href="https://www.ncbi.nlm.nih.gov/sra/?term={$ i.sra $}" target="_blank">{$ i.sra $}</a></td>
+					<td>{$ i.source $}</td>
+					<td>{$ i.cancer $}</td>
+					<td>{$ i.study $}</td>
+					<td align="center"><i ng-click="sraexp( i.sra )" class="fa fa-bar-chart"></i></td>
 				</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="item in sourceexplist">
-						<td>{$ $index+1 $}</td>
-						<td><a href="#!miRNA_info?miRNA={$ item.mirna $}" target="_blank">{$ item.mirna $}</a></td>
-						<td>{$ item.expression $}</td>
-					</tr>
-				</tbody>
-			</table>
-			</div>
-		</div>
+			</tbody>
+		</table>
 	</div>
+	<br>
+
+	
 </div>
-<div ng-show="two">
-	<div class="panel panel-success">
-		<div class="panel panel-heading">
-			<strong>Cell Line:{$ cellline $}</strong>
-		</div>
-		<div class="panel panel-body">
-			<div id="celllineContainer" style="height:300px;width:100%;"></div>
-			<hr/>
-			<div class="panel panel-default">
-                                <div class="panel-body bg-info">
-                                        <span style="color:Indigo;"><strong>You may be interested in:</strong></span><br><span ng-repeat="item in interestlistcl"><a href="#!miRNA_info?miRNA={$ item $}" target="_blank">{$ item $}</a>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                </div>
-                        </div>
-                        <hr/>
-			<div style="height:600px;width:100%;overflow:scroll;">
-			<table class="table table-striped table-hover table-condensed">
-				<thead>
-					<tr class="success" style="font-size:large;">
-						<th>#</th>
-						<th>miRNA</th>
-						<th>expression</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="item in celllinelist">
-						<td>{$ $index+1 $}</td>
-						<td><a href="#!miRNA_info?miRNA={$ item.mirna $}" target="_blank">{$ item.mirna $}</a></td>
-						<td>{$ item.expression $}</td>
-					</tr>
-				</tbody>
-			</table>
-			</div>
-		</div>
-	</div>
 </div>
-<div ng-show="three">
-	<div class="panel panel-success">
-		<div class="panel panel-heading">
-			<strong>Desease:{$ desease $}</strong>
-		</div>
-		<div class="panel panel-body">
-			<div id="deseaseContainer" style="height:300px;width:100%;"></div>	
-			<hr/>
-			<div class="panel panel-default">
-                                <div class="panel-body bg-info">
-                                        <span style="color:Indigo;"><strong>You may be interested in:</strong></span><br><span ng-repeat="item in interestlistds"><a href="#!miRNA_info?miRNA={$ item $}" target="_blank">{$ item $}</a>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                </div>
-                        </div>
-                        <hr/>
-			<div style="height:600px;width:100%;overflow:scroll;">
-			<table class="table table-striped table-condensed table-hover">
-				<thead>
-					<tr class="success" style="font-size:large">
-						<th>#</th>
-						<th>miRNA</th>
-						<th>expression</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="item in deseaselist">
-						<td>{$ $index+1 $}</td>
-						<td><a href="#!miRNA_info?miRNA={$ item.mirna $}" target="_blank">{$ item.mirna $}</a></td>
-						<td>{$ item.expression $}</td>
-					</tr>
-				</tbody>
-			</table>
-			</div>
-		</div>
-	</div>
-</div>			
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#tablemore").show();
+    $("#tableless").hide();
+    $("#tablemore").click(function(){
+        $("#tablemore").hide();
+        $("#tableless").show();
+        $("#allmirtable").css("height","100%")
+    })
+    $("#tableless").click(function(){
+        $("#tablemore").show();
+        $("#tableless").hide();
+        $("#allmirtable").css("height","300px")
+    })
+})
+</script>

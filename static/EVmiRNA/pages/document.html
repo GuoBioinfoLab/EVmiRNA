@@ -1,0 +1,298 @@
+<div class="fhead">
+    <div class="container" style="padding-top:10px">
+    <span   style="font-size:30px;color:white;"><b>Document</b> </span><br>
+    <span style="color:white;font-size:20px">Introduction, Qucik start, Data Summary, Data Download of EVmiRNA</span>
+    </div>
+</div>
+
+
+<div class="container" >
+
+<style text="text/css">
+    #data {
+        font-size: 16px;
+    }
+    ul.nav-tabs{
+        position: fixed;
+        width: 140px;
+        margin-top: 20px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+    }
+    ul.nav-tabs li{
+        margin: 0;
+        border-top: 1px solid #ddd;
+    }
+    ul.nav-tabs li:first-child{
+        border-top: none;
+    }
+    ul.nav-tabs li a{
+        margin: 0;
+        padding: 8px 16px;
+        border-radius: 0;
+    }
+    ul.nav-tabs li.active a, ul.nav-tabs li.active a:hover{
+        color: #fff;
+        background: #0088cc;
+        border: 1px solid #0088cc;
+    }
+    ul.nav-tabs li:first-child a{
+        border-radius: 4px 4px 0 0;
+    }
+    ul.nav-tabs li:last-child a{
+        border-radius: 0 0 4px 4px;
+    }
+    ul.nav-tabs.affix{
+        top: 30px; /* Set the top position of pinned element */
+    }
+    td{
+        font-size: small;
+        padding:0;
+    }
+
+</style>
+    <div class="panel">
+        <div class="panel-body" data-spy="scroll" data-target="#documentspy">
+            <div class="row">
+                <div class="col-lg-2" id="documentspy"> 
+                    <ul class="nav nav-tabs nav-stacked" data-spy="affix" data-offset-top="125" class="navnav" >
+                        <li id="aa" ><a  href="#!/document#introduction">Introduction</a></li>
+                        <li ><a  href="#!/document#help">Qucik Start</a></li>
+                        <li ><a  href="#!/document#data">Data Summary</a></li>
+                        <li ><a  href="#!/document#download">Download</a></li>
+                        <!-- <li ><a  href="#!/document#result">Results</a></li> -->
+                        <!-- <li ><a  href="#!/document#method">Method</a></li> -->
+                    </ul>
+                </div>
+                <div class="col-lg-10">
+                    <div id="introduction">
+                        <span class="glyphicon glyphicon-paperclip" style="display:inline-block"></span>&nbsp;<h2 style="display:inline-block">Introduction</h2>
+                        <p>EVmiRNA (Extracellular vesicle miRNA expression database) is a comprehensive database including<span style="color:DarkViolet;"> miRNA expression profiles, miRNA related drug, miRNA regulated pathways, miRNA function, and related publications</span>. 
+                        We analysed 461 small RNA sequencing datasets of EVs from 17 human tissues/diseses.</p>
+                        <b>Abstract summary</b>
+                        <img src="/static/EVmiRNA/image/zm.png" width="90%"  class="img-responsive" >
+                    </div>
+                    <div id ="help">
+                        <span class="glyphicon glyphicon-import" style="display:inline-block"></span>&nbsp;<h2 style="display:inline-block">Quick Start</h2>
+                        <div id="usage">
+                            <div id="browseusage">
+                                <h3>Browse</h3>
+                                <ol>
+                                    <li><p><a href="http://bioinfo.life.hust.edu.cn/EVmiRNA#!/browse">EV Samples:</a> Click sources of Exosomes or Microvesicles, and users can browse sample cancer types, heatmap, expressed miRNAs, SRA sample information.</p></li>
+                                    <li><p><a href="http://bioinfo.life.hust.edu.cn/EVmiRNA#!/mirnalist">miRNAs list:</a> miRNA basic infomation was presented in this page, and users can click expression detail button to get the epxression histogram. Click the miRNA ID link, users can browsed comprehensive miRNA infomation, contain miRNA basic infomation, miRNA expression profiles, miRNA related drug, miRNA regulated pathways, miRNA function, and related publications.</p></li>
+                                    <li><p><a href="http://bioinfo.life.hust.edu.cn/EVmiRNA#!/special">Specific miRNA:</a> We use SEGtool identify specific miRNA of each source and cancer, And this miRNA list maybe potential miRNA biomarkers. Users can browse these miRNAs to help their research work.</p></li>
+                                </ol>
+                            </div>
+                            <div id ="searchusage">
+                                <h3>Search</h3>
+                                <ol>
+                                    <li><p>Users can search by miRNA, and click search button to get miRNA basic infomation, miRNA expression profiles, miRNA related drug, miRNA regulated pathways, miRNA function, and related publications.</p></li>
+                                    <li><p>Users can Choose miRNA expression region and Select source types to get miRNA list.</p></li>
+                                </ol>
+                            </div>
+                    </div>
+                    <div id="data">
+                        
+                                <span style="display:inline-block" class="glyphicon glyphicon-paperclip"></span>&nbsp;<h2 style="display:inline-block">Data Summary</h2>
+                        <ol>
+                            <li>
+                                <p>We downloaded all exosomes and microvesicles miRNA samples from <a href="https://www.ncbi.nlm.nih.gov/sra/" target="_blank">NCBI SRA database</a>, after quality control, we obtained 461 samples (4 of these sample were sequenced by ourselves, 1 health control Fibroblasts microvesicles sample and 3 health control Mensenchymal stem cell microvesicles samples.). As below, we presented the sample summary.</p>
+                                <b>mRNA partition percentage</b>
+                                <div id="piechart" style="height:300px;width:100%"></div>
+                                <b>Sample counts statistics</b>
+                                <div id="chartContainer" style="height:300px;width:100%"></div>
+                            </li>
+                            <li>
+                                <p>Annotation data source. miRNA basic information was collected from miRbase. Pathway information was collected from KEGG database, and use Hypergeometric p-value to filter miRNA pathway pairs. Publication information was collected from NCBI pubmed database. miRNA function was collected from NCBI RIF database. miRNA Drug information was collected from SM2miR (Small molecular miRNA database). miRNA targets was from TargetScan, miRanda, TarBase, miRTarBase, miR2Disease, miRecords and miRWalk. </p>
+                                <img src="/static/EVmiRNA/image/document1.png" width="60%"  class="img-responsive" >
+                            </li>
+                        </ol>
+ 
+                    </div>
+                     <div id="download">
+                            <h2><i class="fa fa-download">&nbsp</i>Data Download</h2>
+                                <table class="table table-hover table-striped table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <td><a href="/static/EVmiRNA/js/all.expression.txt" download="all.expression.txt">all</a></td>
+                                        <td><a href="/static/EVmiRNA/js/cancer.exp" download="cancer.expression.txt">cancer</a></td>
+                                        <td><a href="/static/EVmiRNA/js/source.exo.mv.exp" download="source_exo_mv.expression.txt">source (MVs & Exos)</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="/static/EVmiRNA/image/expr/Colon_MV.exp" download="Colon_MV.exp.txt">Colon (MVs)</a></td>
+                                        <td><a href="/static/EVmiRNA/image/expr/Fibroblasts_MV.exp" download="Fibroblasts_MV.exp.txt">Fibroblasts (MVs)</a></td>
+                                        <td><a href="/static/EVmiRNA/image/expr/Chronic lymphocytic leukemia cell_Exo.exp" download="Chronic lymphocytic leukemia cell_Exo.exp.txt">Chronic lymphocytic leukemia cell (Exos)</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="/static/EVmiRNA/image/expr/Human mast cell_Exo.exp" download="Human mast cell_Exo.exp.txt">Human mast cell (Exos)</a></td>
+                                        <td><a href="/static/EVmiRNA/image/expr/Mesenchymal Stem Cells_MV.exp" download="Mesenchymal Stem Cells_MV.exp.txt">MSC (MVs)</a></td>
+                                        <td><a href="/static/EVmiRNA/image/expr/Breast_MV.exp" download="Breast_MV.exp.txt">Breast (MVs)</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="/static/EVmiRNA/image/expr/Colon_Exo.exp" download="Colon_Exo.exp.txt">Colon (Exos)</a></td>
+                                        <td><a href="/static/EVmiRNA/image/expr/Breast milk_Exo.exp" download="Breast milk_Exo.exp.txt">Breast milk (Exos)</a></td>
+                                        <td><a href="/static/EVmiRNA/image/expr/Seminal fluid_Exo.exp" download="Seminal fluid_Exo.exp.txt">Seminal fluid (Exos)</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="/static/EVmiRNA/image/expr/Urine_MV.exp" download="Urine_MV.exp.txt">Urine (MVs)</a></td>
+                                        <td><a href="/static/EVmiRNA/image/expr/Mesenchymal Stem Cells_Exo.exp" download="Mesenchymal Stem Cells_Exo.exp.txt">MSC (Exos)</a></td>
+                                        <td><a href="/static/EVmiRNA/image/expr/Kidney_Exo.exp" download="Kidney_Exo.exp.txt">Kidney (Exos)</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="/static/EVmiRNA/image/expr/Breast_Exo.exp" download="Breast_Exo.exp.txt">Breast (Exos)</a></td>
+                                        <td><a href="/static/EVmiRNA/image/expr/Human epithelial cells_Exo.exp" download="Human epithelial cells_Exo.exp.txt">HEC (Exos)</a></td>
+                                        <td><a href="/static/EVmiRNA/image/expr/Blood_MV.exp" download="Blood_MV.exp.txt">Blood (MVs)</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="/static/EVmiRNA/image/expr/Human mammary epithelial cell_Exo.exp" download="Human mammary epithelial cell_Exo.exp.txt">HMEC (Exos)</a></td>
+                                        <td><a href="/static/EVmiRNA/image/expr/B-lymphoblastoid cell lines_Exo.exp" download="B-lymphoblastoid cell lines_Exo.exp.txt">B-lymphoblastoid cell lines (Exos)</a></td>
+                                        <td><a href="/static/EVmiRNA/image/expr/Tongue_Exo.exp" download="Tongue_Exo.exp.txt">Tongue (Exos)</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="/static/EVmiRNA/image/expr/Lymph_Exo.exp" download="Lymph_Exo.exp.txt">Lymph (Exos)</a></td>
+                                        <td><a href="/static/EVmiRNA/image/expr/Saliva_Exo.exp" download="Saliva_Exo.exp.txt">Saliva (Exos)</a></td>
+                                        <td><a href="/static/EVmiRNA/image/expr/Blood_Exo.exp" download="Blood_Exo.exp.txt">Blood (Exos)</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="/static/EVmiRNA/image/expr/source.exp" download="source.exp.txt">source</a></td>
+                                        <td><a href="/static/EVmiRNA/image/expr/cell.line.exp" download="cell.line.exp.txt">cell line</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                        </div>
+                    <!-- <div id="method">
+                        <span style="display:inline-block" class="glyphicon glyphicon-link"></span>&nbsp;<h2 style="display:inline-block">Method</h2>
+                        <div>
+                        </div>
+                    </div> -->
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+$(document).ready(function(){
+    console.log("DocumentController loaded");
+    
+    var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+    axisX:{
+        title: "Source",
+        interval:1
+    },
+	axisY: {
+		title: "Number of Sample",
+		titleFontColor: "#4F81BC",
+		lineColor: "#4F81BC",
+		labelFontColor: "#4F81BC",
+		tickColor: "#4F81BC"
+	},
+	toolTip: {
+		shared: true
+	},
+	legend: {
+		cursor:"pointer",
+		itemclick: toggleDataSeries
+	},
+	data: [{
+		type: "column",
+		legendText: "EXO",
+		name: "EXO",
+		showInLegend: true, 
+		dataPoints:[
+			{ label: "Blood", y: 114 },
+			{ label: "Breast milk", y: 56 },
+			{ label: "Lymph", y: 13 },
+			{ label: "Colon", y: 11 },
+			{ label: "Tongue", y: 8 },
+			{ label: "Seminal fluid", y: 6 },
+            { label: "Human mast cells", y: 4 },
+            { label: "Breast", y: 3 },
+            { label: "Adipose", y: 2 },
+            { label: "Human endothelial cells", y: 2 },
+            { label: "Kidney", y: 2 },
+            { label: "Human epithelial cells", y: 1 },
+            { label: "Saliva", y: 1 },
+            { label: "Mesenchymal Stem Cells", y: 0 },
+            { label: "Fibroblasts", y: 0 },
+            { label: "Urine", y: 0 }
+
+		]
+	},
+	{
+		type: "column",	
+		legendText: "MV",
+		name: "MV",
+		showInLegend: true,
+		dataPoints:[
+			{ label: "Blood", y: 192 },
+			{ label: "Breast milk", y: 0 },
+			{ label: "Lymph", y: 0 },
+			{ label: "Colon", y: 1 },
+			{ label: "Tongue", y: 0 },
+			{ label: "Seminal fluid", y: 0 },
+            { label: "Human mast cells", y: 0 },
+            { label: "Breast", y: 1 },
+            { label: "Adipose", y: 0 },
+            { label: "Human endothelial cells", y: 0 },
+            { label: "Kidney", y: 0 },
+            { label: "Human epithelial cells", y: 0 },
+            { label: "Saliva", y: 0 },
+            { label: "Mesenchymal Stem Cells", y: 3 },
+            { label: "Fibroblasts", y: 1 },
+            { label: "Urine", y: 38 }
+
+		]
+	}]
+});
+chart.render();
+
+function toggleDataSeries(e) {
+	if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+		e.dataSeries.visible = false;
+	}
+	else {
+		e.dataSeries.visible = true;
+	}
+	chart.render();
+}
+var piechart = new CanvasJS.Chart("piechart", {
+	theme: "light2",
+	animationEnabled: true,
+	data: [{
+		type: "pie",
+		indexLabelFontSize: 18,
+		radius: 80,
+		indexLabel: "{label} - {y}",
+		yValueFormatString: "###0.0\"%\"",
+		click: explodePie,
+		dataPoints: [
+			{ y: 10, label: "unannotation" },
+			{ y: 27, label: "rRNA"},
+			{ y: 0, label: "snoRNA" },
+			{ y: 30, label: "known miRNA" },
+			{ y: 2, label: "piRNA" },
+            { y:31 ,label:"tRNA"},
+            { y:0, label:"snRNA"}
+		]
+	}]
+});
+piechart.render();
+
+function explodePie(e) {
+	for(var i = 0; i < e.dataSeries.dataPoints.length; i++) {
+		if(i !== e.dataPointIndex)
+			e.dataSeries.dataPoints[i].exploded = false;
+	}
+}
+$("#aa").addClass("active");
+$('.nav-tabs').find('a').each(function () {
+            if (this.href == document.location.href || document.location.href.search(this.href) >= 0 ) {
+                $("#aa").removeClass("active");
+                $(this).parent().addClass('active');
+            }
+        });
+});
+</script>
+</div>

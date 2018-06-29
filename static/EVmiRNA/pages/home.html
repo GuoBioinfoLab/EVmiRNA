@@ -1,45 +1,60 @@
-<div class="bs-docs-header">
-	<div class="row">
-		<div class="col-lg-6">
-		<div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    Introduction
-                </h3>
-            </div>
-
-            <div class="panel-body">
-            <b>MiRNAs</b> from <b>EV(extracellular vesicles)</b> acted important roles in biological functions.
-            We collected <b>457 EV samples</b> of <b>17 sources secreted</b> from SRA database.
-            </div>
-
-        </div>
-
-        </div>
-
-
-        <div class="col-lg-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-            <h3 class="panel-title">
-            Usage
-            </h3>
-            </div>
-
-            <div class="panel-body">
-            <ul>
-                <li>Browse miRNA expression from different EVs</li>
-                <li>Analysis pathway or cell function that miRNA regulated</li>
-                <li></li>
-            </ul>
-            </div>
-
-        </div>
-        </div>
-
+<div class="fhead">
+    <div class="container" style="padding-top:33px">
+    <span   style="font-size:30px"><b style="color:red">EVmiRNA:</b> <span><span style="color:white">The Extracellular Vesicles miRNA Database</span>
     </div>
-	
+</div>
 
+<div class="container">
+    <p>Extracellular vesicles (EVs) released by living cells include exosomes and microvesicles (MVs), which contain various molecules from parental cells and are potential sources for disease diagnostic and therapeutic biomarkers. miRNA is the most well-studied molecule type in EVs because of its important functions and biomarker properties. Thus, we build the Extracellular Vesicles miRNA database (EVmiRNA) to collect comprehensive miRNA expression profiles in EVs.</p>
+    <p>In EVmiRNA database, we analyzed 462 smRNA sequencing datasets of EVs from 17 tissues/diseases. The miRNA expression profiles, miRNA regulated pathways, miRNA function, miRNA related drugs and publications are showed to support the miRNA biomarker discovery.</p>
+
+     <h3 class="page-header">
+     Abstract figure
+    </h3>
+        <img src="/static/EVmiRNA/image/zm.png" width="90%"  class="img-responsive" >
+        
+    <h3 class="page-header">
+         Usage
+    </h3>
+    <div class="row">
+        <div class="col-sm-3 col-md-3">
+            <div class="thumbnail">
+                <a href="#!/browse" ><img  src="/static/EVmiRNA/image/h1.png" alt="Samples"></a>
+                <div class="caption">
+                    <a href="#!/browse" ><h4 align="center">Sources Browse</h4></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-3 col-md-3">
+            <div class="thumbnail">
+                <a href="#!/mirnalist" ><img  src="/static/EVmiRNA/image/h3.png" alt="Download"></a>
+                <div class="caption">
+                    <a href="#!/mirnalist" ><h4 align="center">miRNAs Browse</h4></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-3 col-md-3">
+            <div class="thumbnail">
+                <a href="#!/special" ><img  src="/static/EVmiRNA/image/h2.png" alt="Specific miRNAs"></a>
+                <div class="caption">
+                    <a href="#!/special" ><h4 align="center">Specific miRNAs Browse</h4></a>
+                </div>
+            </div>
+        </div>        
+        
+        <div class="col-sm-3 col-md-3">
+            <div class="thumbnail">
+                <a href="#!/search" ><img  src="/static/EVmiRNA/image/h4.png" alt="Specific miRNAs"></a>
+                <div class="caption">
+                    <a href="#!/search" ><h4 align="center">Search</h4></a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    </div>
   <!--   <div class="panel panel-info">
 		<div class="panel-heading">
 			<strong> RNA ratio in each sample</strong>
@@ -95,10 +110,10 @@
 			</table>
         </div>
 	</div>
-	
-	
-	
-	
+
+
+
+
     <div class="panel panel-info">
 	<div class="panel-heading">
 		<strong>sample run</strong>
@@ -116,7 +131,7 @@
 				<tr ng-repeat="item in runlist">
 					<td>{$ item.sample $}</td>
 					<td>{$ item.id $}</td>
-					<td><a href="https://www.ncbi.nlm.nih.gov/sra/?term={$ item.Run $}" target="_blank">{$ item.Run $} </a> </td>
+					<td><a href="https://www.ncbi.nlm.nih.gov/sra/?term={$ item.Run $}" >{$ item.Run $} </a> </td>
 				</tr>
 			</tbody>
 		</table>

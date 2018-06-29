@@ -1,3 +1,13 @@
+<div class="fhead">
+    <div class="container" style="padding-top:10px">
+    <span style="font-size:30px;color:white;"><b>Search</b> <span><br>
+    <span style="color:white;font-size:20px">Search miRNA, Sources and Cancer types</span>
+    </div>
+</div>
+
+<br>
+<br>
+
 <!--<div class="alert alert-danger alert-dismissible" role="alert" ng-show="error">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -5,123 +15,231 @@
                                 <strong>Sorry, your query item is not exist.</strong>
 </div>-->
 
-<div class="panel panel-info">
-	<div class="panel-heading">
-		<strong>miRNA</strong>
-	</div>
-	<div class="panel-body">
-		<form class="form-inline">
-			<div class="form-group ui-widget">
-				<label class="control-label" for="mirnaid">ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-				<input type="text"  id="mirnaid" class="form-control" ng-model="query_miRNA">
-				<button type="submit" class="btn btn-primary" ng-click="filter_id()">search</button>
-				<label class="control-label" for="mirnaid">Input a miRNA id as ' miR-204-5p'</label>
-			</div>
-		</form>
-		<br/>
-		<form class="form-inline">
-			<div class="form-group">
-				<label class="control-label" for="mirnafam">Family</label>
-					<input type="text" id="mirnafam" class="form-control" ng-model="query_fam">
-					<button class="btn btn-primary" ng-click="filter_fam()">search</button>
-					<label class="control-label" for="mirnafam">Input a miRNA family as 'miR-495-3p'</label>
-			</div>
-		</form>
-	</div>
-</div>
-<div class="panel panel-info">
-	<div class="panel-heading">
-		<strong>Sample</strong>
-	</div>
-	<div class="panel-body">
-		<form class="form-inline">
-			<div class="form-group">
-			<label class="control-label" for="query_cell_line">Cell Line</label>
-				<select class="form-control selectpicker show-menu-arrow" id="query_cell_line" name="select_cellline"  ng-model="query_cellline">
-	                        <option>SCC-9</option>
-				<option>MDA-MB-231</option>
-				<option>Bjab</option>
-				<option>MCF7</option>
-				<option>LIM1863</option>
-				<option>MCF10A</option>
-				<option>B-lymphoblastoid cell lines</option>
-				<option>TY-1</option>
-				<option>K562</option>
-				<option>BJAB</option>
-				<option>Adipose Mesenchymal Stem Cells</option>
-				<option>Umbilical cord Mesenchymal Stem Cells</option>
-				<option>Fetus Mesenchymal Stem Cells</option>
-				<option>Blood</option>
-				<option>HMC-1</option>
-				<option>Saliva</option>
-				<option>Fibroblasts</option>
-				<option>Seminal fluid</option>
-				<option>Adult Mesenchymal Stem Cells</option>
-				<option>DLD-1</option>
-				<option>DKO-1</option>
-				<option>DKs-8</option>
-				<option>HEK293T</option>
-				<option>HMEC</option>
-				<option>Urine</option>
-				<option>CLL cell line</option>
-				<option>Cal-27</option>
-				<option>BCBL-1</option>
-				<option>Breast milk</option>
-				<option>LCL</option>
-				<option>Mutu-1</option>
-	                	</select>
-	                	<button class="btn btn-primary" ng-click="filter_cell_line()">search</button>
-			<label class="control-label" for="query_cell_line">Select a cell line</span>
-	    	</div>
-		</form>
-		<br/>
-		<form class="form-inline">
-		<div class="form-group">
-			<label class="control-label" for="querysource">Source</label>
-				<select class="form-control selectpicker show-menu-arrow" id="querysource" ng-model="query_source" name="select_source">
-	                        <option >Fibroblasts</option>
-	                        <option >Urine</option>
-	                        <option >Human epithelial cells</option>
-	                        <option >Saliva</option>
-	                        <option >Seminal fluid</option>
-	                        <option >Mesenchymal Stem Cells</option>
-	                        <option >CLL cell line</option>
-	                        <option >Human Mammary Epithelial Cells</option>
-	                        <option >B-lymphoblastoid cell lines</option>
-	                        <option >Colon</option>
-	                        <option >Breast</option>
-	                        <option >Breast milk</option>
-	                        <option >Human mast cells</option>
-	                        <option >Tongue</option>
-	                        <option >Lymph</option>
-	                        <option >Kidney</option>
-	                        <option >Blood</option>
-	                	</select>
-	                	<button class="btn btn-primary" ng-click="filter_source()">search</button>
-			<label class="control-label" for="querysource">Select source</label>
-	    </div>
-		</form>
-	    <br/>
-	    <form class="form-inline">
-	    <div class="form-group">
-		<label class="control-label" for="querydisease">Cancer</label>
-			<select class="form-control selectpicker show-menu-arrow" id="querydisease" name="select_disease" ng-model="query_desease">
-				<option>Squamous cell carcinoma</option>
-        			<option>Prostate Cancer</option>
-        			<option>Mast cell leukemia</option>
-        			<option>chronic myelocytic leukemia</option>
-        			<option>Breast adenocarcinoma</option>
-        			<option>Colon carcinoma</option>
-        			<option>Chronic lymphocytic leukemia</option>
-        			<option>Oral cancer</option>
-        			<option>Healthy Control</option>
-        			<option>Pancreatic Cancer</option>
-        			<option>Lymphoma</option>
-			</select>
-			<button class="btn btn-primary" ng-click="filter_desease()">search</button>
-		<label class="control-label" for="querydisease">Select cancer</span>
-	    </div> 
-	   </form>
-	</div>
-</div>
+<div class="container">
 
+<style type="text/css">
+/* .form-control {
+	width:300px;
+} */
+.col-lg-2 {
+	text-align: right;
+}
+
+</style>
+
+
+
+		<h1 class="page-header">miRNA</h1>
+		<form>
+			<div class="form-group ui-widget">
+				<div class="row">
+                    <div class="col-lg-2">
+                        <span for="mirnaid">miRNA ID</span>
+                    </div>
+                    <div class="col-lg-4">
+                        <input type="text"  id="mirnaids" class="form-control" ng-model="query_miRNA" placeholder="miR-126-5p">
+                    </div>
+                    <div class="col-lg-6">
+                        <button type="submit" class="btn btn-default" ng-click="filter_id()">Search</button>
+                    </div>
+                </div>
+            </div>
+		</form><br>
+        <form class="form-inline">
+        <div class="row">
+            <div class="col-lg-2">
+                <span>miR Expression</span>
+            </div>
+
+            <div class="col-lg-3">
+                <input type="text" style="width:46%;" class="form-control" id="minexp" ng-model="emin" placeholder="0">
+                <label>-</label>
+                <input type="text" style="width:46%" class="form-control" id="maxexp" ng-model="emax">
+            </div>
+            
+            <div class="col-lg-1" ng-init="evexp='exoexp'">
+                <div class="radio"><label class="radio-inline"><input type="radio" id="expexo" name="evexp"  ng-model="evexp" value="exoexp" ng-checked="true">Exos</label></div><br>
+                <div class="radio"><label class="radio-inline"><input type="radio" id="expmv" name="evexp"  ng-model="evexp" value="mvexp">MVs</label></div>
+            </div>
+
+            <div class="col-lg-3" ng-switch="evexp">
+                <select multiple  class="form-control" id="queryexp"  multiple ng-model="querySource" name="selectSource" style="height:270px">
+                    <option ng-switch-when="exoexp" selected="selected" >Kidney</option>
+                    <option ng-switch-when="exoexp">Breast</option>
+                      <option ng-switch-when="exoexp">B-lymphoblastoid cell lines</option>
+                      <option ng-switch-when="exoexp">Tongue</option>
+                      <option ng-switch-when="exoexp">Blood</option>
+                      <option ng-switch-when="exoexp">Colon</option>
+                      <option ng-switch-when="exoexp">Breast milk</option>
+                      <option ng-switch-when="exoexp">Lymph</option>
+                      <option ng-switch-when="exoexp">Human mast cell</option>
+                      <option ng-switch-when="exoexp">Human mammary epithelial cell</option>
+                      <option ng-switch-when="exoexp">Saliva</option>
+                      <option ng-switch-when="exoexp">Chronic lymphocytic leukemia cell</option>
+                      <option ng-switch-when="exoexp">Seminal fluid</option>
+                      <option ng-switch-when="exoexp">Mesenchymal Stem Cells</option>
+                      <option ng-switch-when="exoexp">Human epithelial cells</option>
+                      <option ng-switch-when="mvexp">Breast</option>
+                      <option ng-switch-when="mvexp">Fibroblasts</option>
+                      <option ng-switch-when="mvexp">Colon</option>
+                      <option ng-switch-when="mvexp">Mesenchymal Stem Cells</option>
+                      <option ng-switch-when="mvexp">Urine</option>
+                      <option ng-switch-when="mvexp">Blood</option>
+                </select>
+            </div>
+            
+            <div class="col-lg-1">
+                <div class="form-group" ng-init="logic='and'">
+                    <div class="radio"><label class="radio-inline"><input type="radio" id="and" name="logic"  ng-model="logic" value="and" ng-checked="true">And</label></div><br>
+                    <div class="radio"><label class="radio-inline"><input type="radio" id="or" name="logic"  ng-model="logic" value="or">Or</label></div>
+                </div>
+            </div>
+            <div class="col-lg-2" style="text-align:left">
+            <button type="submit" class="btn btn-default" ng-click="filter_exp()">Search</button>
+            </div>
+
+        </div>
+        </form>
+
+            <script>
+                $(document).ready(function(){
+                    $("#expexo").click(function(){
+                        $("#queryexp1").height(270);
+                    })
+                    $("#mvexp").click(function(){
+                        $("#queryexp1").height(150);
+                    })
+                })
+            </script>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+		<!-- <h1 class="page-header">Sample</h1>
+
+		<form>
+		<div class="form-group">
+			<div class="row">
+			<div class="col-lg-2">
+			<span for="querysource">Source</span>
+		</div>
+        <div class="col-lg-1" ng-init="ev='exo'">
+            <div class="radio"><label class="radio-inline"><input type="radio" id="exo" name="ev"  ng-model="ev" value="exo" ng-checked="true">Exos</label></div>
+            <div class="radio"><label class="radio-inline"><input type="radio" id="mv" name="ev"  ng-model="ev" value="mv">MVs</label></div>
+        </div>
+		<div class="col-lg-3">
+            <div ng-switch="ev">
+                <select class="form-control" id="querysource" ng-model="query_source" name="select_source">
+                  <option ng-switch-when="exo" selected="selected" >Kidney</option>
+                  <option ng-switch-when="exo">Breast</option>
+                  <option ng-switch-when="exo">B-lymphoblastoid cell lines</option>
+                  <option ng-switch-when="exo">Tongue</option>
+                  <option ng-switch-when="exo">Blood</option>
+                  <option ng-switch-when="exo">Colon</option>
+                  <option ng-switch-when="exo">Breast milk</option>
+                  <option ng-switch-when="exo">Lymph</option>
+                  <option ng-switch-when="exo">Human mast cell</option>
+                  <option ng-switch-when="exo">Human mammary epithelial cell</option>
+                  <option ng-switch-when="exo">Saliva</option>
+                  <option ng-switch-when="exo">Chronic lymphocytic leukemia cell</option>
+                  <option ng-switch-when="exo">Seminal fluid</option>
+                  <option ng-switch-when="exo">Mesenchymal Stem Cells</option>
+                  <option ng-switch-when="exo">Human epithelial cells</option>
+                  <option ng-switch-when="mv">Breast</option>
+                  <option ng-switch-when="mv">Fibroblasts</option>
+                  <option ng-switch-when="mv">Colon</option>
+                  <option ng-switch-when="mv">Mesenchymal Stem Cells</option>
+                  <option ng-switch-when="mv">Urine</option>
+                  <option ng-switch-when="mv">Blood</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <button class="btn btn-default" ng-click="filter_source()">Search</button>
+        </div>
+			</div>
+        </div>
+		</form>
+	    <br/> -->
+
+		<!--<form>-->
+			<!--<div class="form-group">-->
+				<!--<div class="row">-->
+				<!--<div class="col-lg-2">-->
+			<!--<span for="query_cell_line">Cell Line</span>-->
+		<!--</div>-->
+			<!--<div class="col-lg-4">-->
+				<!--<select class="form-control" id="query_cell_line" name="select_cellline"  ng-model="query_cellline">-->
+			      <!--<option selected="selected">SCC-9</option>-->
+						<!--<option>MDA-MB-231</option>-->
+						<!--<option>Bjab</option>-->
+						<!--<option>MCF7</option>-->
+						<!--<option>LIM1863</option>-->
+						<!--<option>MCF10A</option>-->
+						<!--<option>B-lymphoblastoid cell lines</option>-->
+						<!--<option>TY-1</option>-->
+						<!--<option>K562</option>-->
+						<!--<option>BJAB</option>-->
+						<!--<option>Adipose Mesenchymal Stem Cells</option>-->
+						<!--<option>Umbilical cord Mesenchymal Stem Cells</option>-->
+						<!--<option>Fetus Mesenchymal Stem Cells</option>-->
+						<!--<option>Blood</option>-->
+						<!--<option>HMC-1</option>-->
+						<!--<option>Saliva</option>-->
+						<!--<option>Fibroblasts</option>-->
+						<!--<option>Seminal fluid</option>-->
+						<!--<option>Adult Mesenchymal Stem Cells</option>-->
+						<!--<option>DLD-1</option>-->
+						<!--<option>DKO-1</option>-->
+						<!--<option>DKs-8</option>-->
+						<!--<option>HEK293T</option>-->
+						<!--<option>HMEC</option>-->
+						<!--<option>Urine</option>-->
+						<!--<option>CLL cell line</option>-->
+						<!--<option>Cal-27</option>-->
+						<!--<option>BCBL-1</option>-->
+						<!--<option>Breast milk</option>-->
+						<!--<option>LCL</option>-->
+						<!--<option>Mutu-1</option>-->
+    	<!--</select>-->
+		<!--</div>-->
+		<!--<div class="col-lg-6">-->
+    	<!--<button class="btn btn-default" ng-click="filter_cell_line()">Search</button>-->
+	    	<!--</div>-->
+	    	<!--</div>-->
+			<!--</div>-->
+	<!--</form>-->
+		<!--<br/>-->
+
+   <!--  <form>
+	    <div class="form-group">
+				<div class="row">
+				<div class="col-lg-2">
+					<span for="querydisease">Cancer</span>
+				</div>
+				<div class="col-lg-4">
+			<select class="form-control" id="querydisease" name="select_disease" ng-model="query_desease">
+					<option selected="selected">Squamous cell carcinoma</option>
+    			<option>Prostate Cancer</option>
+    			<option>Mast cell leukemia</option>
+    			<option>chronic myelocytic leukemia</option>
+    			<option>Breast adenocarcinoma</option>
+    			<option>Colon carcinoma</option>
+    			<option>Chronic lymphocytic leukemia</option>
+    			<option>Oral cancer</option>
+    			<option>Healthy Control</option>
+    			<option>Pancreatic Cancer</option>
+    			<option>Lymphoma</option>
+			</select>
+		</div>
+		<div class="col-lg-6">
+			<button class="btn btn-default" ng-click="filter_desease()">Search</button>
+		</div>
+	    </div>
+	    </div>
+ </form> -->
+
+</div>
